@@ -1,0 +1,43 @@
+.flybar-holder{
+    position:absolute;
+    top:10vh;
+    left: 0.6vw;
+    height: 32vh;
+    width: 4vw;
+    background-color: rgb(21, 21, 21);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+    border-radius: 7px;
+}
+
+.flybar-heading{
+    font-size: 1.4rem;
+    margin-left: 0.5vw;
+}
+
+.flybar-icon-item{
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    filter: brightness(0.75);
+}
+
+.flybar-icon-item:hover{
+    filter: brightness(1.15);
+}
+
+.flybar-img-icon{
+    height: 5.2vh;
+}
+
+.flybar-separator{
+    border-bottom: 2px solid white;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+}
+
+.flybar-description{
+    margin: -0.4rem 0 0 0.2rem;
+}

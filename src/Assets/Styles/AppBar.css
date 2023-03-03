@@ -1,0 +1,70 @@
+.appbar-holder{
+    height: 5vh;
+    width: 100vw;
+    background-color: rgb(21, 21, 21);
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+    overflow: hidden;
+}
+
+.appbar-holder:hover{
+    height: 7vh;
+}
+
+.icon-inverted{
+    filter: invert(100%);
+}
+
+.img-toast-lower{
+    position: absolute;
+    top: 35px;
+    right: -5px;
+    background: #151515;
+    border-radius: 6px;
+    color: rgb(51, 147, 255);
+    filter: brightness(1.5);
+}
+
+.appbar-icon-item{
+    margin-right: 1rem;
+    cursor: pointer;
+    filter: brightness(0.75);
+}
+
+.appbar-icon-item:hover{
+    filter: brightness(1.15);
+}
+
+.appbar-img-icon{
+    height: 5.2vh;
+}
+
+.appbar-separator{
+    border-right: 2px solid white;
+    border-radius: 2px;
+    margin-right: 1rem;
+}
+
+.appbar-description{
+    margin: -0.4rem 0 0 0.2rem;
+}
+
+.appbar-ping-value{
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    font-size: 0.7rem;
+}
+
+.appbar-charge-value{
+    position: absolute;
+    top: 19px;
+    right: 11px;
+    font-size: 0.85rem;
+}
+
+.appbar-charge-icon{
+    transform: scale(1.1);
+}

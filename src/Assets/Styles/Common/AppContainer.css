@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('../../Fonts/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FiraCode';
+    src: url('../../Fonts/FiraCode-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Roboto', serif;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    background: rgb(42, 42, 42);
+    color: rgb(221, 221, 221);
+}
+
+.font-firacode{
+    font-family: 'FiraCode', serif;
+}
+
+.text-italic{
+    font-style: italic;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.apppage {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    padding: 0.75rem 0;
+    justify-content: center;
+    height: 30px;
+    top: 0;
+    position: sticky;
+    z-index: 1;
+    margin-top: 1rem;
+}
+
+
+.apppage-holder {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
