@@ -15,7 +15,6 @@ class App extends Component {
                 <IMUBar />
                 <Notifications />
                 <Monitoring />
-
             </AppContainer>
         );
     }
