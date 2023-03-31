@@ -1,5 +1,5 @@
 .appbar-holder{
-    height: 5vh;
+    height: 52px;
     width: 100vw;
     background-color: rgb(21, 21, 21);
     padding: 5px;
@@ -10,7 +10,7 @@
 }
 
 .appbar-holder:hover{
-    height: 7vh;
+    height: 71px;
 }
 
 .icon-inverted{
@@ -28,27 +28,27 @@
 }
 
 .appbar-icon-item{
-    margin-right: 1rem;
+    margin-right: 16px;
     cursor: pointer;
-    filter: brightness(0.75);
+    filter: brightness(0.85);
 }
 
 .appbar-icon-item:hover{
-    filter: brightness(1.15);
+    filter: brightness(1.2);
 }
 
 .appbar-img-icon{
-    height: 5.2vh;
+    height: 54px;
 }
 
 .appbar-separator{
     border-right: 2px solid white;
     border-radius: 2px;
-    margin-right: 1rem;
+    margin-right: 16px;
 }
 
 .appbar-description{
-    margin: -0.4rem 0 0 0.2rem;
+    margin: -6px 0 0 3px;
 }
 
 .appbar-ping-value{
@@ -59,12 +59,17 @@
 }
 
 .appbar-charge-value{
+    color: #151515;
     position: absolute;
-    top: 19px;
-    right: 11px;
-    font-size: 0.85rem;
+    top: 16px;
+    right: 8px;
+    font-size: 18px;
 }
 
 .appbar-charge-icon{
     transform: scale(1.1);
+}
+
+.appbar-status{
+    font-size: 40px;
 }

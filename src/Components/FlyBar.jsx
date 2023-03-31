@@ -1,9 +1,9 @@
 import {Component} from "react";
 import "../Assets/Styles/FlyBar.css"
 
-import takeoff_ico from "../Assets/Img/FlyBar/takeoff.svg";
-import land_ico from "../Assets/Img/FlyBar/land.svg";
-import manual_ico from "../Assets/Img/FlyBar/manual.svg";
+import takeoff_ico from "../Assets/Img/FlyBar/takeoff.png";
+import land_ico from "../Assets/Img/FlyBar/land.png";
+import manual_ico from "../Assets/Img/FlyBar/manual.png";
 
 export class FlyBar extends Component {
     render() {
@@ -12,27 +12,26 @@ export class FlyBar extends Component {
                 <div className="flybar-heading">АВТО</div>
                 <div className="flybar-separator" />
                 <div className="flybar-icon-item">
-                    <img draggable="false" className="flybar-img-icon icon-inverted" src={takeoff_ico}/>
+                    <img draggable="false" className="flybar-img-icon" src={takeoff_ico}/>
                     <div className="img-toast-lower">
                         [В]
                     </div>
                     <div className="flybar-description">Взлёт</div>
                 </div>
                 <div className="flybar-icon-item">
-                    <img draggable="false" className="flybar-img-icon icon-inverted" src={land_ico}/>
+                    <img draggable="false" className="flybar-img-icon" src={land_ico}/>
                     <div className="img-toast-lower">
                         [П]
                     </div>
-                    <div>Посадка</div>
+                    <div className="flybar-description">Посадка</div>
                 </div>
                 <div className="flybar-separator" />
                 <div className="flybar-icon-item">
-                    <img draggable="false" className="flybar-img-icon icon-inverted" src={manual_ico}/>
+                    <img draggable="false" className="flybar-img-icon" src={manual_ico}/>
                     <div className="img-toast-lower">
                         [Р]
                     </div>
-                    <div>Ручной</div>
-                    <div>контроль</div>
+                    <div className="flybar-description">Ручной контроль</div>
                 </div>
             </div>
         );

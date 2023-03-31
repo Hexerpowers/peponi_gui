@@ -1,15 +1,14 @@
 import {Component} from "react";
 import "../Assets/Styles/AppBar.css"
 
-import settings_ico from "../Assets/Img/AppBar/settings.svg"
-import logs_ico from "../Assets/Img/AppBar/logs.svg"
+import settings_ico from "../Assets/Img/AppBar/settings.png"
+import logs_ico from "../Assets/Img/AppBar/logs.png"
 
-import signal_ico from "../Assets/Img/AppBar/signal/signal_3.svg"
-import charge_ico from "../Assets/Img/AppBar/charge.svg"
-import power_ico from "../Assets/Img/AppBar/power/power_0.svg"
+import signal_ico from "../Assets/Img/AppBar/signal/signal_3.png"
+import charge_ico from "../Assets/Img/AppBar/charge.png"
+import power_ico from "../Assets/Img/AppBar/power/power_state_0.png"
 
-import coil_dst_ico from "../Assets/Img/AppBar/coil/coil_distance.svg"
-import coil_ld_ico from "../Assets/Img/AppBar/coil/coil_load.svg"
+import coil_dst_ico from "../Assets/Img/AppBar/hank/hank_extend_2.png"
 
 export class AppBar extends Component {
     render() {
@@ -31,7 +30,7 @@ export class AppBar extends Component {
                 </div>
                 <div className="appbar-separator" />
                 <div className="appbar-icon-item">
-                    <img draggable="false" className="appbar-img-icon icon-inverted" src={signal_ico}/>
+                    <img draggable="false" className="appbar-img-icon" src={signal_ico}/>
                     <div className="appbar-ping-value">
                         3ms
                     </div>
@@ -51,7 +50,7 @@ export class AppBar extends Component {
                     <div className="appbar-description">Заряд</div>
                 </div>
                 <div className="appbar-icon-item">
-                    <img draggable="false" className="appbar-img-icon icon-inverted" src={power_ico}/>
+                    <img draggable="false" className="appbar-img-icon" src={power_ico}/>
                     <div className="img-toast-lower">
                         [Г]
                     </div>
@@ -59,21 +58,14 @@ export class AppBar extends Component {
                 </div>
                 <div className="appbar-separator" />
                 <div className="appbar-icon-item">
-                    <img draggable="false" className="appbar-img-icon icon-inverted" src={coil_dst_ico}/>
+                    <img draggable="false" className="appbar-img-icon" src={coil_dst_ico}/>
                     <div className="img-toast-lower">
                         [К]
                     </div>
-                    <div className="appbar-description">Длина</div>
-                </div>
-                <div className="appbar-icon-item">
-                    <img draggable="false" className="appbar-img-icon icon-inverted" src={coil_ld_ico}/>
-                    <div className="img-toast-lower">
-                        [С]
-                    </div>
-                    <div className="appbar-description">Сила</div>
+                    <div className="appbar-description">Катушка</div>
                 </div>
                 <div className="appbar-separator" />
-                Статус: Норма
+                <div className="appbar-status">-> Готов к взлёту</div>
             </div>
         );
     };
