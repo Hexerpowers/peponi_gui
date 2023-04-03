@@ -14,9 +14,9 @@ export class AppBar extends Component {
         return (
             <div className="appbar-holder font-firacode">
                 <SettingsItem state={this.props.runtime.link.level!==0}/>
-                <JournalItem />
+                <JournalItem state={this.props.runtime.link.level!==0}/>
                 <div className="appbar-separator" />
-                <LinkItem state={this.props.runtime.link}/>
+                <LinkItem state={this.props.runtime.link.level!==0}/>
                 <BatteryItem state={this.props.runtime.battery}/>
                 <PowerItem state={this.props.runtime.power}/>
                 <div className="appbar-separator" />

@@ -73,3 +73,106 @@
 .appbar-status{
     font-size: 40px;
 }
+
+.abi-set-holder{
+    display: flex;
+    flex-direction: column;
+}
+
+.abi-jrn-holder{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #464646;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: left;
+    white-space: pre;
+}
+
+.abi-set-h2{
+    align-self: baseline;
+    font-size: 20px;
+}
+
+
+.table-holder {
+    display: flex;
+    flex-direction: column;
+    padding: 1.18rem;
+    background: rgb(32, 30, 35);
+    border: 1px solid rgb(46, 43, 49);
+    border-radius: 10px;
+    color: rgb(186, 180, 194);
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    padding: 0.7rem;
+    border-bottom: 1px dotted rgb(126, 120, 133);
+    font-size: 1.05rem;
+}
+
+.table-row:hover {
+    filter: brightness(1.2);
+    background: rgb(46, 43, 49);
+}
+
+
+.table-row-name {
+    width: 400px;
+    padding-right: 5px;
+    text-align: left;
+}
+
+.table-row-val {
+    padding: 5px;
+    background: rgb(32, 30, 35);
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 1rem;
+    color: rgb(186, 180, 194);
+}
+
+.table-row-text {
+    padding: 5px;
+    font-size: 1rem;
+    color: rgb(186, 180, 194);
+}
+
+.swal2-modal{
+    background: rgb(32, 30, 35) !important;
+    border: 3px solid #bdbdbd !important;
+    color: rgb(221, 221, 221) !important;
+}
+
+.abi-jrn-line{
+    font-size: 14px;
+}
+
+.abi-lnk-holder{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.abi-lnk-line{
+    font-size: 18px;
+}
+
+.appbar-icon-flexrow{
+    display: flex;
+    flex-direction: row;
+}
+
+.appbar-icon-textblock{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 80px;
+    width: 70px;
+    margin-top: 6px;
+}

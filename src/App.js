@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {AppContainer} from "./Components/AppContainer";
 import {AppBar} from "./Components/AppBar";
 import {FlyBar} from "./Components/FlyBar";
-import {IMUBar} from "./Components/IMUBar";
-import {Notifications} from "./Components/Notifications";
-import {Monitoring} from "./Components/Monitoring";
+import VideoStream from "./Components/VideoStream";
 
 class App extends Component {
     constructor(props) {
@@ -13,8 +11,7 @@ class App extends Component {
         this.state = {
             runtime: {
                 link: {
-                    level: 2,
-                    ping: 20
+                    level: 0
                 },
                 battery: {
                     level: 100,
@@ -31,16 +28,46 @@ class App extends Component {
                 err_state: 0
             }
         }
+
+        this.base_url = "http://127.0.0.1:5052/api/v1/get/status"
     }
+
+
+    componentDidMount() {
+        setInterval(() => {
+                fetch(this.base_url)
+                    .then((res) => {
+                        if (res.status >= 200 && res.status < 300) {
+                            return res;
+                        } else {
+                            let error = new Error(res.statusText);
+                            error.response = res;
+                            throw error
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data['status'] === 'OK') {
+                            let tRT = this.state.runtime
+                            tRT['link'] = {level:1}
+                            this.setState({runtime: tRT})
+                        }
+                    })
+                    .catch((e) => {
+                        let tRT = this.state.runtime
+                        tRT['link'] = {level:0}
+                        this.setState({runtime: tRT})
+                    });
+        }, 2000)
+    }
+
 
     render() {
         return (
             <AppContainer>
                 <AppBar runtime={this.state.runtime}/>
                 <FlyBar />
-                <IMUBar />
-                <Notifications />
-                <Monitoring />
+                <VideoStream />
             </AppContainer>
         );
     }

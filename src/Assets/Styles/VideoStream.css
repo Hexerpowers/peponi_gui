@@ -1,0 +1,12 @@
+.vs-fullscreen{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: -1;
+}
+
+.vs-iframe{
+    width: 100vw;
+    height: 100vh;
+    border: 0;
+}

@@ -41,3 +41,17 @@
 .flybar-description{
     margin: -0.4rem 0 0 0.2rem;
 }
+
+.flybar-takeoff-message{
+    position: fixed;
+    bottom: 20px;
+    font-size: 40px;
+    text-align: center;
+    background: rgba(21, 21, 21, 0.6);
+    left: 20px;
+    right: 20px;
+}
+
+.hidden{
+    display: none;
+}
