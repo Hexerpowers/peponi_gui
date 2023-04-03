@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import land_ico from "../../Assets/Img/FlyBar/land.png";
 import Swal from "sweetalert2";
-import takeoff_ico from "../../Assets/Img/FlyBar/takeoff.png";
 
 class LandItem extends Component {
     constructor(props) {

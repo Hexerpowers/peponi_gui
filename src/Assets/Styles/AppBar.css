@@ -93,13 +93,13 @@
 .abi-set-h2{
     align-self: baseline;
     font-size: 20px;
+    margin: 10px 10px;
 }
 
 
 .table-holder {
     display: flex;
     flex-direction: column;
-    padding: 1.18rem;
     background: rgb(32, 30, 35);
     border: 1px solid rgb(46, 43, 49);
     border-radius: 10px;
@@ -110,9 +110,13 @@
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    padding: 0.7rem;
+    padding: 4px;
     border-bottom: 1px dotted rgb(126, 120, 133);
     font-size: 1.05rem;
+}
+
+.last{
+    border-bottom: none;
 }
 
 .table-row:hover {

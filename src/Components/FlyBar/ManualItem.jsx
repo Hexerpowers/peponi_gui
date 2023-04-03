@@ -22,6 +22,8 @@ class ManualItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
+        this.base_url = "http://127.0.0.1:5052/api/v1/trig/manual"
+        this.aux_url = "http://127.0.0.1:5053/api/v1/trig/manual"
     }
 
     showPreManualMessage(timeout) {
@@ -38,12 +40,25 @@ class ManualItem extends Component {
 
     toggleManual() {
         if (this.pre_manual){
-            this.toast.fire({
-                icon: 'success',
-                title: 'Команда на переход в ручной режим отправлена'
-            })
             this.hidePreManualMessage()
             this.pre_manual = false
+            fetch(this.base_url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data['status'] === 'OK') {
+                        this.toast.fire({
+                            icon: 'success',
+                            title: 'Команда на переход в ручной режим отправлена'
+                        })
+                    }
+                });
+            fetch(this.aux_url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data['status'] === 'OK') {
+                        console.log("man_ok")
+                    }
+                });
         }else{
             this.showPreManualMessage(3)
             this.pre_manual = true

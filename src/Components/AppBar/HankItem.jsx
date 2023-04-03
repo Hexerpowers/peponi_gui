@@ -1,11 +1,102 @@
 import React, {Component} from 'react';
-import coil_dst_ico from "../../Assets/Img/AppBar/hank/hank_extend_2.png";
+
+import hank_extend_0 from "../../Assets/Img/AppBar/hank/hank_extend_0.png"
+import hank_extend_1 from "../../Assets/Img/AppBar/hank/hank_extend_1.png"
+import hank_extend_2 from "../../Assets/Img/AppBar/hank/hank_extend_2.png"
+import hank_extend_3 from "../../Assets/Img/AppBar/hank/hank_extend_3.png"
+
+import hank_retract_0 from "../../Assets/Img/AppBar/hank/hank_retract_0.png"
+import hank_retract_1 from "../../Assets/Img/AppBar/hank/hank_retract_1.png"
+import hank_retract_2 from "../../Assets/Img/AppBar/hank/hank_retract_2.png"
+import hank_retract_3 from "../../Assets/Img/AppBar/hank/hank_retract_3.png"
+
+import hank_still from "../../Assets/Img/AppBar/hank/hank.png"
 import Swal from "sweetalert2";
 
 class HankItem extends Component {
     constructor(props) {
         super(props);
         this.openHank = this.openHank.bind(this)
+
+        this.base_url = "http://127.0.0.1:5053/api/v1/get/hank"
+
+        this.counter = 0
+
+        this.state = {
+            icon: hank_still,
+            direction:0,
+            load:0,
+            length:0
+        }
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            if (this.state.direction===1) {
+                switch (this.counter) {
+                    case 0:
+                        this.setState({icon: hank_extend_0});
+                        break;
+                    case 1:
+                        this.setState({icon: hank_extend_1});
+                        break;
+                    case 2:
+                        this.setState({icon: hank_extend_2});
+                        break;
+                    case 3:
+                        this.setState({icon: hank_extend_3});
+                        break;
+                }
+                if (this.counter === 3) {
+                    this.counter = 0
+                } else {
+                    this.counter++
+                }
+            }
+
+        }, 200)
+
+        setInterval(() => {
+            if (this.state.direction===-1) {
+                switch (this.counter) {
+                    case 0:
+                        this.setState({icon: hank_retract_0});
+                        break;
+                    case 1:
+                        this.setState({icon: hank_retract_1});
+                        break;
+                    case 2:
+                        this.setState({icon: hank_retract_2});
+                        break;
+                    case 3:
+                        this.setState({icon: hank_retract_3});
+                        break;
+                }
+                if (this.counter === 3) {
+                    this.counter = 0
+                } else {
+                    this.counter++
+                }
+            }
+
+        }, 200)
+
+        setInterval(() => {
+            if (this.props.state){
+                fetch(this.base_url)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.setState({direction: Number(data['direction'])})
+                        this.setState({load: Number(data['load'])})
+                        this.setState({length: Number(data['length'])})
+                    });
+            }else{
+                this.setState({direction: 0})
+                this.setState({load: 0})
+                this.setState({length: 0})
+                this.setState({icon: hank_still});
+            }
+        }, 1000)
     }
 
     openHank() {
@@ -16,7 +107,7 @@ class HankItem extends Component {
             html:
                 '<div class="abi-lnk-holder">' +
                 '<div class="abi-lnk-line">Состояние: <i>Стабилизация натяжения</i></div>' +
-                '<div class="abi-lnk-line">Наработка: <i>12 ч</i></div>' +
+                '<div class="abi-lnk-line">Наработка кабеля: <i>12 ч</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -27,10 +118,10 @@ class HankItem extends Component {
         return (
             <div onClick={this.openHank} className="appbar-icon-item" style={{margin:"0 84px 0 0"}}>
                 <div className="appbar-icon-flexrow">
-                    <img draggable="false" className="appbar-img-icon" src={coil_dst_ico} alt=""/>
+                    <img draggable="false" className="appbar-img-icon" src={this.state.icon} alt=""/>
                     <div className="appbar-icon-textblock">
-                        <div className="appbar-minitext">65 м</div>
-                        <div className="appbar-minitext">1.23 кг</div>
+                        <div className="appbar-minitext">{this.state.length} м</div>
+                        <div className="appbar-minitext">{this.state.load} кг</div>
                     </div>
                 </div>
                 <div className="img-toast-lower">

@@ -1,11 +1,30 @@
 import React, {Component} from 'react';
 import charge_ico from "../../Assets/Img/AppBar/charge.png";
 import Swal from "sweetalert2";
+import power_ico_0 from "../../Assets/Img/AppBar/power/power_state_0.png";
 
 class BatteryItem extends Component {
     constructor(props) {
         super(props);
         this.openBattery = this.openBattery.bind(this)
+        this.base_url = "http://127.0.0.1:5052/api/v1/get/charge"
+        this.state = {
+            charge: "---"
+        }
+    }
+
+    componentDidMount() {
+        setInterval(() => {
+            if (this.props.state){
+                fetch(this.base_url)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.setState({charge: data['charge']})
+                    });
+            }else{
+                this.setState({charge: "---"})
+            }
+        }, 10000)
     }
 
     openBattery() {
@@ -36,7 +55,7 @@ class BatteryItem extends Component {
             <div onClick={this.openBattery} className="appbar-icon-item">
                 <img draggable="false" className="appbar-img-icon appbar-charge-icon" src={charge_ico} alt=""/>
                 <div className="appbar-charge-value">
-                    98%
+                    {this.state.charge}%
                 </div>
                 <div className="img-toast-lower">
                     [З]

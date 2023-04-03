@@ -65,6 +65,12 @@ class SettingsItem extends Component {
 
 
     componentDidMount() {
+        if(localStorage.getItem('t_spd') === null){
+            localStorage.setItem('path', "C:\Watchman\Camera")
+            localStorage.setItem('t_spd', "0.5")
+            localStorage.setItem('g_spd', "0.5")
+            localStorage.setItem('alt', "3")
+        }
         this.syncSettings()
     }
 
@@ -78,7 +84,7 @@ class SettingsItem extends Component {
                     '<div class="abi-set-holder">' +
                     '<h2 class="abi-set-h2">Настройки приложения:</h2>' +
                     '<div class="table-holder">' +
-                    '<div class="table-row">' +
+                    '<div class="table-row last">' +
                     '<div class="table-row-name">Путь для сохранения фото и видео: </div>' +
                     '<input onchange="localStorage.setItem(\'path\', this.value)" class="table-row-val" value="' + localStorage.getItem('path') + '" />' +
                     '</div>' +
@@ -93,7 +99,7 @@ class SettingsItem extends Component {
                     '<div class="table-row-name">Скорость взлёта, м/c: </div>' +
                     '<input onchange="localStorage.setItem(\'t_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('t_spd') + '" />' +
                     '</div>' +
-                    '<div class="table-row">' +
+                    '<div class="table-row last">' +
                     '<div class="table-row-name">Горизонтальная скорость, м/c: </div>' +
                     '<input onchange="localStorage.setItem(\'g_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('g_spd') + '" />' +
                     '</div>' +
@@ -108,7 +114,7 @@ class SettingsItem extends Component {
                     '<div class="table-row-name">Коэффициент I: </div>' +
                     '<input class="table-row-val" value="1" />' +
                     '</div>' +
-                    '<div class="table-row">' +
+                    '<div class="table-row last">' +
                     '<div class="table-row-name">Коэффициент D: </div>' +
                     '<input class="table-row-val" value="1" />' +
                     '</div>' +
