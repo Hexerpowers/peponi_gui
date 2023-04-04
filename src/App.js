@@ -12,7 +12,7 @@ class App extends Component {
             link:0
         }
 
-        this.base_url = "http://127.0.0.1:5052/api/v1/get/status"
+        this.base_url = "http://192.168.22.13:5052/api/v1/get/status"
     }
 
 

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class StatusItem extends Component {
     constructor(props) {
         super(props);
-        this.base_url = "http://127.0.0.1:5052/api/v1/get/ready"
+        this.base_url = "http://192.168.22.13:5052/api/v1/get/ready"
         this.state = {
             state: 0,
             state_text: "Подготовка к взлёту",

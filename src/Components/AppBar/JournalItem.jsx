@@ -9,7 +9,7 @@ class JournalItem extends Component {
         this.state = {
             logs:"--START--\r\n"
         }
-        this.base_url = "http://127.0.0.1:5052/api/v1/get/logs"
+        this.base_url = "http://192.168.22.13:5052/api/v1/get/logs"
 
     }
 

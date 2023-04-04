@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import manual_ico from "../../Assets/Img/FlyBar/manual.png";
 import Swal from "sweetalert2";
-import land_ico from "../../Assets/Img/FlyBar/land.png";
 
 class ManualItem extends Component {
     constructor(props) {
@@ -22,7 +21,7 @@ class ManualItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://127.0.0.1:5052/api/v1/trig/manual"
+        this.base_url = "http://192.168.22.13:5052/api/v1/trig/manual"
         this.aux_url = "http://127.0.0.1:5053/api/v1/trig/manual"
     }
 
@@ -42,7 +41,18 @@ class ManualItem extends Component {
         if (this.pre_manual){
             this.hidePreManualMessage()
             this.pre_manual = false
-            fetch(this.base_url)
+            // fetch(this.base_url)
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         console.log(data)
+            //         if (data['status'] === 'OK') {
+            //             this.toast.fire({
+            //                 icon: 'success',
+            //                 title: 'Команда на переход в ручной режим отправлена'
+            //             })
+            //         }
+            //     });
+            fetch(this.aux_url)
                 .then(response => response.json())
                 .then(data => {
                     if (data['status'] === 'OK') {
@@ -50,13 +60,6 @@ class ManualItem extends Component {
                             icon: 'success',
                             title: 'Команда на переход в ручной режим отправлена'
                         })
-                    }
-                });
-            fetch(this.aux_url)
-                .then(response => response.json())
-                .then(data => {
-                    if (data['status'] === 'OK') {
-                        console.log("man_ok")
                     }
                 });
         }else{

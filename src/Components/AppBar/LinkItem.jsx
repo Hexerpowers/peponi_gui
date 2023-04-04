@@ -12,7 +12,7 @@ class LinkItem extends Component {
     constructor(props) {
         super(props);
         this.openLink = this.openLink.bind(this)
-        this.base_url = "http://127.0.0.1:5052/api/v1/get/ping"
+        this.base_url = "http://192.168.22.13:5052/api/v1/get/ping"
         this.state = {
             ping: 2000
         }

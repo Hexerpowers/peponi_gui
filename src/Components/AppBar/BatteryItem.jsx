@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import charge_ico from "../../Assets/Img/AppBar/charge.png";
 import Swal from "sweetalert2";
-import power_ico_0 from "../../Assets/Img/AppBar/power/power_state_0.png";
 
 class BatteryItem extends Component {
     constructor(props) {
         super(props);
         this.openBattery = this.openBattery.bind(this)
-        this.base_url = "http://127.0.0.1:5052/api/v1/get/charge"
+        this.base_url = "http://192.168.22.13:5052/api/v1/get/charge"
         this.state = {
             charge: "---"
         }

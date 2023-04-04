@@ -20,7 +20,7 @@ class TakeoffItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://127.0.0.1:5052/api/v1/trig/takeoff"
+        this.base_url = "http://192.168.22.13:5052/api/v1/trig/takeoff"
     }
 
     showPreTakeoffMessage(timeout) {
