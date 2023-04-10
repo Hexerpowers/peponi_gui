@@ -20,12 +20,12 @@ class TakeoffItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://192.168.22.13:5052/api/v1/trig/takeoff"
+        this.base_url ="http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/takeoff"
     }
 
     showPreTakeoffMessage(timeout) {
         let msg = document.querySelector('#takeoff-message')
-        msg.innerHTML = "Нажмите ещё раз для взлёта в течение ("+timeout+") секунд"
+        msg.innerHTML = "Нажмите ещё раз в течение ("+timeout+") секунд для ВЗЛЁТА"
         msg.className = 'flybar-takeoff-message'
     }
 
@@ -36,6 +36,27 @@ class TakeoffItem extends Component {
     }
 
     toggleTakeoff() {
+        if (!this.props.link){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Нет соединения с коптером'
+            })
+            return
+        }
+        if (!this.props.power_good || localStorage.getItem('power_onboard')==='1'){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Не выдано питание на коптер'
+            })
+            return
+        }
+        if (this.props.status !== '1'){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Коптер уже в полёте или не готов к полёту'
+            })
+            return
+        }
         if (this.pre_takeoff){
             this.hidePreTakeoffMessage()
             this.pre_takeoff = false

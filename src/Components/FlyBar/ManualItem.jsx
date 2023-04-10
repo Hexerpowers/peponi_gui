@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
-import manual_ico from "../../Assets/Img/FlyBar/manual.png";
+import manual_ico_0 from "../../Assets/Img/FlyBar/manual.png";
+import manual_ico_1 from "../../Assets/Img/FlyBar/manual_active.png";
 import Swal from "sweetalert2";
 
 class ManualItem extends Component {
@@ -21,13 +22,22 @@ class ManualItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://192.168.22.13:5052/api/v1/trig/manual"
+        this.state = {
+            enabled: false,
+            icon: manual_ico_0
+        }
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/manual"
         this.aux_url = "http://127.0.0.1:5053/api/v1/trig/manual"
     }
 
     showPreManualMessage(timeout) {
         let msg = document.querySelector('#manual-message')
-        msg.innerHTML = "Нажмите ещё раз для перехода в ручной режим в течение ("+timeout+") секунд"
+        if (this.state.enabled){
+            msg.innerHTML = "Нажмите ещё раз для выключения ручного режима в течение ("+timeout+") секунд"
+        }else {
+            msg.innerHTML = "Нажмите ещё раз для включения ручного режима в течение ("+timeout+") секунд"
+
+        }
         msg.className = 'flybar-takeoff-message'
     }
 
@@ -38,27 +48,29 @@ class ManualItem extends Component {
     }
 
     toggleManual() {
+        if (!this.props.link){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Нет соединения с коптером'
+            })
+            return
+        }
         if (this.pre_manual){
             this.hidePreManualMessage()
             this.pre_manual = false
-            // fetch(this.base_url)
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         console.log(data)
-            //         if (data['status'] === 'OK') {
-            //             this.toast.fire({
-            //                 icon: 'success',
-            //                 title: 'Команда на переход в ручной режим отправлена'
-            //             })
-            //         }
-            //     });
             fetch(this.aux_url)
                 .then(response => response.json())
                 .then(data => {
                     if (data['status'] === 'OK') {
+                        this.setState({enabled: !this.state.enabled})
+                        if (this.state.enabled){
+                            this.setState({icon:manual_ico_1})
+                        }else {
+                            this.setState({icon:manual_ico_0})
+                        }
                         this.toast.fire({
                             icon: 'success',
-                            title: 'Команда на переход в ручной режим отправлена'
+                            title: 'Команда на переключение ручного режима отправлена'
                         })
                     }
                 });
@@ -97,7 +109,7 @@ class ManualItem extends Component {
         return (
         <div>
             <div onClick={this.toggleManual} className="flybar-icon-item">
-                <img draggable="false" className="flybar-img-icon" src={manual_ico}/>
+                <img draggable="false" className="flybar-img-icon" src={this.state.icon}/>
                 <div className="img-toast-lower">
                     [Р]
                 </div>

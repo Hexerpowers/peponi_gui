@@ -7,9 +7,9 @@ class JournalItem extends Component {
         super(props);
         this.openJournal = this.openJournal.bind(this);
         this.state = {
-            logs:"--START--\r\n"
+            logs:"-------Ожидаю подключение-------\r\n"
         }
-        this.base_url = "http://192.168.22.13:5052/api/v1/get/logs"
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/logs"
 
     }
 
@@ -29,9 +29,9 @@ class JournalItem extends Component {
 
     openJournal() {
         Swal.fire({
-            title: '<strong>Журнал</strong>',
+            title: '<strong>Журнал событий (коптер)</strong>',
             width: '700px',
-            position:'top-right',
+            position:'bottom-left',
             html:
                 '<div class="abi-jrn-holder">' +
                 this.state.logs+

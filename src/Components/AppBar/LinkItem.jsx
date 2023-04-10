@@ -12,7 +12,7 @@ class LinkItem extends Component {
     constructor(props) {
         super(props);
         this.openLink = this.openLink.bind(this)
-        this.base_url = "http://192.168.22.13:5052/api/v1/get/ping"
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/ping"
         this.state = {
             ping: 2000
         }
@@ -54,7 +54,7 @@ class LinkItem extends Component {
             }else{
                 this.vals['link'] = 'не установлено'
                 this.vals['level'] = signal_ico_0
-                this.setState({ping: 0})
+                this.setState({ping: '-'})
             }
         }, 200)
     }
@@ -67,18 +67,11 @@ class LinkItem extends Component {
             html:
                 '<div class="abi-lnk-holder">'+
                     '<div class="abi-lnk-line">Подключение: <i>'+this.vals.link+'</i></div>'+
-                    '<div class="abi-lnk-line">Тип подключения: <i>Ethernet</i></div>'+
-                    '<div class="abi-lnk-line">Параметры: <i>100M Full Duplex</i></div>'+
+                    '<div class="abi-lnk-line">Задержка передачи: <i>'+this.state.ping+' мс</i></div>'+
+                    '<div class="abi-lnk-line">Параметры: <i>100M+ Full Duplex</i></div>'+
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
-            }
         })
     }
 

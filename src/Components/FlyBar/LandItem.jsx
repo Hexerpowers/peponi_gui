@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import land_ico from "../../Assets/Img/FlyBar/land.png";
+import land_ico from "../../Assets/Img/FlyBar/stop.png";
 import Swal from "sweetalert2";
 
 class LandItem extends Component {
@@ -20,12 +20,12 @@ class LandItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://192.168.22.13:5052/api/v1/trig/land"
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/land"
     }
 
     showPreLandMessage(timeout) {
         let msg = document.querySelector('#land-message')
-        msg.innerHTML = "Нажмите ещё раз для посадки в течение ("+timeout+") секунд"
+        msg.innerHTML = "Нажмите ещё раз в течение ("+timeout+") секунд ДЛЯ ПОСАДКИ"
         msg.className = 'flybar-takeoff-message'
     }
 
@@ -36,6 +36,20 @@ class LandItem extends Component {
     }
 
     toggleLand() {
+        if (!this.props.link){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Нет соединения с коптером'
+            })
+            return
+        }
+        if (this.props.status !== '2' || this.props.status!=='3'){
+            this.toast.fire({
+                icon: 'error',
+                title: 'Коптер уже садится или не в полёте'
+            })
+            return
+        }
         if (this.pre_land){
             this.hidePreLandMessage()
             this.pre_land = false

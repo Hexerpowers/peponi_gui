@@ -18,8 +18,9 @@ class SettingsItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://192.168.22.13:5052/api/v1/post/settings"
-        this.api_url = "http://127.0.0.1:5053/api/v1/post/path"
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/post/settings"
+        this.internal_path_url = "http://127.0.0.1:5053/api/v1/post/path"
+        this.internal_addr_url = "http://127.0.0.1:5053/api/v1/post/addr"
     }
 
     syncSettings() {
@@ -41,7 +42,7 @@ class SettingsItem extends Component {
                     .then(data => {
                         console.log(data)
                     });
-                fetch(this.api_url, {
+                fetch(this.internal_path_url, {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
@@ -55,11 +56,30 @@ class SettingsItem extends Component {
                     .then(data => {
                         console.log(data)
                     });
+                fetch(this.internal_addr_url, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        path: localStorage.getItem('endp_addr')
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                    });
             } catch {
                 console.log('no link')
             }
-        }else {
-            console.log('no link')
+        }
+    }
+
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.state === false && this.props.state === true){
+            this.syncSettings()
         }
     }
 
@@ -70,75 +90,73 @@ class SettingsItem extends Component {
             localStorage.setItem('t_spd', "0.5")
             localStorage.setItem('g_spd', "0.5")
             localStorage.setItem('alt', "3")
+            localStorage.setItem('endp_addr', "192.168.1.100")
         }
         this.syncSettings()
     }
 
 
     openSettings() {
-        if (this.props.state) {
-            Swal.fire({
-                title: '<strong>Настройки</strong>',
-                width: '700px',
-                html:
-                    '<div class="abi-set-holder">' +
-                    '<h2 class="abi-set-h2">Настройки приложения:</h2>' +
-                    '<div class="table-holder">' +
-                    '<div class="table-row last">' +
-                    '<div class="table-row-name">Путь для сохранения фото и видео: </div>' +
-                    '<input onchange="localStorage.setItem(\'path\', this.value)" class="table-row-val" value="' + localStorage.getItem('path') + '" />' +
-                    '</div>' +
-                    '</div>' +
-                    '<h2 class="abi-set-h2">Настройки коптера:</h2>' +
-                    '<div class="table-holder">' +
-                    '<div class="table-row">' +
-                    '<div class="table-row-name">Высота взлёта, м: </div>' +
-                    '<input onchange="localStorage.setItem(\'alt\', this.value)" class="table-row-val" value="' + localStorage.getItem('alt') + '" />' +
-                    '</div>' +
-                    '<div class="table-row">' +
-                    '<div class="table-row-name">Скорость взлёта, м/c: </div>' +
-                    '<input onchange="localStorage.setItem(\'t_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('t_spd') + '" />' +
-                    '</div>' +
-                    '<div class="table-row last">' +
-                    '<div class="table-row-name">Горизонтальная скорость, м/c: </div>' +
-                    '<input onchange="localStorage.setItem(\'g_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('g_spd') + '" />' +
-                    '</div>' +
-                    '</div>' +
-                    '<h2 class="abi-set-h2">Настройки катушки:</h2>' +
-                    '<div class="table-holder">' +
-                    '<div class="table-row">' +
-                    '<div class="table-row-name">Коэффициент P: </div>' +
-                    '<input class="table-row-val" value="1" />' +
-                    '</div>' +
-                    '<div class="table-row">' +
-                    '<div class="table-row-name">Коэффициент I: </div>' +
-                    '<input class="table-row-val" value="1" />' +
-                    '</div>' +
-                    '<div class="table-row last">' +
-                    '<div class="table-row-name">Коэффициент D: </div>' +
-                    '<input class="table-row-val" value="1" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>',
-                showCloseButton: true,
-                confirmButtonText: 'Сохранить',
-            }).then((result) => {
-                console.log(result)
-                if (result.isConfirmed) {
-                    this.syncSettings()
-                    this.toast.fire({
-                        icon: 'success',
-                        title: 'Настройки синхронизированы'
-                    })
-                }
-            })
-
-        } else {
-            this.toast.fire({
-                icon: 'error',
-                title: 'Нет соединения с коптером!'
-            })
+        let heading_txt = 'Настройки'
+        let power_onboard = ''
+        if (!this.props.state) {
+            heading_txt = 'Нет соединения!'
         }
+        if(localStorage.getItem('power_onboard') === 'true'){
+            power_onboard = 'checked'
+        }
+        Swal.fire({
+            title: '<strong>'+heading_txt+'</strong>',
+            width: '700px',
+            html:
+                '<div class="abi-set-holder">' +
+                '<h2 class="abi-set-h2">Настройки приложения:</h2>' +
+                '<div class="table-holder">' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Взлёт с использованием батареи: </div>' +
+                '<label class="switch">'+
+                '<input onchange="localStorage.setItem(\'power_onboard\', this.checked)" '+power_onboard+' type="checkbox">'+
+                '<span class="slider round"></span>'+
+                '</label>' +
+                '</div>' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">IP адрес коптера в сети: </div>' +
+                '<input onchange="localStorage.setItem(\'endp_addr\', this.value)" class="table-row-val" value="' + localStorage.getItem('endp_addr') + '" />' +
+                '</div>' +
+                '<div class="table-row last">' +
+                '<div class="table-row-name">Путь для сохранения фото и видео: </div>' +
+                '<input onchange="localStorage.setItem(\'path\', this.value)" class="table-row-val" value="' + localStorage.getItem('path') + '" />' +
+                '</div>' +
+                '</div>' +
+                '<h2 class="abi-set-h2">Настройки коптера:</h2>' +
+                '<div class="table-holder">' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Высота взлёта, м: </div>' +
+                '<input onchange="localStorage.setItem(\'alt\', this.value)" class="table-row-val" value="' + localStorage.getItem('alt') + '" />' +
+                '</div>' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Скорость взлёта, м/c: </div>' +
+                '<input onchange="localStorage.setItem(\'t_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('t_spd') + '" />' +
+                '</div>' +
+                '<div class="table-row last">' +
+                '<div class="table-row-name">Горизонтальная скорость, м/c: </div>' +
+                '<input onchange="localStorage.setItem(\'g_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('g_spd') + '" />' +
+                '</div>' +
+                '</div>' +
+                '</div>',
+            showCloseButton: true,
+            showConfirmButton: this.props.state,
+            confirmButtonText: heading_txt,
+        }).then((result) => {
+            console.log(result)
+            if (result.isConfirmed) {
+                this.syncSettings()
+                this.toast.fire({
+                    icon: 'success',
+                    title: 'Настройки синхронизированы'
+                })
+            }
+        })
     }
 
     render() {

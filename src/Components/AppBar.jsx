@@ -13,16 +13,16 @@ export class AppBar extends Component {
     render() {
         return (
             <div className="appbar-holder font-firacode">
-                <SettingsItem state={this.props.link!==0}/>
-                <JournalItem state={this.props.link!==0}/>
+                <SettingsItem state={this.props.link}/>
+                <JournalItem state={this.props.link}/>
                 <div className="appbar-separator" />
-                <LinkItem state={this.props.link!==0}/>
-                <BatteryItem state={this.props.link!==0}/>
-                <PowerItem state={this.props.link!==0}/>
+                <LinkItem state={this.props.link}/>
+                <BatteryItem state={this.props.link}/>
+                <PowerItem elevate={this.props.elevate_power_good} state={this.props.link}/>
                 <div className="appbar-separator" />
-                <HankItem state={this.props.link!==0}/>
+                <HankItem state={this.props.link}/>
                 <div className="appbar-separator" />
-                <StatusItem state={this.props.link!==0}/>
+                <StatusItem state={this.props.link} status={this.props.status}/>
             </div>
         );
     };

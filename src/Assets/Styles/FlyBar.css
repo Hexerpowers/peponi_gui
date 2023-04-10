@@ -2,7 +2,7 @@
     position:absolute;
     top: 100px;
     left: 12px;
-    height: 410px;
+    height: 516px;
     width: 82px;
     background-color: rgb(21, 21, 21);
     padding: 5px;
@@ -10,6 +10,7 @@
     flex-direction: column;
     user-select: none;
     border-radius: 7px;
+    z-index: 1;
 }
 
 .flybar-heading{

@@ -10,7 +10,8 @@ import hank_retract_1 from "../../Assets/Img/AppBar/hank/hank_retract_1.png"
 import hank_retract_2 from "../../Assets/Img/AppBar/hank/hank_retract_2.png"
 import hank_retract_3 from "../../Assets/Img/AppBar/hank/hank_retract_3.png"
 
-import hank_still from "../../Assets/Img/AppBar/hank/hank.png"
+import hank_still from "../../Assets/Img/AppBar/hank/hank_still.png"
+import hank_no_link from "../../Assets/Img/AppBar/hank/hank_no_link.png"
 import Swal from "sweetalert2";
 
 class HankItem extends Component {
@@ -23,10 +24,11 @@ class HankItem extends Component {
         this.counter = 0
 
         this.state = {
-            icon: hank_still,
+            icon: hank_no_link,
             direction:0,
-            load:0,
-            length:0
+            load:'-',
+            length:'-',
+            op_time:'-'
         }
     }
 
@@ -86,15 +88,22 @@ class HankItem extends Component {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        this.setState({direction: Number(data['direction'])})
+                        if (Math.abs(Number(data['length'])-this.state.length)<1){
+                            this.setState({direction: 0})
+                            this.setState({icon: hank_still});
+                        }else{
+                            this.setState({direction: Number(data['direction'])})
+                        }
                         this.setState({load: Number(data['load'])})
                         this.setState({length: Number(data['length'])})
+                        this.setState({op_time: Number(data['op_time'])})
                     });
             }else{
                 this.setState({direction: 0})
-                this.setState({load: 0})
-                this.setState({length: 0})
-                this.setState({icon: hank_still});
+                this.setState({load: '-'})
+                this.setState({length: '-'})
+                this.setState({op_time: '-'})
+                this.setState({icon: hank_no_link});
             }
         }, 1000)
     }
@@ -106,8 +115,10 @@ class HankItem extends Component {
             position: 'top-right',
             html:
                 '<div class="abi-lnk-holder">' +
-                '<div class="abi-lnk-line">Состояние: <i>Стабилизация натяжения</i></div>' +
-                '<div class="abi-lnk-line">Наработка кабеля: <i>12 ч</i></div>' +
+                '<div class="abi-lnk-line">Режим: <i>Поддержание натяжения</i></div>' +
+                '<div class="abi-lnk-line">Выдано кабеля: <i>'+this.state.length+' м</i></div>' +
+                '<div class="abi-lnk-line">Натяжение кабеля: <i>'+this.state.load+' кг</i></div>' +
+                '<div class="abi-lnk-line">Наработка кабеля: <i>'+this.state.op_time+' ч</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

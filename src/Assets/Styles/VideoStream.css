@@ -3,11 +3,70 @@
     height: 100vh;
     position: fixed;
     z-index: -1;
+    top: 62px;
+}
+
+.vs-cover{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 0;
+    top: 62px;
 }
 
 .vs-iframe{
     width: 100vw;
     height: calc(100vh - 62px);
     border: 0;
-    margin-top: 62px;
+    /*margin-top: 62px;*/
+}
+
+.vs-bar{
+    position: fixed;
+    z-index: 1;
+    bottom: 20px;
+    right: 20px;
+    width: 280px;
+    height: 100px;
+    background-color: rgb(21, 21, 21);
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.vs-bar-item{
+    width: 80px;
+    height: 80px;
+    background: rgb(42, 42, 42);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    filter: brightness(0.75);
+}
+
+.vs-bar-item-active{
+    filter: brightness(2.5);
+}
+
+.vs-bar-item:hover{
+    filter: brightness(1.15);
+}
+
+.icon-cam{
+    width: 74px;
+    margin-top: 12px;
+}
+
+.icon-record{
+    width: 100px;
+}
+
+.icon-photo{
+    width: 56px;
 }

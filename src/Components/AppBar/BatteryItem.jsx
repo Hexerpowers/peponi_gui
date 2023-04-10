@@ -6,13 +6,26 @@ class BatteryItem extends Component {
     constructor(props) {
         super(props);
         this.openBattery = this.openBattery.bind(this)
-        this.base_url = "http://192.168.22.13:5052/api/v1/get/charge"
+        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/charge"
         this.state = {
-            charge: "---"
+            charge: "---",
+            condition: "не известно"
         }
     }
 
     componentDidMount() {
+        if (Number(localStorage.getItem('battery_op_time'))>6000){
+            this.setState({condition:"отличное"})
+        }
+        if (Number(localStorage.getItem('battery_op_time'))>12000){
+            this.setState({condition:"{хорошее}"})
+        }
+        if (Number(localStorage.getItem('battery_op_time'))>15000){
+            this.setState({condition:"среднее"})
+        }
+        if (Number(localStorage.getItem('battery_op_time'))>20000){
+            this.setState({condition:"требует замены"})
+        }
         setInterval(() => {
             if (this.props.state){
                 fetch(this.base_url)
@@ -24,6 +37,9 @@ class BatteryItem extends Component {
                 this.setState({charge: "---"})
             }
         }, 10000)
+        setInterval(() => {
+            localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time'))+1))
+        }, 6000)
     }
 
     openBattery() {
@@ -33,19 +49,13 @@ class BatteryItem extends Component {
             position:'top-right',
             html:
                 '<div class="abi-lnk-holder">'+
-                '<div class="abi-lnk-line">Тип: <i>LiIon</i></div>'+
-                '<div class="abi-lnk-line">Состояние: <i>Отличное</i></div>'+
+                '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>'+
+                '<div class="abi-lnk-line">Состояние: <i>'+this.state.condition+'</i></div>'+
+                '<div class="abi-lnk-line">Уровень заряда: <i>'+this.state.charge+'</i></div>'+
                 '<div class="abi-lnk-line">Время полёта на полной зарядке: <i>12 мин</i></div>'+
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
-            }
         })
     }
 

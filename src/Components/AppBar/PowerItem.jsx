@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import power_ico_0 from "../../Assets/Img/AppBar/power/power_state_0.png";
-import power_ico_1 from "../../Assets/Img/AppBar/power/power_state_2.png";
+import power_ico_1 from "../../Assets/Img/AppBar/power/power_state_1.png";
+import power_ico_2 from "../../Assets/Img/AppBar/power/power_state_2.png";
 import Swal from "sweetalert2";
 
 class PowerItem extends Component {
@@ -9,8 +10,8 @@ class PowerItem extends Component {
         this.openPower = this.openPower.bind(this)
         this.base_url = "http://127.0.0.1:5053/api/v1/get/power"
         this.state = {
-            state: 0,
-            state_text: "не запущен",
+            gen_status: "не запущен",
+            out_status: "не выдано",
             icon: power_ico_0,
             voltage: 0,
             current: 0
@@ -23,23 +24,36 @@ class PowerItem extends Component {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        this.setState({state: Number(data['state'])})
-                        if(data['state'] === '1'){
-                            this.setState({state_text: "запущен"})
-                            this.setState({icon: power_ico_1})
-                        }else {
-                            this.setState({state_text: "не запущен"})
-                            this.setState({icon: power_ico_0})
+                        switch (data['status']){
+                            case '1':
+                                this.setState({gen_status: "запущен"})
+                                this.setState({out_status: "не выдано"})
+                                this.setState({icon: power_ico_1})
+                                this.props.elevate(false)
+                                break
+                            case '2':
+                                this.setState({gen_status: "запущен"})
+                                this.setState({out_status: "выдано"})
+                                this.setState({icon: power_ico_2})
+                                this.props.elevate(true)
+                                break
+                            default:
+                                this.setState({gen_status: "не запущен"})
+                                this.setState({out_status: "не выдано"})
+                                this.setState({icon: power_ico_0})
+                                this.props.elevate(false)
+                                break
                         }
                         this.setState({voltage: data['voltage']})
                         this.setState({current: data['current']})
                     });
             }else{
-                this.setState({state: 0})
-                this.setState({state_text: "не запущен"})
+                this.setState({gen_status: "не запущен"})
+                this.setState({out_status: "не выдано"})
+                this.setState({icon: power_ico_0})
                 this.setState({voltage: 0})
                 this.setState({current: 0})
-                this.setState({icon: power_ico_0})
+                this.props.elevate(false)
             }
         }, 1000)
     }
@@ -53,19 +67,13 @@ class PowerItem extends Component {
             position:'top-right',
             html:
                 '<div class="abi-lnk-holder">'+
-                '<div class="abi-lnk-line">Состояние: <i>'+this.state.state_text+'</i></div>'+
+                '<div class="abi-lnk-line">Состояние: <i>'+this.state.gen_status+'</i></div>'+
+                '<div class="abi-lnk-line">Питание на коптер: <i>'+this.state.out_status+'</i></div>'+
                 '<div class="abi-lnk-line">Напряжение (на коптере): <i>'+this.state.voltage+' В</i></div>'+
                 '<div class="abi-lnk-line">Ток (на коптере): <i>'+this.state.current+' А</i></div>'+
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
-            }
         })
     }
 

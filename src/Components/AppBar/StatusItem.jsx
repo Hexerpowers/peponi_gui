@@ -3,30 +3,32 @@ import React, {Component} from 'react';
 class StatusItem extends Component {
     constructor(props) {
         super(props);
-        this.base_url = "http://192.168.22.13:5052/api/v1/get/ready"
         this.state = {
-            state: 0,
-            state_text: "Подготовка к взлёту",
+            state_text: 'Нет соединения',
         }
     }
 
-    componentDidMount() {
-        setInterval(() => {
-            if (this.props.state){
-                fetch(this.base_url)
-                    .then(response => response.json())
-                    .then(data => {
-                        this.setState({state: Number(data['state'])})
-                        if(data['state'] === '1'){
-                            this.setState({state_text: "Готов к взлёту"})
-                        }else {
-                            this.setState({state_text: "Подготовка к взлёту"})
-                        }
-                    });
-            }else{
-                this.setState({state_text: "Подготовка к взлёту"})
+    static getDerivedStateFromProps(props, state) {
+        if (props.state) {
+            switch (props.status){
+                case 0:
+                    return {state_text: "Коптер подготавливается"}
+                case 1:
+                    return {state_text: "Ожидание команды на взлёт"}
+                case 2:
+                    return {state_text: "Взлёт на указанную высоту"}
+                case 3:
+                    return {state_text: "В полёте"}
+                case 4:
+                    return {state_text: "Посадка на исходную точку"}
+                case 9:
+                    return {state_text: "Ошибка в процессе полёта, аварийная посадка"}
+                default:
+                    return {state_text: "Ошибка соединения"}
             }
-        }, 1000)
+        }else{
+            return {state_text: "Нет соединения"}
+        }
     }
 
     render() {
