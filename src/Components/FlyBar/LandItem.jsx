@@ -43,7 +43,7 @@ class LandItem extends Component {
             })
             return
         }
-        if (this.props.status !== '2' || this.props.status!=='3'){
+        if (this.props.status !== 2 && this.props.status!==3 && this.props.status!==8){
             this.toast.fire({
                 icon: 'error',
                 title: 'Коптер уже садится или не в полёте'

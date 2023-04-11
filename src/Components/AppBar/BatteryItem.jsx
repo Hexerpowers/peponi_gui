@@ -36,7 +36,7 @@ class BatteryItem extends Component {
             }else{
                 this.setState({charge: "---"})
             }
-        }, 10000)
+        }, 2000)
         setInterval(() => {
             localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time'))+1))
         }, 6000)

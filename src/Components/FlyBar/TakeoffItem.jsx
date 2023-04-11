@@ -43,14 +43,14 @@ class TakeoffItem extends Component {
             })
             return
         }
-        if (!this.props.power_good || localStorage.getItem('power_onboard')==='1'){
+        if (!this.props.power_good && localStorage.getItem('power_onboard')!=='true'){
             this.toast.fire({
                 icon: 'error',
                 title: 'Не выдано питание на коптер'
             })
             return
         }
-        if (this.props.status !== '1'){
+        if (this.props.status !== 1 && this.props.status !==8){
             this.toast.fire({
                 icon: 'error',
                 title: 'Коптер уже в полёте или не готов к полёту'

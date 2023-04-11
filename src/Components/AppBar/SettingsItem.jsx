@@ -146,9 +146,8 @@ class SettingsItem extends Component {
                 '</div>',
             showCloseButton: true,
             showConfirmButton: this.props.state,
-            confirmButtonText: heading_txt,
+            confirmButtonText: "Сохранить",
         }).then((result) => {
-            console.log(result)
             if (result.isConfirmed) {
                 this.syncSettings()
                 this.toast.fire({
