@@ -27,7 +27,7 @@ class VideoStream extends Component {
             }
         })
         this.rec_url ="http://127.0.0.1:5053/api/v1/trig/record"
-        this.photo_url ="http://127.0.0.1:5053/api/v1/trig/photo"
+        this.photo_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/photo"
 
     }
 

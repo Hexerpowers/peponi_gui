@@ -21,6 +21,8 @@ class StatusItem extends Component {
                     return {state_text: "В полёте"}
                 case 4:
                     return {state_text: "Посадка на исходную точку"}
+                case 8:
+                    return {state_text: "Экстренная остановка"}
                 case 9:
                     return {state_text: "Ошибка в процессе полёта, аварийная посадка"}
                 default:

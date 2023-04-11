@@ -49,7 +49,7 @@ class SettingsItem extends Component {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify({
-                        path: localStorage.getItem('path')
+                        path: localStorage.getItem('path').replace("\\", "|")
                     })
                 })
                     .then(response => response.json())
@@ -63,7 +63,7 @@ class SettingsItem extends Component {
                         'Content-Type': 'application/json;charset=utf-8'
                     },
                     body: JSON.stringify({
-                        path: localStorage.getItem('endp_addr')
+                        addr: localStorage.getItem('endp_addr')
                     })
                 })
                     .then(response => response.json())

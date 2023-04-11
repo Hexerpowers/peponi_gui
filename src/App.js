@@ -32,28 +32,30 @@ class App extends Component {
 
     componentDidMount() {
         setInterval(() => {
-                fetch(this.base_url)
-                    .then((res) => {
-                        if (res.status >= 200 && res.status < 300) {
-                            return res;
-                        } else {
-                            let error = new Error(res.statusText);
-                            error.response = res;
-                            throw error
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data['status'] === 'OK') {
-                            this.setState({link: true})
-                            this.setState({copter_state: Number(data['copter_state'])})
-                        }
-                    })
-                    .catch((e) => {
-                        this.setState({link: false})
-                        this.setState({copter_state: 0})
-                    });
-        }, 2000)
+            const controller = new AbortController()
+            setTimeout(() => controller.abort(), 200)
+            fetch(this.base_url,{ signal: controller.signal })
+                .then((res) => {
+                    if (res.status >= 200 && res.status < 300) {
+                        return res;
+                    } else {
+                        let error = new Error(res.statusText);
+                        error.response = res;
+                        throw error
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data['status'] === 'OK') {
+                        this.setState({link: true})
+                        this.setState({copter_state: Number(data['copter_state'])})
+                    }
+                })
+                .catch((e) => {
+                    this.setState({link: false})
+                    this.setState({copter_state: 0})
+                });
+        }, 1000)
     }
 
 

@@ -24,7 +24,7 @@ class PowerItem extends Component {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        switch (data['status']){
+                        switch (data['state']){
                             case '1':
                                 this.setState({gen_status: "запущен"})
                                 this.setState({out_status: "не выдано"})

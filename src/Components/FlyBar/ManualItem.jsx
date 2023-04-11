@@ -26,7 +26,6 @@ class ManualItem extends Component {
             enabled: false,
             icon: manual_ico_0
         }
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/manual"
         this.aux_url = "http://127.0.0.1:5053/api/v1/trig/manual"
     }
 
