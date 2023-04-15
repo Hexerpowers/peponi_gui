@@ -12,7 +12,7 @@ class LinkItem extends Component {
     constructor(props) {
         super(props);
         this.openLink = this.openLink.bind(this)
-        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/ping"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/ping"
         this.state = {
             ping: 2000
         }
@@ -37,37 +37,37 @@ class LinkItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 99){
+            if (e.code === 'KeyC') {
                 self.openLink()
             }
         });
         setInterval(() => {
-            if (this.props.state){
+            if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
                         this.setState({ping: data['ping']})
                         this.vals['link'] = 'установлено'
-                        if (Number(data['ping'])<((2000 / 6))){
+                        if (Number(data['ping']) < ((2000 / 6))) {
                             this.vals['level'] = signal_ico_1
                         }
-                        if (Number(data['ping'])<(2*(2000/6))){
+                        if (Number(data['ping']) < (2 * (2000 / 6))) {
                             this.vals['level'] = signal_ico_2
                         }
-                        if (Number(data['ping'])<(3*(2000/6))){
+                        if (Number(data['ping']) < (3 * (2000 / 6))) {
                             this.vals['level'] = signal_ico_3
                         }
-                        if (Number(data['ping'])<(4*(2000/6))){
+                        if (Number(data['ping']) < (4 * (2000 / 6))) {
                             this.vals['level'] = signal_ico_4
                         }
-                        if (Number(data['ping'])<(5*(2000/6))){
+                        if (Number(data['ping']) < (5 * (2000 / 6))) {
                             this.vals['level'] = signal_ico_5
                         }
-                        if (Number(data['ping'])<(6*(2000/6))){
+                        if (Number(data['ping']) < (6 * (2000 / 6))) {
                             this.vals['level'] = signal_ico_6
                         }
                     });
-            }else{
+            } else {
                 this.vals['link'] = 'не установлено'
                 this.vals['level'] = signal_ico_0
                 this.setState({ping: '-'})
@@ -79,14 +79,14 @@ class LinkItem extends Component {
         Swal.fire({
             title: '<strong>Связь</strong>',
             width: '500px',
-            position:'top-right',
+            position: 'top-right',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">'+
-                    '<div class="abi-lnk-line">Подключение: <i>'+this.vals.link+'</i></div>'+
-                    '<div class="abi-lnk-line">Задержка передачи: <i>'+this.state.ping+' мс</i></div>'+
-                    '<div class="abi-lnk-line">Параметры: <i>100M+ Full Duplex</i></div>'+
+                '<div class="abi-lnk-holder">' +
+                '<div class="abi-lnk-line">Подключение: <i>' + this.vals.link + '</i></div>' +
+                '<div class="abi-lnk-line">Задержка передачи: <i>' + this.state.ping + ' мс</i></div>' +
+                '<div class="abi-lnk-line">Параметры: <i>100M+ Full Duplex</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

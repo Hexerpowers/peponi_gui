@@ -1,9 +1,9 @@
-.tb-holder{
+.tb-holder {
     position: fixed;
     z-index: 1;
     top: 100px;
     right: 12px;
-    width: 300px;
+    width: 290px;
     height: 150px;
     background-color: rgb(21, 21, 21);
     border-radius: 80px;
@@ -11,5 +11,63 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 5px;
+}
+
+.tb-item-container {
+    width: 140px;
+    height: 140px;
+    background: #535353;
+    border-radius: 70px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tb-vi-back {
+    width: 500px;
+    position: absolute;
+    /*top: -530px;*/
+    top: -516px;
+    left: -180px;
+    transform: rotate(20deg);
+}
+
+.tb-vi-angles {
+    width: 140px;
+    position: absolute;
+}
+
+.tb-vi-roll-mark {
+    width: 140px;
+    position: absolute;
+}
+
+.tb-vi-pitch-mark {
+    width: 55px;
+    height: 0;
+    border: 1px solid #195aff;
+    position: absolute;
+    top: 69px;
+    left: 42px;
+}
+
+.tb-vi-alt {
+    position: absolute;
+    width: 140px;
+    height: 20px;
+    font-size: 19px;
+    top: 101px;
+    text-align: center;
+}
+
+.tb-hi-back {
+    width: 140px;
+}
+
+.tb-hi-mark {
+    position: absolute;
+    width: 100px;
+    left: 20px;
+    top: 20px;
+    transform: rotate(20deg);
 }

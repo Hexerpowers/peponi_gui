@@ -6,7 +6,7 @@ class BatteryItem extends Component {
     constructor(props) {
         super(props);
         this.openBattery = this.openBattery.bind(this)
-        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/charge"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
         this.state = {
             charge: "---",
             condition: "не известно"
@@ -26,35 +26,35 @@ class BatteryItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 112){
+            if (e.code === 'KeyP') {
                 self.openBattery()
             }
         });
-        if (Number(localStorage.getItem('battery_op_time'))>6000){
-            this.setState({condition:"отличное"})
+        if (Number(localStorage.getItem('battery_op_time')) > 6000) {
+            this.setState({condition: "отличное"})
         }
-        if (Number(localStorage.getItem('battery_op_time'))>12000){
-            this.setState({condition:"{хорошее}"})
+        if (Number(localStorage.getItem('battery_op_time')) > 12000) {
+            this.setState({condition: "{хорошее}"})
         }
-        if (Number(localStorage.getItem('battery_op_time'))>15000){
-            this.setState({condition:"среднее"})
+        if (Number(localStorage.getItem('battery_op_time')) > 15000) {
+            this.setState({condition: "среднее"})
         }
-        if (Number(localStorage.getItem('battery_op_time'))>20000){
-            this.setState({condition:"требует замены"})
+        if (Number(localStorage.getItem('battery_op_time')) > 20000) {
+            this.setState({condition: "требует замены"})
         }
         setInterval(() => {
-            if (this.props.state){
+            if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
                         this.setState({charge: data['charge']})
                     });
-            }else{
+            } else {
                 this.setState({charge: "---"})
             }
         }, 2000)
         setInterval(() => {
-            localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time'))+1))
+            localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time')) + 1))
         }, 6000)
     }
 
@@ -62,15 +62,15 @@ class BatteryItem extends Component {
         Swal.fire({
             title: '<strong>Батарея</strong>',
             width: '500px',
-            position:'top-right',
+            position: 'top-right',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">'+
-                '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>'+
-                '<div class="abi-lnk-line">Состояние: <i>'+this.state.condition+'</i></div>'+
-                '<div class="abi-lnk-line">Уровень заряда: <i>'+this.state.charge+'</i></div>'+
-                '<div class="abi-lnk-line">Время полёта на полной зарядке: <i>12 мин</i></div>'+
+                '<div class="abi-lnk-holder">' +
+                '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>' +
+                '<div class="abi-lnk-line">Состояние: <i>' + this.state.condition + '</i></div>' +
+                '<div class="abi-lnk-line">Уровень заряда: <i>' + this.state.charge + '</i></div>' +
+                '<div class="abi-lnk-line">Время полёта на полной зарядке: <i>12 мин</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

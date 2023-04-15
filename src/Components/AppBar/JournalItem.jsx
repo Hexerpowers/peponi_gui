@@ -7,9 +7,9 @@ class JournalItem extends Component {
         super(props);
         this.openJournal = this.openJournal.bind(this);
         this.state = {
-            logs:"-------Ожидаю подключение-------\r\n"
+            logs: "-------Ожидаю подключение-------\r\n"
         }
-        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/logs"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/logs"
 
     }
 
@@ -27,12 +27,12 @@ class JournalItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 59){
+            if (e.code === 'Semicolon') {
                 self.openJournal()
             }
         });
         setInterval(() => {
-            if (this.props.state){
+            if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
@@ -47,10 +47,10 @@ class JournalItem extends Component {
         Swal.fire({
             title: '<strong>Журнал событий (коптер)</strong>',
             width: '700px',
-            position:'top-right',
+            position: 'top-right',
             html:
                 '<div class="abi-jrn-holder">' +
-                this.state.logs+
+                this.state.logs +
                 '</div>',
             showClass: {popup: ''},
             hideClass: {popup: ''},

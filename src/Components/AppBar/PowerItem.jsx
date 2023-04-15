@@ -31,23 +31,23 @@ class PowerItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 117){
+            if (e.code === 'KeyU') {
                 self.openPower()
             }
         });
         setInterval(() => {
-            if (this.props.state){
+            if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        switch (data['state']){
-                            case '1':
+                        switch (data['state']) {
+                            case 1:
                                 this.setState({gen_status: "запущен"})
                                 this.setState({out_status: "не выдано"})
                                 this.setState({icon: power_ico_1})
                                 this.props.elevate(false)
                                 break
-                            case '2':
+                            case 2:
                                 this.setState({gen_status: "запущен"})
                                 this.setState({out_status: "выдано"})
                                 this.setState({icon: power_ico_2})
@@ -63,7 +63,7 @@ class PowerItem extends Component {
                         this.setState({voltage: data['voltage']})
                         this.setState({current: data['current']})
                     });
-            }else{
+            } else {
                 this.setState({gen_status: "не запущен"})
                 this.setState({out_status: "не выдано"})
                 this.setState({icon: power_ico_0})
@@ -75,20 +75,19 @@ class PowerItem extends Component {
     }
 
 
-
     openPower() {
         Swal.fire({
             title: '<strong>Генератор</strong>',
             width: '500px',
-            position:'top-right',
+            position: 'top-right',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">'+
-                '<div class="abi-lnk-line">Состояние: <i>'+this.state.gen_status+'</i></div>'+
-                '<div class="abi-lnk-line">Питание на коптер: <i>'+this.state.out_status+'</i></div>'+
-                '<div class="abi-lnk-line">Напряжение (на коптере): <i>'+this.state.voltage+' В</i></div>'+
-                '<div class="abi-lnk-line">Ток (на коптере): <i>'+this.state.current+' А</i></div>'+
+                '<div class="abi-lnk-holder">' +
+                '<div class="abi-lnk-line">Состояние: <i>' + this.state.gen_status + '</i></div>' +
+                '<div class="abi-lnk-line">Питание на коптер: <i>' + this.state.out_status + '</i></div>' +
+                '<div class="abi-lnk-line">Напряжение (на коптере): <i>' + this.state.voltage + ' В</i></div>' +
+                '<div class="abi-lnk-line">Ток (на коптере): <i>' + this.state.current + ' А</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

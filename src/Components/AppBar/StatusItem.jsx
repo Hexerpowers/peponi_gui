@@ -9,8 +9,8 @@ class StatusItem extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        if (props.state) {
-            switch (props.status){
+        if (props.link) {
+            switch (props.status) {
                 case 0:
                     return {state_text: "Коптер подготавливается"}
                 case 1:
@@ -28,7 +28,7 @@ class StatusItem extends Component {
                 default:
                     return {state_text: "Ошибка соединения"}
             }
-        }else{
+        } else {
             return {state_text: "Нет соединения"}
         }
     }

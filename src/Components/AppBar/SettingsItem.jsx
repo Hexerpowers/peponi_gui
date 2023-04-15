@@ -107,26 +107,31 @@ class SettingsItem extends Component {
             })
         }
     }
+
     componentDidUpdate(prevProps, prevState) {
         if ((prevProps.link === false && this.props.link === true) || (prevProps.link_local === false && this.props.link_local === true)) {
             this.syncSettings()
         }
     }
+
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 121){
+            if (e.code === 'KeyY') {
                 self.openSettings()
             }
         });
         setInterval(() => this.syncSettings(), 2000)
     }
+
     validate_ip(ipaddress) {
         return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress);
     }
+
     validate_path(path) {
         return true
     }
+
     validate_float(val, min, max) {
         if (isNaN(Number(val))) {
             return false

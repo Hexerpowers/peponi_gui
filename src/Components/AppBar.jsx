@@ -14,15 +14,15 @@ export class AppBar extends Component {
         return (
             <div className="appbar-holder font-firacode">
                 <SettingsItem link={this.props.link} link_local={this.props.link_local}/>
-                <JournalItem state={this.props.link}/>
-                <div className="appbar-separator" />
-                <LinkItem state={this.props.link}/>
-                <BatteryItem state={this.props.link}/>
-                <PowerItem elevate={this.props.elevate_power_good} state={this.props.link}/>
-                <div className="appbar-separator" />
-                <HankItem state={this.props.link}/>
-                <div className="appbar-separator" />
-                <StatusItem state={this.props.link} status={this.props.status}/>
+                <JournalItem link={this.props.link}/>
+                <div className="appbar-separator"/>
+                <LinkItem link={this.props.link}/>
+                <BatteryItem link={this.props.link}/>
+                <PowerItem elevate={this.props.elevate_power_good} link={this.props.link_local}/>
+                <div className="appbar-separator"/>
+                <HankItem link={this.props.link_local}/>
+                <div className="appbar-separator"/>
+                <StatusItem link={this.props.link} status={this.props.status}/>
             </div>
         );
     };

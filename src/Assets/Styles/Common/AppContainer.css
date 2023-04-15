@@ -21,17 +21,18 @@ body {
     color: rgb(221, 221, 221);
 }
 
-.font-firacode{
+.font-firacode {
     font-family: 'FiraCode', serif;
 }
 
-.text-italic{
+.text-italic {
     font-style: italic;
 }
 
-.text-bold{
+.text-bold {
     font-weight: bold;
 }
+
 .app-container {
     display: flex;
     flex-direction: column;

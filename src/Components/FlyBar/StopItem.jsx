@@ -20,7 +20,32 @@ class StopItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/trig/stop"
+        this.state = {
+            active: '',
+            indicator: 'inactive'
+        }
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/stop"
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let active = ''
+        let indicator = ''
+        if (nextProps.link) {
+            active = 'fb-icon-active'
+            if (nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9) {
+                indicator = 'active'
+            } else {
+                indicator = 'disabled'
+            }
+        } else {
+            active = ''
+            indicator = 'inactive'
+        }
+
+        return {
+            active: active,
+            indicator: indicator
+        }
     }
 
     addEvent(element, eventName, callback) {
@@ -37,7 +62,7 @@ class StopItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 32){
+            if (e.code === 'Space') {
                 self.toggleStop()
             }
         });
@@ -46,25 +71,32 @@ class StopItem extends Component {
 
     showPreStopMessage(timeout) {
         let msg = document.querySelector('#stop-message')
-        msg.innerHTML = "Нажмите ещё раз в течение ("+timeout+") секунд ДЛЯ ЭКСТРЕННОЙ ОСТАНОВКИ"
+        msg.innerHTML = "Нажмите ещё раз в течение (" + timeout + ") секунд ДЛЯ ЭКСТРЕННОЙ ОСТАНОВКИ"
         msg.className = 'flybar-takeoff-message'
     }
 
-    hidePreStopMessage(){
+    hidePreStopMessage() {
         let msg = document.querySelector('#stop-message')
         msg.innerHTML = ""
         msg.className = 'flybar-takeoff-message hidden'
     }
 
     toggleStop() {
-        if (!this.props.link){
+        if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',
                 title: 'Нет соединения с коптером'
             })
             return
         }
-        if (this.pre_stop){
+        if (this.props.status !== 2 && this.props.status !== 3 && this.props.status !== 4 && this.props.status !== 9) {
+            this.toast.fire({
+                icon: 'error',
+                title: 'Коптер не в полёте или уже остановлен'
+            })
+            return
+        }
+        if (this.pre_stop) {
             this.hidePreStopMessage()
             this.pre_stop = false
             fetch(this.base_url)
@@ -77,31 +109,31 @@ class StopItem extends Component {
                         })
                     }
                 });
-        }else{
+        } else {
             this.showPreStopMessage(3)
             this.pre_stop = true
-            if(this.pre_stop) {
+            if (this.pre_stop) {
                 setTimeout(() => {
                     this.showPreStopMessage(2);
-                    if(this.pre_stop) {
+                    if (this.pre_stop) {
                         setTimeout(() => {
                             this.showPreStopMessage(1);
-                            if(this.pre_stop) {
+                            if (this.pre_stop) {
                                 setTimeout(() => {
                                     this.hidePreStopMessage()
                                     this.pre_stop = false
                                 }, 1000)
-                            }else{
+                            } else {
                                 this.hidePreStopMessage()
                                 this.pre_stop = false
                             }
                         }, 1000)
-                    }else{
+                    } else {
                         this.hidePreStopMessage()
                         this.pre_stop = false
                     }
                 }, 1000)
-            }else{
+            } else {
                 this.hidePreStopMessage()
                 this.pre_stop = false
             }
@@ -109,11 +141,13 @@ class StopItem extends Component {
     }
 
     render() {
+        let active = 'fb-icon-item ' + this.state.active
+        let indicator = 'fb-indicator-' + this.state.indicator
         return (
             <div>
-                <div onClick={this.toggleStop} className="fb-icon-item">
+                <div onClick={this.toggleStop} className={active}>
                     <img draggable="false" className="flybar-img-icon" src={stop_ico} alt=""/>
-                    <div className="fb-indicator-inactive"/>
+                    <div className={indicator}/>
                     <div className="img-toast-lower">
                         [_]
                     </div>

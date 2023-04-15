@@ -25,10 +25,10 @@ class HankItem extends Component {
 
         this.state = {
             icon: hank_no_link,
-            direction:0,
-            load:'-',
-            length:'-',
-            op_time:'-'
+            direction: 0,
+            load: '-',
+            length: '-',
+            op_time: '-'
         }
     }
 
@@ -45,12 +45,12 @@ class HankItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 114){
+            if (e.code === 'KeyR') {
                 self.openHank()
             }
         });
         setInterval(() => {
-            if (this.state.direction===1) {
+            if (this.state.direction === 1) {
                 switch (this.counter) {
                     case 0:
                         this.setState({icon: hank_extend_0});
@@ -75,7 +75,7 @@ class HankItem extends Component {
         }, 200)
 
         setInterval(() => {
-            if (this.state.direction===-1) {
+            if (this.state.direction === -1) {
                 switch (this.counter) {
                     case 0:
                         this.setState({icon: hank_retract_0});
@@ -100,21 +100,21 @@ class HankItem extends Component {
         }, 200)
 
         setInterval(() => {
-            if (this.props.state){
+            if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        if (Math.abs(Number(data['length'])-this.state.length)<1){
+                        if (Math.abs(Number(data['length']) - this.state.length) < 1) {
                             this.setState({direction: 0})
                             this.setState({icon: hank_still});
-                        }else{
+                        } else {
                             this.setState({direction: Number(data['direction'])})
                         }
                         this.setState({load: Number(data['load'])})
                         this.setState({length: Number(data['length'])})
                         this.setState({op_time: Number(data['op_time'])})
                     });
-            }else{
+            } else {
                 this.setState({direction: 0})
                 this.setState({load: '-'})
                 this.setState({length: '-'})
@@ -134,9 +134,9 @@ class HankItem extends Component {
             html:
                 '<div class="abi-lnk-holder">' +
                 '<div class="abi-lnk-line">Режим: <i>Поддержание натяжения</i></div>' +
-                '<div class="abi-lnk-line">Выдано кабеля: <i>'+this.state.length+' м</i></div>' +
-                '<div class="abi-lnk-line">Натяжение кабеля: <i>'+this.state.load+' кг</i></div>' +
-                '<div class="abi-lnk-line">Наработка кабеля: <i>'+this.state.op_time+' ч</i></div>' +
+                '<div class="abi-lnk-line">Выдано кабеля: <i>' + this.state.length + ' м</i></div>' +
+                '<div class="abi-lnk-line">Натяжение кабеля: <i>' + this.state.load + ' кг</i></div>' +
+                '<div class="abi-lnk-line">Наработка кабеля: <i>' + this.state.op_time + ' ч</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -145,7 +145,7 @@ class HankItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openHank} className="appbar-icon-item" style={{margin:"0 84px 0 0"}}>
+            <div onClick={this.openHank} className="appbar-icon-item" style={{margin: "0 84px 0 0"}}>
                 <div className="appbar-icon-flexrow">
                     <img draggable="false" className="appbar-img-icon" src={this.state.icon} alt=""/>
                     <div className="appbar-icon-textblock">
@@ -153,10 +153,10 @@ class HankItem extends Component {
                         <div className="appbar-minitext">{this.state.load} кг</div>
                     </div>
                 </div>
-                <div className="img-toast-lower" style={{right:'-4px'}}>
+                <div className="img-toast-lower" style={{right: '-4px'}}>
                     [К]
                 </div>
-                <div className="appbar-description" style={{margin:"0px 0 0 3px"}}>Катушка</div>
+                <div className="appbar-description" style={{margin: "0px 0 0 3px"}}>Катушка</div>
             </div>
         );
     }

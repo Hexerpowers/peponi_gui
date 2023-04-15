@@ -1,5 +1,5 @@
-.flybar-holder{
-    position:absolute;
+.flybar-holder {
+    position: absolute;
     top: 100px;
     left: 12px;
     height: 384px;
@@ -13,35 +13,35 @@
     z-index: 1;
 }
 
-.flybar-heading{
+.flybar-heading {
     font-size: 25px;
     margin-left: 10px;
 }
 
-.fb-icon-item{
+.fb-icon-item {
     margin-right: 8px;
     margin-bottom: 10px;
     cursor: pointer;
     filter: brightness(0.75);
 }
 
-.fb-icon-active{
+.fb-icon-active {
     filter: brightness(1.15);
 }
 
-.fb-icon-active:hover{
+.fb-icon-active:hover {
     filter: brightness(1.4);
 }
 
-.fb-icon-item:hover .hidden{
+.fb-icon-item:hover .hidden {
     display: block;
 }
 
-.flybar-img-icon{
+.flybar-img-icon {
     height: 62px;
 }
 
-.flybar-separator{
+.flybar-separator {
     border-bottom: 2px solid white;
     border-radius: 2px;
     margin-bottom: 12px;
@@ -49,39 +49,39 @@
     margin-left: -5px;
 }
 
-.flybar-description{
+.flybar-description {
     margin: -1rem 0 0 0.4rem;
 }
 
-.fb-indicator-active{
+.fb-indicator-active {
     border: 5px solid rgb(51, 147, 255);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
-.fb-indicator-inactive{
+.fb-indicator-inactive {
     border: 5px solid rgb(144, 148, 148);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
-.fb-indicator-disabled{
+.fb-indicator-disabled {
     border: 5px solid rgb(218, 67, 67);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
-.fb-indicator-enabled{
+.fb-indicator-enabled {
     border: 5px solid rgb(39, 211, 92);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
-.flybar-takeoff-message{
+.flybar-takeoff-message {
     position: fixed;
     bottom: 20px;
     font-size: 40px;
@@ -91,6 +91,6 @@
     right: 20px;
 }
 
-.hidden{
+.hidden {
     display: none;
 }

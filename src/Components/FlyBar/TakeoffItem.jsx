@@ -22,10 +22,10 @@ class TakeoffItem extends Component {
             }
         })
         this.state = {
-            active:'',
-            indicator:'inactive'
+            active: '',
+            indicator: 'inactive'
         }
-        this.base_url ="http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/trig/takeoff"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/takeoff"
     }
 
     addEvent(element, eventName, callback) {
@@ -38,17 +38,17 @@ class TakeoffItem extends Component {
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState){
+    static getDerivedStateFromProps(nextProps, prevState) {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
             active = 'fb-icon-active'
-            if ((nextProps.power_good || localStorage.getItem('power_onboard')==='true') && (nextProps.status === 1 || nextProps.status ===8)) {
+            if ((nextProps.power_good || localStorage.getItem('power_onboard') === 'true') && (nextProps.status === 1 || nextProps.status === 8)) {
                 indicator = 'active'
-            }else {
+            } else {
                 indicator = 'disabled'
             }
-        }else {
+        } else {
             active = ''
             indicator = 'inactive'
         }
@@ -62,7 +62,7 @@ class TakeoffItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if(e.keyCode === 100){
+            if (e.code === 'KeyD') {
                 self.toggleTakeoff()
             }
         });
@@ -71,39 +71,39 @@ class TakeoffItem extends Component {
 
     showPreTakeoffMessage(timeout) {
         let msg = document.querySelector('#takeoff-message')
-        msg.innerHTML = "Нажмите ещё раз в течение ("+timeout+") секунд для ВЗЛЁТА"
+        msg.innerHTML = "Нажмите ещё раз в течение (" + timeout + ") секунд для ВЗЛЁТА"
         msg.className = 'flybar-takeoff-message'
     }
 
-    hidePreTakeoffMessage(){
+    hidePreTakeoffMessage() {
         let msg = document.querySelector('#takeoff-message')
         msg.innerHTML = ""
         msg.className = 'flybar-takeoff-message hidden'
     }
 
     toggleTakeoff() {
-        if (!this.props.link){
+        if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',
                 title: 'Нет соединения с коптером'
             })
             return
         }
-        if (!this.props.power_good && localStorage.getItem('power_onboard')!=='true'){
+        if (!this.props.power_good && localStorage.getItem('power_onboard') !== 'true') {
             this.toast.fire({
                 icon: 'error',
                 title: 'Не выдано питание на коптер'
             })
             return
         }
-        if (this.props.status !== 1 && this.props.status !==8){
+        if (this.props.status !== 1 && this.props.status !== 8) {
             this.toast.fire({
                 icon: 'error',
                 title: 'Коптер уже в полёте или не готов к полёту'
             })
             return
         }
-        if (this.pre_takeoff){
+        if (this.pre_takeoff) {
             this.hidePreTakeoffMessage()
             this.pre_takeoff = false
             fetch(this.base_url)
@@ -116,31 +116,31 @@ class TakeoffItem extends Component {
                         })
                     }
                 });
-        }else{
+        } else {
             this.showPreTakeoffMessage(3)
             this.pre_takeoff = true
-            if(this.pre_takeoff) {
+            if (this.pre_takeoff) {
                 setTimeout(() => {
                     this.showPreTakeoffMessage(2);
-                    if(this.pre_takeoff) {
+                    if (this.pre_takeoff) {
                         setTimeout(() => {
                             this.showPreTakeoffMessage(1);
-                            if(this.pre_takeoff) {
+                            if (this.pre_takeoff) {
                                 setTimeout(() => {
                                     this.hidePreTakeoffMessage()
                                     this.pre_takeoff = false
                                 }, 1000)
-                            }else{
+                            } else {
                                 this.hidePreTakeoffMessage()
                                 this.pre_takeoff = false
                             }
                         }, 1000)
-                    }else{
+                    } else {
                         this.hidePreTakeoffMessage()
                         this.pre_takeoff = false
                     }
                 }, 1000)
-            }else{
+            } else {
                 this.hidePreTakeoffMessage()
                 this.pre_takeoff = false
             }
@@ -148,8 +148,8 @@ class TakeoffItem extends Component {
     }
 
     render() {
-        let active = 'fb-icon-item'+ this.state.active
-        let indicator = 'fb-indicator-'+ this.state.indicator
+        let active = 'fb-icon-item ' + this.state.active
+        let indicator = 'fb-indicator-' + this.state.indicator
         return (
             <div>
                 <div onClick={this.toggleTakeoff} className={active}>
@@ -161,7 +161,6 @@ class TakeoffItem extends Component {
                     <div className="img-toast-lower hidden">
                         [Взлёт]
                     </div>
-                    {/*<div className="flybar-description">Взлёт</div>*/}
                 </div>
                 <div id="takeoff-message" className="flybar-takeoff-message hidden">
                 </div>

@@ -1,4 +1,4 @@
-.appbar-holder{
+.appbar-holder {
     height: 52px;
     width: 100vw;
     background-color: rgb(21, 21, 21);
@@ -9,15 +9,15 @@
     overflow: hidden;
 }
 
-.appbar-holder:hover{
+.appbar-holder:hover {
     height: 71px;
 }
 
-.icon-inverted{
+.icon-inverted {
     filter: invert(100%);
 }
 
-.img-toast-lower{
+.img-toast-lower {
     position: absolute;
     top: 35px;
     right: -9px;
@@ -27,38 +27,38 @@
     filter: brightness(1.5);
 }
 
-.appbar-icon-item{
+.appbar-icon-item {
     margin-right: 16px;
     cursor: pointer;
     filter: brightness(0.85);
 }
 
-.appbar-icon-item:hover{
+.appbar-icon-item:hover {
     filter: brightness(1.2);
 }
 
-.appbar-img-icon{
+.appbar-img-icon {
     height: 54px;
 }
 
-.appbar-separator{
+.appbar-separator {
     border-right: 2px solid white;
     border-radius: 2px;
     margin-right: 16px;
 }
 
-.appbar-description{
+.appbar-description {
     margin: -6px 0 0 3px;
 }
 
-.appbar-ping-value{
+.appbar-ping-value {
     position: absolute;
     top: 7px;
     left: 6px;
     font-size: 0.7rem;
 }
 
-.appbar-charge-value{
+.appbar-charge-value {
     color: #151515;
     position: absolute;
     top: 16px;
@@ -66,20 +66,20 @@
     font-size: 18px;
 }
 
-.appbar-charge-icon{
+.appbar-charge-icon {
     transform: scale(1.1);
 }
 
-.appbar-status{
+.appbar-status {
     font-size: 40px;
 }
 
-.abi-set-holder{
+.abi-set-holder {
     display: flex;
     flex-direction: column;
 }
 
-.abi-jrn-holder{
+.abi-jrn-holder {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -90,7 +90,7 @@
     white-space: pre;
 }
 
-.abi-set-h2{
+.abi-set-h2 {
     align-self: baseline;
     font-size: 20px;
     margin: 10px 10px;
@@ -115,7 +115,7 @@
     font-size: 1.05rem;
 }
 
-.last{
+.last {
     border-bottom: none;
 }
 
@@ -147,32 +147,32 @@
     color: rgb(186, 180, 194);
 }
 
-.swal2-modal{
+.swal2-modal {
     background: rgb(32, 30, 35) !important;
     border: 3px solid #bdbdbd !important;
     color: rgb(221, 221, 221) !important;
 }
 
-.abi-jrn-line{
+.abi-jrn-line {
     font-size: 14px;
 }
 
-.abi-lnk-holder{
+.abi-lnk-holder {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.abi-lnk-line{
+.abi-lnk-line {
     font-size: 18px;
 }
 
-.appbar-icon-flexrow{
+.appbar-icon-flexrow {
     display: flex;
     flex-direction: row;
 }
 
-.appbar-icon-textblock{
+.appbar-icon-textblock {
     display: flex;
     flex-direction: column;
     position: absolute;
