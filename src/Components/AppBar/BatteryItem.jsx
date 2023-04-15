@@ -6,14 +6,30 @@ class BatteryItem extends Component {
     constructor(props) {
         super(props);
         this.openBattery = this.openBattery.bind(this)
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/charge"
+        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/charge"
         this.state = {
             charge: "---",
             condition: "не известно"
         }
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 112){
+                self.openBattery()
+            }
+        });
         if (Number(localStorage.getItem('battery_op_time'))>6000){
             this.setState({condition:"отличное"})
         }
@@ -47,6 +63,8 @@ class BatteryItem extends Component {
             title: '<strong>Батарея</strong>',
             width: '500px',
             position:'top-right',
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
             html:
                 '<div class="abi-lnk-holder">'+
                 '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>'+

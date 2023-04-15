@@ -18,7 +18,23 @@ class PowerItem extends Component {
         }
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 117){
+                self.openPower()
+            }
+        });
         setInterval(() => {
             if (this.props.state){
                 fetch(this.base_url)
@@ -65,6 +81,8 @@ class PowerItem extends Component {
             title: '<strong>Генератор</strong>',
             width: '500px',
             position:'top-right',
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
             html:
                 '<div class="abi-lnk-holder">'+
                 '<div class="abi-lnk-line">Состояние: <i>'+this.state.gen_status+'</i></div>'+

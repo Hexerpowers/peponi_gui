@@ -7,106 +7,145 @@ class SettingsItem extends Component {
         super(props);
         this.openSettings = this.openSettings.bind(this);
         this.syncSettings = this.syncSettings.bind(this);
+        this.validate_ip = this.validate_ip.bind(this);
+        this.validate_path = this.validate_path.bind(this);
+        this.validate_float = this.validate_float.bind(this);
         this.toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 2000,
             timerProgressBar: true,
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/post/settings"
-        this.internal_path_url = "http://127.0.0.1:5053/api/v1/post/path"
-        this.internal_addr_url = "http://127.0.0.1:5053/api/v1/post/addr"
+        this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
+        this.core_url = "http://127.0.0.1:5053/api/v1/post/settings"
     }
 
-    syncSettings() {
-        if (this.props.state) {
-            try {
-                fetch(this.base_url, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        takeoff_speed: localStorage.getItem('t_spd'),
-                        ground_speed: localStorage.getItem('g_spd'),
-                        target_alt: localStorage.getItem('alt')
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                    });
-                fetch(this.internal_path_url, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        path: localStorage.getItem('path').replace("\\", "|")
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                    });
-                fetch(this.internal_addr_url, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        addr: localStorage.getItem('endp_addr')
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                    });
-            } catch {
-                console.log('no link')
-            }
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
         }
     }
 
+    syncSettings(showMessage = false) {
+        let post_endpoint = false
+        let post_core = false
 
+        if (this.props.link) {
+            try {
+                fetch(this.endpoint_url, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        takeoff_speed: localStorage.getItem('takeoff_speed'),
+                        ground_speed: localStorage.getItem('ground_speed'),
+                        target_alt: localStorage.getItem('target_alt')
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        post_endpoint = true
+                    });
+            } catch {
+                console.log('Error while posting to [endpoint]')
+            }
+        }
+
+        if (this.props.link_local) {
+            fetch(this.core_url, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    endpoint_address: localStorage.getItem('endpoint_address'),
+                    camera_path: localStorage.getItem('camera_path'),
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    post_core = true
+                });
+        }
+        if (showMessage) {
+            if (post_core && post_endpoint) {
+                this.toast.fire({
+                    icon: 'success',
+                    title: 'Настройки синхронизированы'
+                })
+                return
+            }
+            if (post_core) {
+                this.toast.fire({
+                    icon: 'success',
+                    title: 'Настройки синхронизированы (локально)'
+                })
+                return;
+            }
+            if (post_endpoint) {
+                this.toast.fire({
+                    icon: 'success',
+                    title: 'Настройки коптера синхронизированы (коптер)'
+                })
+                return
+            }
+            this.toast.fire({
+                icon: 'success',
+                title: 'Настройки сохранены'
+            })
+        }
+    }
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.state === false && this.props.state === true){
+        if ((prevProps.link === false && this.props.link === true) || (prevProps.link_local === false && this.props.link_local === true)) {
             this.syncSettings()
         }
     }
-
-
     componentDidMount() {
-        if(localStorage.getItem('t_spd') === null){
-            localStorage.setItem('path', "C:\Watchman\Camera")
-            localStorage.setItem('t_spd', "0.5")
-            localStorage.setItem('g_spd', "0.5")
-            localStorage.setItem('alt', "3")
-            localStorage.setItem('endp_addr', "192.168.1.100")
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 121){
+                self.openSettings()
+            }
+        });
+        setInterval(() => this.syncSettings(), 2000)
+    }
+    validate_ip(ipaddress) {
+        return /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress);
+    }
+    validate_path(path) {
+        return true
+    }
+    validate_float(val, min, max) {
+        if (isNaN(Number(val))) {
+            return false
         }
-        this.syncSettings()
+        if (val < min) {
+            return false
+        }
+        return val <= max;
+
     }
 
 
     openSettings() {
-        let heading_txt = 'Настройки'
         let power_onboard = ''
-        if (!this.props.state) {
-            heading_txt = 'Нет соединения!'
-        }
-        if(localStorage.getItem('power_onboard') === 'true'){
+        if (localStorage.getItem('power_onboard') === 'true') {
             power_onboard = 'checked'
         }
         Swal.fire({
-            title: '<strong>'+heading_txt+'</strong>',
+            title: '<strong>Настройки</strong>',
             width: '700px',
             html:
                 '<div class="abi-set-holder">' +
@@ -114,46 +153,87 @@ class SettingsItem extends Component {
                 '<div class="table-holder">' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">Взлёт с использованием батареи: </div>' +
-                '<label class="switch">'+
-                '<input onchange="localStorage.setItem(\'power_onboard\', this.checked)" '+power_onboard+' type="checkbox">'+
-                '<span class="slider round"></span>'+
+                '<label class="switch">' +
+                '<input id="power_onboard" onchange="localStorage.setItem(\'power_onboard\', this.checked)" ' + power_onboard + ' type="checkbox">' +
+                '<span class="slider round"></span>' +
                 '</label>' +
                 '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">IP адрес коптера в сети: </div>' +
-                '<input onchange="localStorage.setItem(\'endp_addr\', this.value)" class="table-row-val" value="' + localStorage.getItem('endp_addr') + '" />' +
+                '<input id="endpoint_address" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
                 '</div>' +
                 '<div class="table-row last">' +
                 '<div class="table-row-name">Путь для сохранения фото и видео: </div>' +
-                '<input onchange="localStorage.setItem(\'path\', this.value)" class="table-row-val" value="' + localStorage.getItem('path') + '" />' +
+                '<input id="camera_path" class="table-row-val" value="' + localStorage.getItem('camera_path') + '" />' +
                 '</div>' +
                 '</div>' +
                 '<h2 class="abi-set-h2">Настройки коптера:</h2>' +
                 '<div class="table-holder">' +
                 '<div class="table-row">' +
-                '<div class="table-row-name">Высота взлёта, м: </div>' +
-                '<input onchange="localStorage.setItem(\'alt\', this.value)" class="table-row-val" value="' + localStorage.getItem('alt') + '" />' +
+                '<div class="table-row-name">Высота взлёта <i>[2 — 110]</i>, м: </div>' +
+                '<input id="target_alt" class="table-row-val" value="' + localStorage.getItem('target_alt') + '" />' +
                 '</div>' +
                 '<div class="table-row">' +
-                '<div class="table-row-name">Скорость взлёта, м/c: </div>' +
-                '<input onchange="localStorage.setItem(\'t_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('t_spd') + '" />' +
+                '<div class="table-row-name">Высота аварийного возврата <i>[2 — 110]</i>, м: </div>' +
+                '<input id="return_alt" class="table-row-val" value="' + localStorage.getItem('return_alt') + '" />' +
+                '</div>' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Скорость взлёта <i>[0.1 — 2]</i>, м/c: </div>' +
+                '<input id="takeoff_speed" class="table-row-val" value="' + localStorage.getItem('takeoff_speed') + '" />' +
                 '</div>' +
                 '<div class="table-row last">' +
-                '<div class="table-row-name">Горизонтальная скорость, м/c: </div>' +
-                '<input onchange="localStorage.setItem(\'g_spd\', this.value)" class="table-row-val" value="' + localStorage.getItem('g_spd') + '" />' +
+                '<div class="table-row-name">Горизонтальная скорость <i>[0.1 — 2]</i>, м/c: </div>' +
+                '<input id="ground_speed" class="table-row-val" value="' + localStorage.getItem('ground_speed') + '" />' +
                 '</div>' +
                 '</div>' +
                 '</div>',
             showCloseButton: true,
-            showConfirmButton: this.props.state,
+            showConfirmButton: true,
             confirmButtonText: "Сохранить",
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
+            preConfirm: () => {
+                const endpoint_address = Swal.getContainer().querySelector('#endpoint_address').value;
+                const camera_path = Swal.getContainer().querySelector('#camera_path').value;
+                const target_alt = Swal.getContainer().querySelector('#target_alt').value;
+                const return_alt = Swal.getContainer().querySelector('#return_alt').value;
+                const takeoff_speed = Swal.getContainer().querySelector('#takeoff_speed').value;
+                const ground_speed = Swal.getContainer().querySelector('#ground_speed').value;
+                if (!this.validate_ip(endpoint_address)) {
+                    Swal.showValidationMessage('Указан неверный IP адрес')
+                } else {
+                    localStorage.setItem('endpoint_address', endpoint_address)
+                }
+                if (!this.validate_path(camera_path)) {
+                    Swal.showValidationMessage('Папка по указанному пути не существует')
+                } else {
+                    localStorage.setItem('camera_path', camera_path)
+                }
+                if (!this.validate_float(target_alt, 2, 110)) {
+                    Swal.showValidationMessage('Неверное значение высоты взлёта')
+                } else {
+                    localStorage.setItem('target_alt', target_alt)
+                }
+                if (!this.validate_float(return_alt, 2, 110)) {
+                    Swal.showValidationMessage('Неверное значение высоты возврата')
+                } else {
+                    localStorage.setItem('return_alt', return_alt)
+                }
+                if (!this.validate_float(takeoff_speed, 0.1, 2)) {
+                    Swal.showValidationMessage('Неверное значение скорости взлёта')
+                } else {
+                    localStorage.setItem('takeoff_speed', takeoff_speed)
+                }
+                if (!this.validate_float(ground_speed, 0.1, 2)) {
+                    Swal.showValidationMessage('Неверное значение горизонтальной скорости')
+                } else {
+                    localStorage.setItem('ground_speed', ground_speed)
+                }
+                return true
+            },
         }).then((result) => {
             if (result.isConfirmed) {
-                this.syncSettings()
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
+                this.syncSettings(true)
             }
         })
     }

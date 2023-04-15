@@ -9,12 +9,28 @@ class JournalItem extends Component {
         this.state = {
             logs:"-------Ожидаю подключение-------\r\n"
         }
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/logs"
+        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/logs"
 
+    }
+
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
     }
 
 
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 59){
+                self.openJournal()
+            }
+        });
         setInterval(() => {
             if (this.props.state){
                 fetch(this.base_url)
@@ -31,11 +47,13 @@ class JournalItem extends Component {
         Swal.fire({
             title: '<strong>Журнал событий (коптер)</strong>',
             width: '700px',
-            position:'bottom-left',
+            position:'top-right',
             html:
                 '<div class="abi-jrn-holder">' +
                 this.state.logs+
                 '</div>',
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
             showCloseButton: true,
             showConfirmButton: false,
         }).then((result) => {

@@ -32,7 +32,23 @@ class HankItem extends Component {
         }
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 114){
+                self.openHank()
+            }
+        });
         setInterval(() => {
             if (this.state.direction===1) {
                 switch (this.counter) {
@@ -113,6 +129,8 @@ class HankItem extends Component {
             title: '<strong>Катушка</strong>',
             width: '500px',
             position: 'top-right',
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
             html:
                 '<div class="abi-lnk-holder">' +
                 '<div class="abi-lnk-line">Режим: <i>Поддержание натяжения</i></div>' +
@@ -135,7 +153,7 @@ class HankItem extends Component {
                         <div className="appbar-minitext">{this.state.load} кг</div>
                     </div>
                 </div>
-                <div className="img-toast-lower">
+                <div className="img-toast-lower" style={{right:'-4px'}}>
                     [К]
                 </div>
                 <div className="appbar-description" style={{margin:"0px 0 0 3px"}}>Катушка</div>

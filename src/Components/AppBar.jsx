@@ -13,7 +13,7 @@ export class AppBar extends Component {
     render() {
         return (
             <div className="appbar-holder font-firacode">
-                <SettingsItem state={this.props.link}/>
+                <SettingsItem link={this.props.link} link_local={this.props.link_local}/>
                 <JournalItem state={this.props.link}/>
                 <div className="appbar-separator" />
                 <LinkItem state={this.props.link}/>

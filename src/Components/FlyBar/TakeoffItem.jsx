@@ -8,6 +8,7 @@ class TakeoffItem extends Component {
         this.toggleTakeoff = this.toggleTakeoff.bind(this)
         this.showPreTakeoffMessage = this.showPreTakeoffMessage.bind(this)
         this.hidePreTakeoffMessage = this.hidePreTakeoffMessage.bind(this)
+        this.addEvent = this.addEvent.bind(this)
         this.pre_takeoff = false
         this.toast = Swal.mixin({
             toast: true,
@@ -20,8 +21,53 @@ class TakeoffItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url ="http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/takeoff"
+        this.state = {
+            active:'',
+            indicator:'inactive'
+        }
+        this.base_url ="http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/trig/takeoff"
     }
+
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        let active = ''
+        let indicator = ''
+        if (nextProps.link) {
+            active = 'fb-icon-active'
+            if ((nextProps.power_good || localStorage.getItem('power_onboard')==='true') && (nextProps.status === 1 || nextProps.status ===8)) {
+                indicator = 'active'
+            }else {
+                indicator = 'disabled'
+            }
+        }else {
+            active = ''
+            indicator = 'inactive'
+        }
+
+        return {
+            active: active,
+            indicator: indicator
+        }
+    }
+
+    componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 100){
+                self.toggleTakeoff()
+            }
+        });
+    }
+
 
     showPreTakeoffMessage(timeout) {
         let msg = document.querySelector('#takeoff-message')
@@ -102,14 +148,20 @@ class TakeoffItem extends Component {
     }
 
     render() {
+        let active = 'fb-icon-item'+ this.state.active
+        let indicator = 'fb-indicator-'+ this.state.indicator
         return (
             <div>
-                <div onClick={this.toggleTakeoff} className="flybar-icon-item">
+                <div onClick={this.toggleTakeoff} className={active}>
                     <img draggable="false" className="flybar-img-icon" src={takeoff_ico} alt=""/>
+                    <div className={indicator}/>
                     <div className="img-toast-lower">
                         [В]
                     </div>
-                    <div className="flybar-description">Взлёт</div>
+                    <div className="img-toast-lower hidden">
+                        [Взлёт]
+                    </div>
+                    {/*<div className="flybar-description">Взлёт</div>*/}
                 </div>
                 <div id="takeoff-message" className="flybar-takeoff-message hidden">
                 </div>

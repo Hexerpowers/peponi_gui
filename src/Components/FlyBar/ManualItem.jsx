@@ -29,6 +29,26 @@ class ManualItem extends Component {
         this.aux_url = "http://127.0.0.1:5053/api/v1/trig/manual"
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
+    componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 104){
+                self.toggleManual()
+            }
+        });
+    }
+
+
     showPreManualMessage(timeout) {
         let msg = document.querySelector('#manual-message')
         if (this.state.enabled){
@@ -107,12 +127,16 @@ class ManualItem extends Component {
     render() {
         return (
         <div>
-            <div onClick={this.toggleManual} className="flybar-icon-item">
+            <div onClick={this.toggleManual} className="fb-icon-item">
                 <img draggable="false" className="flybar-img-icon" src={this.state.icon}/>
+                <div className="fb-indicator-inactive"/>
                 <div className="img-toast-lower">
                     [Р]
                 </div>
-                <div className="flybar-description">Ручной контроль</div>
+                <div className="img-toast-lower hidden">
+                    [Ручной]
+                </div>
+                {/*<div className="flybar-description">Ручной контроль</div>*/}
             </div>
             <div id="manual-message" className="flybar-takeoff-message hidden"></div>
         </div>

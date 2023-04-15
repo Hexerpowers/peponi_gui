@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import land_ico from "../../Assets/Img/FlyBar/stop.png";
+import land_ico from "../../Assets/Img/FlyBar/land.png";
 import Swal from "sweetalert2";
 
 class LandItem extends Component {
@@ -20,8 +20,29 @@ class LandItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/trig/land"
+        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/trig/land"
     }
+
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
+
+    componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 103){
+                self.toggleLand()
+            }
+        });
+    }
+
 
     showPreLandMessage(timeout) {
         let msg = document.querySelector('#land-message')
@@ -97,12 +118,16 @@ class LandItem extends Component {
     render() {
         return (
         <div>
-            <div onClick={this.toggleLand} className="flybar-icon-item">
+            <div onClick={this.toggleLand} className="fb-icon-item">
                 <img draggable="false" className="flybar-img-icon" src={land_ico} alt=""/>
+                <div className="fb-indicator-inactive"/>
                 <div className="img-toast-lower">
                     [П]
                 </div>
-                <div className="flybar-description">Посадка</div>
+                <div className="img-toast-lower hidden">
+                    [Посадка]
+                </div>
+                {/*<div className="flybar-description">Посадка</div>*/}
             </div>
             <div id="land-message" className="flybar-takeoff-message hidden"></div>
         </div>

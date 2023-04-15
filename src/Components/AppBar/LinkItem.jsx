@@ -12,7 +12,7 @@ class LinkItem extends Component {
     constructor(props) {
         super(props);
         this.openLink = this.openLink.bind(this)
-        this.base_url = "http://"+localStorage.getItem('endp_addr')+":5052/api/v1/get/ping"
+        this.base_url = "http://"+localStorage.getItem('endpoint_address')+":5052/api/v1/get/ping"
         this.state = {
             ping: 2000
         }
@@ -24,7 +24,23 @@ class LinkItem extends Component {
 
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keypress", function (e) {
+            if(e.keyCode === 99){
+                self.openLink()
+            }
+        });
         setInterval(() => {
             if (this.props.state){
                 fetch(this.base_url)
@@ -64,6 +80,8 @@ class LinkItem extends Component {
             title: '<strong>Связь</strong>',
             width: '500px',
             position:'top-right',
+            showClass: {popup: ''},
+            hideClass: {popup: ''},
             html:
                 '<div class="abi-lnk-holder">'+
                     '<div class="abi-lnk-line">Подключение: <i>'+this.vals.link+'</i></div>'+
