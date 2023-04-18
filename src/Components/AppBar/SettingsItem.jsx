@@ -50,7 +50,8 @@ class SettingsItem extends Component {
                     body: JSON.stringify({
                         takeoff_speed: localStorage.getItem('takeoff_speed'),
                         ground_speed: localStorage.getItem('ground_speed'),
-                        target_alt: localStorage.getItem('target_alt')
+                        target_alt: localStorage.getItem('target_alt'),
+                        return_alt: localStorage.getItem('return_alt')
                     })
                 })
                     .then(response => response.json())
