@@ -184,7 +184,7 @@ class SettingsItem extends Component {
                 '<input id="return_alt" class="table-row-val" value="' + localStorage.getItem('return_alt') + '" />' +
                 '</div>' +
                 '<div class="table-row">' +
-                '<div class="table-row-name">Скорость взлёта <i>[0.1 — 2]</i>, м/c: </div>' +
+                '<div class="table-row-name">Скорость взлёта <i>[0.1 — 1]</i>, м/c: </div>' +
                 '<input id="takeoff_speed" class="table-row-val" value="' + localStorage.getItem('takeoff_speed') + '" />' +
                 '</div>' +
                 '<div class="table-row last">' +
@@ -225,7 +225,7 @@ class SettingsItem extends Component {
                 } else {
                     localStorage.setItem('return_alt', return_alt)
                 }
-                if (!this.validate_float(takeoff_speed, 0.1, 2)) {
+                if (!this.validate_float(takeoff_speed, 0.1, 1)) {
                     Swal.showValidationMessage('Неверное значение скорости взлёта')
                 } else {
                     localStorage.setItem('takeoff_speed', takeoff_speed)

@@ -9,7 +9,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         if (localStorage.getItem('endpoint_address') === null) {
-            localStorage.setItem('camera_path', "C:\\Watchman\\Camera")
+            localStorage.setItem('camera_path', "C:/Watchman/Camera")
             localStorage.setItem('takeoff_speed', "0.5")
             localStorage.setItem('ground_speed', "0.5")
             localStorage.setItem('target_alt', "3")
@@ -34,32 +34,32 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // setInterval(() => {
-        //     this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
-        //     const controller = new AbortController()
-        //     setTimeout(() => controller.abort(), 600)
-        //     fetch(this.endpoint_url,{ signal: controller.signal })
-        //         .then((res) => {
-        //             if (res.status >= 200 && res.status < 300) {
-        //                 return res;
-        //             } else {
-        //                 let error = new Error(res.statusText);
-        //                 error.response = res;
-        //                 throw error
-        //             }
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data['status'] === 'OK') {
-        //                 this.setState({link: true})
-        //                 this.setState({copter_state: Number(data['copter_state'])})
-        //             }
-        //         })
-        //         .catch((e) => {
-        //             this.setState({link: false})
-        //             this.setState({copter_state: 0})
-        //         });
-        // }, 1000)
+        setInterval(() => {
+            this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
+            const controller = new AbortController()
+            setTimeout(() => controller.abort(), 600)
+            fetch(this.endpoint_url,{ signal: controller.signal })
+                .then((res) => {
+                    if (res.status >= 200 && res.status < 300) {
+                        return res;
+                    } else {
+                        let error = new Error(res.statusText);
+                        error.response = res;
+                        throw error
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data['status'] === 'OK') {
+                        this.setState({link: true})
+                        this.setState({copter_state: Number(data['copter_state'])})
+                    }
+                })
+                .catch((e) => {
+                    this.setState({link: false})
+                    this.setState({copter_state: 0})
+                });
+        }, 1000)
 
         setInterval(() => {
             const controller = new AbortController()
