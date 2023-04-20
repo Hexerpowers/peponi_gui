@@ -36,6 +36,7 @@ class SettingsItem extends Component {
     }
 
     syncSettings(showMessage = false) {
+        this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
         let post_endpoint = false
         let post_core = false
 

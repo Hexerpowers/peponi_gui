@@ -10,6 +10,7 @@ class VerticalItem extends Component {
         this.state = {
             alt: 38,
             roll: 20,
+            t_roll:20,
             pitch_back: -530,
             pitch_mark: 69
         }

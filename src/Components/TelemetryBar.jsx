@@ -12,7 +12,8 @@ class TelemetryBar extends Component {
                 roll: 0,
                 pitch_back: -530,
                 pitch_mark: 69,
-                yaw: 0
+                yaw: 0,
+                t_yaw:0
             }
         }
         this.update = this.update.bind(this);
@@ -26,6 +27,7 @@ class TelemetryBar extends Component {
     }
 
     update() {
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
         if (this.props.link) {
             fetch(this.base_url)
                 .then(response => response.json())
@@ -36,7 +38,8 @@ class TelemetryBar extends Component {
                             roll: Number(data['roll']),
                             pitch_back: -530 + Number(data['pitch']),
                             pitch_mark: 69 + Number(data['pitch']),
-                            yaw: Number(data['yaw'])
+                            yaw: Number(data['yaw']),
+                            t_yaw: Number(data['t_yaw'])
                         }
                     })
                 });
@@ -47,7 +50,8 @@ class TelemetryBar extends Component {
                     roll: 0,
                     pitch_back: -530,
                     pitch_mark: 69,
-                    yaw: 0
+                    yaw: 0,
+                    t_yaw: 0
                 }
             })
         }

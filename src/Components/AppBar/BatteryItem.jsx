@@ -43,6 +43,7 @@ class BatteryItem extends Component {
             this.setState({condition: "требует замены"})
         }
         setInterval(() => {
+            this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
             if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())

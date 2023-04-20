@@ -14,7 +14,7 @@ class App extends Component {
             localStorage.setItem('ground_speed', "0.5")
             localStorage.setItem('target_alt', "3")
             localStorage.setItem('return_alt', "3")
-            localStorage.setItem('endpoint_address', "192.168.1.100")
+            localStorage.setItem('endpoint_address', "192.168.1.103")
         }
         this.elevatePowerGood = this.elevatePowerGood.bind(this);
 
@@ -37,7 +37,7 @@ class App extends Component {
         setInterval(() => {
             this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
             const controller = new AbortController()
-            setTimeout(() => controller.abort(), 600)
+            setTimeout(() => controller.abort(), 900)
             fetch(this.endpoint_url,{ signal: controller.signal })
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
@@ -63,7 +63,7 @@ class App extends Component {
 
         setInterval(() => {
             const controller = new AbortController()
-            setTimeout(() => controller.abort(), 600)
+            setTimeout(() => controller.abort(), 900)
             fetch(this.core_url,{ signal: controller.signal })
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {

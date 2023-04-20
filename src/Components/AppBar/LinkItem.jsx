@@ -42,6 +42,7 @@ class LinkItem extends Component {
             }
         });
         setInterval(() => {
+            this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/ping"
             if (this.props.link) {
                 fetch(this.base_url)
                     .then(response => response.json())
