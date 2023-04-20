@@ -55,6 +55,7 @@
 
 .fb-indicator-active {
     border: 5px solid rgb(51, 147, 255);
+    background: rgb(51, 147, 255);
     height: 0;
     width: 72px;
     border-radius: 2px
@@ -62,6 +63,7 @@
 
 .fb-indicator-inactive {
     border: 5px solid rgb(144, 148, 148);
+    background: rgb(144, 148, 148);
     height: 0;
     width: 72px;
     border-radius: 2px
@@ -69,6 +71,7 @@
 
 .fb-indicator-disabled {
     border: 5px solid rgb(218, 67, 67);
+    background: rgb(218, 67, 67);
     height: 0;
     width: 72px;
     border-radius: 2px
@@ -76,6 +79,7 @@
 
 .fb-indicator-enabled {
     border: 5px solid rgb(39, 211, 92);
+    background: rgb(39, 211, 92);
     height: 0;
     width: 72px;
     border-radius: 2px

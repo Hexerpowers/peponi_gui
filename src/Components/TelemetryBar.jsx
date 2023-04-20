@@ -13,7 +13,7 @@ class TelemetryBar extends Component {
                 pitch_back: -530,
                 pitch_mark: 69,
                 yaw: 0,
-                t_yaw:0
+                t_yaw: 0
             }
         }
         this.update = this.update.bind(this);

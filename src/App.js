@@ -38,7 +38,7 @@ class App extends Component {
             this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
             const controller = new AbortController()
             setTimeout(() => controller.abort(), 900)
-            fetch(this.endpoint_url,{ signal: controller.signal })
+            fetch(this.endpoint_url, {signal: controller.signal})
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
                         return res;
@@ -64,7 +64,7 @@ class App extends Component {
         setInterval(() => {
             const controller = new AbortController()
             setTimeout(() => controller.abort(), 900)
-            fetch(this.core_url,{ signal: controller.signal })
+            fetch(this.core_url, {signal: controller.signal})
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
                         return res;
