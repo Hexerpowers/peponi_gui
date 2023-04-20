@@ -27,7 +27,7 @@ class TelemetryBar extends Component {
     }
 
     update() {
-        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/telemetry"
         if (this.props.link) {
             fetch(this.base_url)
                 .then(response => response.json())

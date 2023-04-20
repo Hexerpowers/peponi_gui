@@ -82,7 +82,7 @@ class LandItem extends Component {
     }
 
     toggleLand() {
-        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/land"
         if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',

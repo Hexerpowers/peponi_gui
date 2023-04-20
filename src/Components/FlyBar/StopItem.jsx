@@ -82,7 +82,7 @@ class StopItem extends Component {
     }
 
     toggleStop() {
-        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
+        this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/stop"
         if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',
