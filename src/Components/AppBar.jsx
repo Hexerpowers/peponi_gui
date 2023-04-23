@@ -17,7 +17,7 @@ export class AppBar extends Component {
                 <JournalItem link={this.props.link}/>
                 <div className="appbar-separator"/>
                 <LinkItem link={this.props.link}/>
-                <BatteryItem link={this.props.link}/>
+                <BatteryItem link={this.props.link} status={this.props.status}/>
                 <PowerItem elevate={this.props.elevate_power_good} link={this.props.link_local}/>
                 <div className="appbar-separator"/>
                 <HankItem link={this.props.link_local}/>

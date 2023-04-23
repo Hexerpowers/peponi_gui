@@ -11,6 +11,17 @@ class BatteryItem extends Component {
             charge: "---",
             condition: "не известно"
         }
+        this.toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
     }
 
     addEvent(element, eventName, callback) {
@@ -34,7 +45,7 @@ class BatteryItem extends Component {
             this.setState({condition: "отличное"})
         }
         if (Number(localStorage.getItem('battery_op_time')) > 12000) {
-            this.setState({condition: "{хорошее}"})
+            this.setState({condition: "хорошее"})
         }
         if (Number(localStorage.getItem('battery_op_time')) > 15000) {
             this.setState({condition: "среднее"})
@@ -49,6 +60,15 @@ class BatteryItem extends Component {
                     .then(response => response.json())
                     .then(data => {
                         this.setState({charge: data['charge']})
+                        if (this.props.status !== 0) {
+                            if (Number(data['charge'])<=40){
+                                this.toast.fire({
+                                    icon: 'error',
+                                    title: 'Низкий уровень напряжения, осуществите посадку!'
+                                })
+                            }
+                        }
+
                     });
             } else {
                 this.setState({charge: "---"})
@@ -70,7 +90,7 @@ class BatteryItem extends Component {
                 '<div class="abi-lnk-holder">' +
                 '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>' +
                 '<div class="abi-lnk-line">Состояние: <i>' + this.state.condition + '</i></div>' +
-                '<div class="abi-lnk-line">Уровень заряда: <i>' + this.state.charge + '</i></div>' +
+                '<div class="abi-lnk-line">Уровень заряда: <i>' + this.state.charge + ' %</i></div>' +
                 '<div class="abi-lnk-line">Время полёта на полной зарядке: <i>12 мин</i></div>' +
                 '</div>',
             showCloseButton: true,

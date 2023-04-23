@@ -73,7 +73,7 @@ class LinkItem extends Component {
                 this.vals['level'] = signal_ico_0
                 this.setState({ping: '-'})
             }
-        }, 200)
+        }, 2000)
     }
 
     openLink() {

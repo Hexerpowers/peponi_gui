@@ -24,6 +24,7 @@ class HankItem extends Component {
         this.counter = 0
 
         this.state = {
+            state: 0,
             icon: hank_no_link,
             direction: 0,
             load: '-',
@@ -104,15 +105,23 @@ class HankItem extends Component {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        if (Math.abs(Number(data['length']) - this.state.length) < 1) {
+                        if (Number(data['state']) === 0){
                             this.setState({direction: 0})
-                            this.setState({icon: hank_still});
-                        } else {
-                            this.setState({direction: Number(data['direction'])})
+                            this.setState({load: '-'})
+                            this.setState({length: '-'})
+                            this.setState({op_time: '-'})
+                            this.setState({icon: hank_no_link});
+                        }else {
+                            if (Math.abs(Number(data['length']) - this.state.length) < 1) {
+                                this.setState({direction: 0})
+                                this.setState({icon: hank_still});
+                            } else {
+                                this.setState({direction: Number(data['direction'])})
+                            }
+                            this.setState({load: Number(data['load'])})
+                            this.setState({length: Number(data['length'])})
+                            this.setState({op_time: Number(data['op_time'])})
                         }
-                        this.setState({load: Number(data['load'])})
-                        this.setState({length: Number(data['length'])})
-                        this.setState({op_time: Number(data['op_time'])})
                     });
             } else {
                 this.setState({direction: 0})
