@@ -14,8 +14,20 @@ class PowerItem extends Component {
             out_status: "не выдано",
             icon: power_ico_0,
             voltage: 0,
-            current: 0
+            current_0: 0,
+            current_1: 0
         }
+        this.toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
     }
 
     addEvent(element, eventName, callback) {
@@ -61,14 +73,22 @@ class PowerItem extends Component {
                                 break
                         }
                         this.setState({voltage: data['voltage']})
-                        this.setState({current: data['current']})
+                        this.setState({current_0: data['current_0']})
+                        this.setState({current_1: data['current_1']})
+                        if (Number(data['current_0']) < Number(data['current_1'])) {
+                            this.toast.fire({
+                                icon: 'error',
+                                title: 'Неполадки в НБП, осуществите посадку!'
+                            })
+                        }
                     });
             } else {
                 this.setState({gen_status: "не запущен"})
                 this.setState({out_status: "не выдано"})
                 this.setState({icon: power_ico_0})
                 this.setState({voltage: 0})
-                this.setState({current: 0})
+                this.setState({current_0: 0})
+                this.setState({current_1: 0})
                 this.props.elevate(false)
             }
         }, 1000)
@@ -83,11 +103,12 @@ class PowerItem extends Component {
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">' +
-                '<div class="abi-lnk-line">Состояние: <i>' + this.state.gen_status + '</i></div>' +
-                '<div class="abi-lnk-line">Питание на коптер: <i>' + this.state.out_status + '</i></div>' +
-                '<div class="abi-lnk-line">Напряжение (на коптере): <i>' + this.state.voltage + ' В</i></div>' +
-                '<div class="abi-lnk-line">Ток (на коптере): <i>' + this.state.current + ' А</i></div>' +
+                '<div class="ab-popup-link-holder">' +
+                '<div class="ab-popup-link-line">Состояние: <i>' + this.state.gen_status + '</i></div>' +
+                '<div class="ab-popup-link-line">Питание на коптер: <i>' + this.state.out_status + '</i></div>' +
+                '<div class="ab-popup-link-line">Напряжение питания: <i>' + this.state.voltage + ' В</i></div>' +
+                '<div class="ab-popup-link-line">Ток (через НБП): <i>' + this.state.current_0 + ' А</i></div>' +
+                '<div class="ab-popup-link-line">Ток (через АКБ): <i>' + this.state.current_1 + ' А</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -96,12 +117,12 @@ class PowerItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openPower} className="appbar-icon-item">
-                <img draggable="false" className="appbar-img-icon" src={this.state.icon} alt=""/>
-                <div className="img-toast-lower">
+            <div onClick={this.openPower} className="ab-item">
+                <img draggable="false" className="ab-item-icon" src={this.state.icon} alt=""/>
+                <div className="item-toast">
                     [Г]
                 </div>
-                <div className="appbar-description">Генер.</div>
+                <div className="ab-item-description">Генер.</div>
             </div>
         );
     }

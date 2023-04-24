@@ -1,4 +1,4 @@
-.appbar-holder {
+.ab-holder {
     height: 52px;
     width: 100vw;
     background-color: rgb(21, 21, 21);
@@ -9,15 +9,11 @@
     overflow: hidden;
 }
 
-.appbar-holder:hover {
+.ab-holder:hover {
     height: 71px;
 }
 
-.icon-inverted {
-    filter: invert(100%);
-}
-
-.img-toast-lower {
+.item-toast {
     position: absolute;
     top: 35px;
     right: -9px;
@@ -27,38 +23,38 @@
     filter: brightness(1.5);
 }
 
-.appbar-icon-item {
+.ab-item {
     margin-right: 16px;
     cursor: pointer;
     filter: brightness(0.85);
 }
 
-.appbar-icon-item:hover {
+.ab-item:hover {
     filter: brightness(1.2);
 }
 
-.appbar-img-icon {
+.ab-item-icon {
     height: 54px;
 }
 
-.appbar-separator {
+.ab-separator {
     border-right: 2px solid white;
     border-radius: 2px;
     margin-right: 16px;
 }
 
-.appbar-description {
+.ab-item-description {
     margin: -6px 0 0 3px;
 }
 
-.appbar-ping-value {
+.ab-ping-val {
     position: absolute;
     top: 7px;
     left: 6px;
     font-size: 0.7rem;
 }
 
-.appbar-charge-value {
+.ab-charge-val {
     color: #151515;
     position: absolute;
     top: 16px;
@@ -66,20 +62,20 @@
     font-size: 18px;
 }
 
-.appbar-charge-icon {
+.ab-item-icon-charge {
     transform: scale(1.1);
 }
 
-.appbar-status {
+.ab-status {
     font-size: 40px;
 }
 
-.abi-set-holder {
+.ab-popup-settings-holder {
     display: flex;
     flex-direction: column;
 }
 
-.abi-jrn-holder {
+.ab-popup-journal-holder {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -90,89 +86,32 @@
     white-space: pre;
 }
 
-.abi-set-h2 {
+.ab-popup-settings-h2 {
     align-self: baseline;
     font-size: 20px;
     margin: 10px 10px;
 }
 
-
-.table-holder {
-    display: flex;
-    flex-direction: column;
-    background: rgb(32, 30, 35);
-    border: 1px solid rgb(46, 43, 49);
-    border-radius: 10px;
-    color: rgb(186, 180, 194);
-}
-
-.table-row {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    padding: 4px;
-    border-bottom: 1px dotted rgb(126, 120, 133);
-    font-size: 1.05rem;
-}
-
-.last {
-    border-bottom: none;
-}
-
-.table-row:hover {
-    filter: brightness(1.2);
-    background: rgb(46, 43, 49);
-}
-
-
-.table-row-name {
-    width: 400px;
-    padding-right: 5px;
-    text-align: left;
-}
-
-.table-row-val {
-    padding: 5px;
-    background: rgb(32, 30, 35);
-    border: 1px solid #bdbdbd;
-    border-radius: 5px;
-    width: 300px;
-    font-size: 1rem;
-    color: rgb(186, 180, 194);
-}
-
-.table-row-text {
-    padding: 5px;
-    font-size: 1rem;
-    color: rgb(186, 180, 194);
-}
-
-.swal2-modal {
-    background: rgb(32, 30, 35) !important;
-    border: 3px solid #bdbdbd !important;
-    color: rgb(221, 221, 221) !important;
-}
-
-.abi-jrn-line {
+.ab-popup-journal-line {
     font-size: 14px;
 }
 
-.abi-lnk-holder {
+.ab-popup-link-holder {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.abi-lnk-line {
+.ab-popup-link-line {
     font-size: 18px;
 }
 
-.appbar-icon-flexrow {
+.ab-item-flex_row {
     display: flex;
     flex-direction: row;
 }
 
-.appbar-icon-textblock {
+.ab-item-text_block {
     display: flex;
     flex-direction: column;
     position: absolute;

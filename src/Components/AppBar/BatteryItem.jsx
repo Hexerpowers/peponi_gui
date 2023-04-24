@@ -41,18 +41,6 @@ class BatteryItem extends Component {
                 self.openBattery()
             }
         });
-        if (Number(localStorage.getItem('battery_op_time')) > 6000) {
-            this.setState({condition: "отличное"})
-        }
-        if (Number(localStorage.getItem('battery_op_time')) > 12000) {
-            this.setState({condition: "хорошее"})
-        }
-        if (Number(localStorage.getItem('battery_op_time')) > 15000) {
-            this.setState({condition: "среднее"})
-        }
-        if (Number(localStorage.getItem('battery_op_time')) > 20000) {
-            this.setState({condition: "требует замены"})
-        }
         setInterval(() => {
             this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/charge"
             if (this.props.link) {
@@ -68,15 +56,27 @@ class BatteryItem extends Component {
                                 })
                             }
                         }
+                        this.setState({condition: "отличное"})
+
+                        if (Math.round(Number(localStorage.getItem('battery_op_time'))/60) > 200) {
+                            this.setState({condition: "хорошее"})
+                        }
+                        if (Math.round(Number(localStorage.getItem('battery_op_time'))/60) > 300) {
+                            this.setState({condition: "среднее"})
+                        }
+                        if (Math.round(Number(localStorage.getItem('battery_op_time'))/60) > 500) {
+                            this.setState({condition: "требует замены"})
+                        }
 
                     });
             } else {
                 this.setState({charge: "---"})
+                this.setState({condition: "не известно"})
             }
         }, 2000)
         setInterval(() => {
             localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time')) + 1))
-        }, 6000)
+        }, 60000)
     }
 
     openBattery() {
@@ -87,11 +87,12 @@ class BatteryItem extends Component {
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">' +
-                '<div class="abi-lnk-line">Тип резервной батареи: <i>LiIon</i></div>' +
-                '<div class="abi-lnk-line">Состояние: <i>' + this.state.condition + '</i></div>' +
-                '<div class="abi-lnk-line">Уровень заряда: <i>' + this.state.charge + ' %</i></div>' +
-                '<div class="abi-lnk-line">Время полёта на полной зарядке: <i>12 мин</i></div>' +
+                '<div class="ab-popup-link-holder">' +
+                '<div class="ab-popup-link-line">Тип резервной батареи: <i>Литий-ионная</i></div>' +
+                // '<div class="ab-popup-link-line">Наработка: <i>' + Math.round(Number(localStorage.getItem('battery_op_time'))/60) + ' ч.</i></div>' +
+                '<div class="ab-popup-link-line">Состояние: <i>' + this.state.condition + '</i></div>' +
+                '<div class="ab-popup-link-line">Уровень заряда: <i>' + this.state.charge + ' %</i></div>' +
+                '<div class="ab-popup-link-line">Время полёта на полном заряде: <i>12 мин</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -100,15 +101,15 @@ class BatteryItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openBattery} className="appbar-icon-item">
-                <img draggable="false" className="appbar-img-icon appbar-charge-icon" src={charge_ico} alt=""/>
-                <div className="appbar-charge-value">
+            <div onClick={this.openBattery} className="ab-item">
+                <img draggable="false" className="ab-item-icon ab-item-icon-charge" src={charge_ico} alt=""/>
+                <div className="ab-charge-val">
                     {this.state.charge}%
                 </div>
-                <div className="img-toast-lower">
+                <div className="item-toast">
                     [З]
                 </div>
-                <div className="appbar-description">Заряд</div>
+                <div className="ab-item-description">Заряд</div>
             </div>
         );
     }

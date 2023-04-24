@@ -14,7 +14,7 @@ class App extends Component {
             localStorage.setItem('ground_speed', "0.5")
             localStorage.setItem('target_alt', "3")
             localStorage.setItem('return_alt', "3")
-            localStorage.setItem('endpoint_address', "192.168.1.103")
+            localStorage.setItem('endpoint_address', "192.168.88.167")
         }
         this.elevatePowerGood = this.elevatePowerGood.bind(this);
 

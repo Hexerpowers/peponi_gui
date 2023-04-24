@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import photo_ico from "../../Assets/Img/VideoBar/photo.png";
+import mode_ico from "../../Assets/Img/VideoBar/change_mode.png";
 import Swal from "sweetalert2";
 
-class PhotoItem extends Component {
+class ModeItem extends Component {
     constructor(props) {
         super(props);
-        this.togglePhoto = this.togglePhoto.bind(this);
+        this.toggleMode = this.toggleMode.bind(this);
         this.toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -21,7 +21,7 @@ class PhotoItem extends Component {
             active: '',
             indicator: 'inactive'
         }
-        this.photo_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/photo"
+        this.photo_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/mode"
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,9 +45,8 @@ class PhotoItem extends Component {
         }
     }
 
-
-    togglePhoto() {
-        this.photo_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/photo"
+    toggleMode() {
+        this.photo_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/mode"
         if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',
@@ -68,7 +67,7 @@ class PhotoItem extends Component {
                 if (data['status'] === 'OK') {
                     this.toast.fire({
                         icon: 'success',
-                        title: 'Фото сохранено'
+                        title: 'Режим отображения изменён'
                     })
                 }
             });
@@ -78,12 +77,12 @@ class PhotoItem extends Component {
         let active = 'vb-item ' + this.state.active
         let indicator = 'vb-indicator-' + this.state.indicator
         return (
-            <div onClick={this.togglePhoto} className={active}>
-                <img draggable="false" className="vb-item-icon-photo" src={photo_ico} alt=""/>
+            <div onClick={this.toggleMode} className={active}>
+                <img draggable="false" className="vb-item-icon-mode" src={mode_ico} alt=""/>
                 <div className={indicator}/>
             </div>
         );
     }
 }
 
-export default PhotoItem;
+export default ModeItem;

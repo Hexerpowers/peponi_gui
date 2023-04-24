@@ -7,7 +7,7 @@ class JournalItem extends Component {
         super(props);
         this.openJournal = this.openJournal.bind(this);
         this.state = {
-            logs: "-------Ожидаю подключение-------\r\n"
+            logs: "------- Ожидаю подключение -------\r\n"
         }
         this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/logs"
 
@@ -40,7 +40,7 @@ class JournalItem extends Component {
                         this.setState({logs: data['log_list']})
                     });
             }
-        }, 200)
+        }, 1000)
     }
 
 
@@ -50,31 +50,24 @@ class JournalItem extends Component {
             width: '700px',
             position: 'top-right',
             html:
-                '<div class="abi-jrn-holder">' +
+                '<div class="ab-popup-journal-holder">' +
                 this.state.logs +
                 '</div>',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             showCloseButton: true,
             showConfirmButton: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
-            }
         })
     }
 
     render() {
         return (
-            <div onClick={this.openJournal} className="appbar-icon-item">
-                <img draggable="false" className="appbar-img-icon" src={logs_ico} alt=""/>
-                <div className="img-toast-lower">
+            <div onClick={this.openJournal} className="ab-item">
+                <img draggable="false" className="ab-item-icon" src={logs_ico} alt=""/>
+                <div className="item-toast">
                     [Ж]
                 </div>
-                <div className="appbar-description">Журнал</div>
+                <div className="ab-item-description">Журнал</div>
             </div>
         );
     }

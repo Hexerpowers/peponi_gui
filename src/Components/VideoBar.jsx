@@ -5,13 +5,15 @@ import CameraItem from "./VideoBar/CameraItem";
 import RecordItem from "./VideoBar/RecordItem";
 import PhotoItem from "./VideoBar/PhotoItem";
 import Swal from "sweetalert2";
+import ModeItem from "./VideoBar/ModeItem";
 
 class VideoBar extends Component {
     constructor(props) {
         super(props);
         this.toggleCamera = this.toggleCamera.bind(this);
         this.state = {
-            camera: false
+            camera: false,
+            cam_link: false
         }
         this.toast = Swal.mixin({
             toast: true,
@@ -24,14 +26,36 @@ class VideoBar extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
+        this.camera_url = "http://192.168.88.110/"
     }
 
     componentDidMount() {
-        this.setState({camera: localStorage.getItem('cam_enabled') === 'true'})
+        // this.setState({camera: localStorage.getItem('cam_enabled') === 'true'})
         if (this.state.camera) {
-            document.querySelector('#toggle_camera').className = "vs-bar-item vs-bar-item-active"
+            document.querySelector('#toggle_camera').className = "vb-item vb-item-active"
         } else {
-            document.querySelector('#toggle_camera').className = "vs-bar-item"
+            document.querySelector('#toggle_camera').className = "vb-item"
+        }
+
+        setInterval(() => {
+            const controller = new AbortController()
+            setTimeout(() => controller.abort(), 900)
+            fetch(this.camera_url, {
+                method: 'GET',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                signal: controller.signal
+            })
+                .then(() => {this.setState({cam_link: true})})
+                .catch(e => {this.setState({cam_link: false})});
+        }, 2000)
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.link === true && this.props.link === false) {
+            this.setState({camera: false})
         }
     }
 
@@ -43,6 +67,13 @@ class VideoBar extends Component {
             })
             return
         }
+        if (!this.state.cam_link) {
+            this.toast.fire({
+                icon: 'error',
+                title: 'Нет соединения с камерой'
+            })
+            return
+        }
         this.setState({camera: !this.state.camera})
         localStorage.setItem('cam_enabled', String(!this.state.camera))
     }
@@ -50,17 +81,18 @@ class VideoBar extends Component {
     render() {
         return (
             <div>
-                <div className="vs-fullscreen">
+                <div className="vb-fullscreen">
                     {this.state.camera &&
-                        <iframe className="vs-iframe"
+                        <iframe className="vb-iframe"
                                 src="http://localhost:1984/stream.html?src=cam_input&mode=webrtc"/>
                     }
                 </div>
-                <div className="vs-cover"/>
-                <div className="vs-bar">
-                    <CameraItem link={this.props.link} status={this.state.camera} elevate={this.toggleCamera}/>
-                    <RecordItem link={this.props.link}/>
-                    <PhotoItem link={this.props.link}/>
+                <div className="vb-cover"/>
+                <div className="vb-holder">
+                    <CameraItem cam_link={this.state.cam_link} link={this.props.link} status={this.state.camera} elevate={this.toggleCamera}/>
+                    <ModeItem cam_link={this.state.cam_link} link={this.props.link}/>
+                    <RecordItem cam_link={this.state.cam_link} link={this.props.link}/>
+                    <PhotoItem cam_link={this.state.cam_link} link={this.props.link}/>
                 </div>
             </div>
         );

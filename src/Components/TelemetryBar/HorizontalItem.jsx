@@ -21,11 +21,11 @@ class HorizontalItem extends Component {
 
     render() {
         return (
-            <div className="tb-item-container">
-                <img className="tb-hi-back" src={heading_back}/>
-                <img style={{transform: 'rotate(' + this.state.yaw + 'deg)'}} className="tb-hi-mark"
+            <div className="tb-item-holder">
+                <img draggable="false" className="tb-hi-back" src={heading_back}/>
+                <img draggable="false" style={{transform: 'rotate(' + this.state.yaw + 'deg)'}} className="tb-hi-mark"
                      src={heading_mark}/>
-                <img style={{transform: 'rotate(' + this.state.t_yaw + 'deg)'}} className="tb-hi-target-mark"
+                <img draggable="false" style={{transform: 'rotate(' + this.state.t_yaw + 'deg)'}} className="tb-hi-target-mark"
                      src={target_heading_mark}/>
             </div>
         );

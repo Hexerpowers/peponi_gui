@@ -9,14 +9,14 @@ import StopItem from "./FlyBar/StopItem";
 export class FlyBar extends Component {
     render() {
         return (
-            <div className="flybar-holder font-firacode">
+            <div className="fb-holder font-fira_code">
                 <TakeoffItem power_good={this.props.power_good} status={this.props.copter_status}
                              link={this.props.link}/>
-                <div className="flybar-separator"/>
+                <div className="fb-separator"/>
                 <LandItem status={this.props.copter_status} link={this.props.link}/>
-                <div className="flybar-separator"/>
+                <div className="fb-separator"/>
                 <StopItem status={this.props.copter_status} link={this.props.link}/>
-                <div className="flybar-separator"/>
+                <div className="fb-separator"/>
                 <ManualItem status={this.props.copter_status} link={this.props.link}/>
             </div>
         );

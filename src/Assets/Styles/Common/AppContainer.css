@@ -19,9 +19,10 @@ body {
     overflow: hidden;
     background: rgb(42, 42, 42);
     color: rgb(221, 221, 221);
+    user-select: none;
 }
 
-.font-firacode {
+.font-fira_code {
     font-family: 'FiraCode', serif;
 }
 
@@ -38,7 +39,7 @@ body {
     flex-direction: column;
 }
 
-.apppage {
+.app-page {
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -49,14 +50,6 @@ body {
     position: sticky;
     z-index: 1;
     margin-top: 1rem;
-}
-
-
-.apppage-holder {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
 }
 
 .switch {
@@ -117,5 +110,67 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.table-holder {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: rgb(32, 30, 35);
+    border: 1px solid rgb(46, 43, 49);
+    border-radius: 10px;
+    color: rgb(186, 180, 194);
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    padding: 4px;
+    border-bottom: 1px dotted rgb(126, 120, 133);
+    font-size: 1.05rem;
+}
+
+.last {
+    border-bottom: none;
+}
+
+.table-row:hover {
+    filter: brightness(1.2);
+    background: rgb(46, 43, 49);
+}
+
+
+.table-row-name {
+    width: 400px;
+    padding-right: 5px;
+    text-align: left;
+}
+
+.table-row-val {
+    padding: 5px;
+    background: rgb(32, 30, 35);
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    width: 300px;
+    font-size: 1rem;
+    color: rgb(186, 180, 194);
+}
+
+.table-row-text {
+    padding: 5px;
+    font-size: 1rem;
+    color: rgb(186, 180, 194);
+}
+
+.swal2-modal {
+    background: rgb(32, 30, 35) !important;
+    border: 3px solid #bdbdbd !important;
+    color: rgb(221, 221, 221) !important;
 }
 

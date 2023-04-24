@@ -1,4 +1,4 @@
-.vs-fullscreen {
+.vb-fullscreen {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -6,7 +6,7 @@
     top: 62px;
 }
 
-.vs-cover {
+.vb-cover {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -14,19 +14,18 @@
     top: 62px;
 }
 
-.vs-iframe {
+.vb-iframe {
     width: 100vw;
     height: calc(100vh - 62px);
     border: 0;
-    /*margin-top: 62px;*/
 }
 
-.vs-bar {
+.vb-holder {
     position: fixed;
     z-index: 1;
     bottom: 20px;
     right: 20px;
-    width: 280px;
+    width: 350px;
     height: 100px;
     background-color: rgb(21, 21, 21);
     border-radius: 7px;
@@ -37,7 +36,7 @@
     padding: 0 15px;
 }
 
-.vs-bar-item {
+.vb-item {
     width: 80px;
     height: 80px;
     background: rgb(42, 42, 42);
@@ -50,18 +49,24 @@
     filter: brightness(0.75);
 }
 
-.icon-cam {
+.vb-item-icon-camera {
     width: 74px;
 }
 
-.icon-record {
+.vb-item-icon-record {
     width: 90px;
     margin-top: 2px;
 }
 
-.icon-photo {
+.vb-item-icon-photo {
     width: 56px;
     margin-top: 9px;
+}
+
+.vb-item-icon-mode {
+    width: 60px;
+    margin-top: 7px;
+    margin-bottom: 6px;
 }
 
 .vb-item-active {

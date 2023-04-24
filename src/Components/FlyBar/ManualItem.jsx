@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import manual_icon from "../../Assets/Img/FlyBar/manual.png";
+import manual_help from "../../Assets/Img/FlyBar/manual_help.png"
 import Swal from "sweetalert2";
 
 class ManualItem extends Component {
@@ -33,7 +34,7 @@ class ManualItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'fb-icon-active'
+            active = 'fb-item-active'
             if (nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9) {
                 if (prevState.enabled) {
                     indicator = 'enabled'
@@ -82,13 +83,13 @@ class ManualItem extends Component {
             msg.innerHTML = "Нажмите ещё раз для включения ручного режима в течение (" + timeout + ") секунд"
 
         }
-        msg.className = 'flybar-takeoff-message'
+        msg.className = 'fb-alert-message'
     }
 
     hidePreManualMessage() {
         let msg = document.querySelector('#manual-message')
         msg.innerHTML = ""
-        msg.className = 'flybar-takeoff-message hidden'
+        msg.className = 'fb-alert-message hidden'
     }
 
     toggleManual() {
@@ -154,21 +155,28 @@ class ManualItem extends Component {
     }
 
     render() {
-        let active = 'fb-icon-item ' + this.state.active
+        let active = 'fb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
+        let help = 'fb-manual-help hidden'
+        if (this.state.indicator === 'enabled'){
+            help = 'fb-manual-help'
+        }
         return (
             <div>
                 <div onClick={this.toggleManual} className={active}>
-                    <img draggable="false" className="flybar-img-icon" src={manual_icon}/>
+                    <img draggable="false" className="fb-item-icon" src={manual_icon}/>
                     <div className={indicator}/>
-                    <div className="img-toast-lower">
+                    <div className="item-toast">
                         [Р]
                     </div>
-                    <div className="img-toast-lower hidden">
+                    <div className="item-toast hidden">
                         [Ручной]
                     </div>
                 </div>
-                <div id="manual-message" className="flybar-takeoff-message hidden"></div>
+                <div id="manual-message" className="fb-alert-message hidden"></div>
+                <div id="manual-help" className={help}>
+                    <img draggable="false" className="fb-manual-help-img" src={manual_help}/>
+                </div>
             </div>
         );
     }

@@ -14,7 +14,7 @@ class LinkItem extends Component {
         this.openLink = this.openLink.bind(this)
         this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/ping"
         this.state = {
-            ping: 2000
+            ping: '-'
         }
 
         this.vals = {
@@ -84,10 +84,10 @@ class LinkItem extends Component {
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">' +
-                '<div class="abi-lnk-line">Подключение: <i>' + this.vals.link + '</i></div>' +
-                '<div class="abi-lnk-line">Задержка передачи: <i>' + this.state.ping + ' мс</i></div>' +
-                '<div class="abi-lnk-line">Параметры: <i>100M+ Full Duplex</i></div>' +
+                '<div class="ab-popup-link-holder">' +
+                '<div class="ab-popup-link-line">Подключение: <i>' + this.vals.link + '</i></div>' +
+                '<div class="ab-popup-link-line">Задержка передачи: <i>' + this.state.ping + ' мс</i></div>' +
+                '<div class="ab-popup-link-line">Параметры: <i>880 Мбит, полный дуплекс</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -96,15 +96,15 @@ class LinkItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openLink} className="appbar-icon-item">
-                <img draggable="false" className="appbar-img-icon" src={this.vals.level} alt=""/>
-                <div className="appbar-ping-value">
+            <div onClick={this.openLink} className="ab-item">
+                <img draggable="false" className="ab-item-icon" src={this.vals.level} alt=""/>
+                <div className="ab-ping-val">
                     {this.state.ping}ms
                 </div>
-                <div className="img-toast-lower">
+                <div className="item-toast">
                     [С]
                 </div>
-                <div className="appbar-description">Связь</div>
+                <div className="ab-item-description">Связь</div>
             </div>
         );
     }

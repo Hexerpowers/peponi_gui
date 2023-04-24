@@ -14,11 +14,15 @@ class CameraItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'vb-icon-active'
-            if (nextProps.status) {
-                indicator = 'enabled'
+            active = 'fb-item-active'
+            if (nextProps.cam_link) {
+                if (nextProps.status) {
+                    indicator = 'enabled'
+                } else {
+                    indicator = 'active'
+                }
             } else {
-                indicator = 'active'
+                indicator = 'disabled'
             }
         } else {
             active = ''
@@ -32,11 +36,11 @@ class CameraItem extends Component {
     }
 
     render() {
-        let active = 'vs-bar-item ' + this.state.active
+        let active = 'vb-item ' + this.state.active
         let indicator = 'vb-indicator-' + this.state.indicator
         return (
             <div id="toggle_camera" onClick={this.props.elevate} className={active}>
-                <img draggable="false" className="icon-cam" src={cam_ico} alt=""/>
+                <img draggable="false" className="vb-item-icon-camera" src={cam_ico} alt=""/>
                 <div className={indicator}/>
             </div>
         );

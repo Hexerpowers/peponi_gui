@@ -41,7 +41,7 @@ class LandItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'fb-icon-active'
+            active = 'fb-item-active'
             if (nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 8) {
                 indicator = 'active'
             } else {
@@ -72,13 +72,13 @@ class LandItem extends Component {
     showPreLandMessage(timeout) {
         let msg = document.querySelector('#land-message')
         msg.innerHTML = "Нажмите ещё раз в течение (" + timeout + ") секунд ДЛЯ ПОСАДКИ"
-        msg.className = 'flybar-takeoff-message'
+        msg.className = 'fb-alert-message'
     }
 
     hidePreLandMessage() {
         let msg = document.querySelector('#land-message')
         msg.innerHTML = ""
-        msg.className = 'flybar-takeoff-message hidden'
+        msg.className = 'fb-alert-message hidden'
     }
 
     toggleLand() {
@@ -142,22 +142,22 @@ class LandItem extends Component {
     }
 
     render() {
-        let active = 'fb-icon-item ' + this.state.active
+        let active = 'fb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
         return (
             <div>
                 <div onClick={this.toggleLand} className={active}>
-                    <img draggable="false" className="flybar-img-icon" src={land_ico} alt=""/>
+                    <img draggable="false" className="fb-item-icon" src={land_ico} alt=""/>
                     <div className={indicator}/>
-                    <div className="img-toast-lower">
+                    <div className="item-toast">
                         [П]
                     </div>
-                    <div className="img-toast-lower hidden">
+                    <div className="item-toast hidden">
                         [Посадка]
                     </div>
                     {/*<div className="flybar-description">Посадка</div>*/}
                 </div>
-                <div id="land-message" className="flybar-takeoff-message hidden"></div>
+                <div id="land-message" className="fb-alert-message hidden"></div>
             </div>
         );
     }

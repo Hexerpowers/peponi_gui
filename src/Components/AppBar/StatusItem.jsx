@@ -21,10 +21,12 @@ class StatusItem extends Component {
                     return {state_text: "В полёте"}
                 case 4:
                     return {state_text: "Посадка на исходную точку"}
+                case 7:
+                    return {state_text: "Аварийная посадка - ошибка питания"}
                 case 8:
-                    return {state_text: "Экстренная остановка"}
+                    return {state_text: "Остановка"}
                 case 9:
-                    return {state_text: "Ошибка в процессе полёта, аварийная посадка"}
+                    return {state_text: "Аварийная посадка - ошибка связи"}
                 default:
                     return {state_text: "Ошибка соединения"}
             }
@@ -35,7 +37,7 @@ class StatusItem extends Component {
 
     render() {
         return (
-            <div className="appbar-status">-> {this.state.state_text}</div>
+            <div className="ab-status">-> {this.state.state_text}</div>
         );
     }
 }

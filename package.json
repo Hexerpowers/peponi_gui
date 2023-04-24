@@ -1,9 +1,9 @@
 {
 	"name": "watchman",
-	"version": "1.0.0",
+	"version": "1.2.2",
 	"private": true,
 	"main": "electron/main.js",
-	"productName": "Omega Copter",
+	"productName": "СТРАЖ",
 	"author": {
 		"name": "Акжигитов Артём",
 		"email": "info@hxps.ru",
@@ -55,12 +55,12 @@
 		],
 		"publish": {
 			"provider": "github",
-			"repo": "progress_gui",
+			"repo": "watchman_gui",
 			"owner": "Hexerpowers"
 		},
 		"win": {
 			"target": "msi",
-			"icon": "build/logo512.png"
+			"icon": "build/logo472.png"
 		}
 	}
 }

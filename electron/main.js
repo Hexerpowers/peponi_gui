@@ -33,7 +33,7 @@ app.whenReady().then(() => {
     let win = new BrowserWindow({
         show: false,
         useContentSize: true,
-        minimizable: false,
+        // minimizable: false,
         title: 'Страж | Omega Copter',
         webPreferences: {
             nodeIntegration: true,

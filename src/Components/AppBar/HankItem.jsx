@@ -141,11 +141,11 @@ class HankItem extends Component {
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div class="abi-lnk-holder">' +
-                '<div class="abi-lnk-line">Режим: <i>Поддержание натяжения</i></div>' +
-                '<div class="abi-lnk-line">Выдано кабеля: <i>' + this.state.length + ' м</i></div>' +
-                '<div class="abi-lnk-line">Натяжение кабеля: <i>' + this.state.load + ' кг</i></div>' +
-                '<div class="abi-lnk-line">Наработка кабеля: <i>' + this.state.op_time + ' ч</i></div>' +
+                '<div class="ab-popup-link-holder">' +
+                '<div class="ab-popup-link-line">Режим работы: <i>Поддержание натяжения</i></div>' +
+                '<div class="ab-popup-link-line">Выдано кабеля: <i>' + this.state.length + ' м</i></div>' +
+                '<div class="ab-popup-link-line">Натяжение кабеля: <i>' + this.state.load + ' кг</i></div>' +
+                '<div class="ab-popup-link-line">Наработка кабеля: <i>' + this.state.op_time + ' ч</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
@@ -154,18 +154,18 @@ class HankItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openHank} className="appbar-icon-item" style={{margin: "0 84px 0 0"}}>
-                <div className="appbar-icon-flexrow">
-                    <img draggable="false" className="appbar-img-icon" src={this.state.icon} alt=""/>
-                    <div className="appbar-icon-textblock">
+            <div onClick={this.openHank} className="ab-item" style={{margin: "0 84px 0 0"}}>
+                <div className="ab-item-flex_row">
+                    <img draggable="false" className="ab-item-icon" src={this.state.icon} alt=""/>
+                    <div className="ab-item-text_block">
                         <div className="appbar-minitext">{this.state.length} м</div>
                         <div className="appbar-minitext">{this.state.load} кг</div>
                     </div>
                 </div>
-                <div className="img-toast-lower" style={{right: '-4px'}}>
+                <div className="item-toast" style={{right: '-4px'}}>
                     [К]
                 </div>
-                <div className="appbar-description" style={{margin: "0px 0 0 3px"}}>Катушка</div>
+                <div className="ab-item-description" style={{margin: "0px 0 0 3px"}}>Катушка</div>
             </div>
         );
     }

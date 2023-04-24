@@ -27,12 +27,12 @@ class VerticalItem extends Component {
 
     render() {
         return (
-            <div className="tb-item-container">
-                <img style={{transform: 'rotate(' + this.state.roll + 'deg)', top: this.state.pitch_back + 'px'}}
+            <div className="tb-item-holder">
+                <img draggable="false" style={{transform: 'rotate(' + this.state.roll + 'deg)', top: this.state.pitch_back + 'px'}}
                      className="tb-vi-back" src={roll_pitch_back}/>
                 <div style={{top: this.state.pitch_mark + 'px'}} className="tb-vi-pitch-mark"/>
-                <img className="tb-vi-angles" src={roll_pitch_angles}/>
-                <img style={{transform: 'rotate(' + this.state.roll + 'deg)'}} className="tb-vi-roll-mark"
+                <img draggable="false" className="tb-vi-angles" src={roll_pitch_angles}/>
+                <img draggable="false" style={{transform: 'rotate(' + this.state.roll + 'deg)'}} className="tb-vi-roll-mark"
                      src={roll_mark}/>
                 <div className="tb-vi-alt"><i>{this.state.alt} м</i></div>
             </div>

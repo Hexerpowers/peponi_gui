@@ -30,11 +30,15 @@ class RecordItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'vb-icon-active'
-            if (prevState.enabled) {
-                indicator = 'enabled'
+            active = 'fb-item-active'
+            if (nextProps.cam_link) {
+                if (prevState.enabled) {
+                    indicator = 'enabled'
+                } else {
+                    indicator = 'active'
+                }
             } else {
-                indicator = 'active'
+                indicator = 'disabled'
             }
         } else {
             active = ''
@@ -52,6 +56,13 @@ class RecordItem extends Component {
             this.toast.fire({
                 icon: 'error',
                 title: 'Нет соединения с коптером'
+            })
+            return
+        }
+        if (!this.props.link_cam) {
+            this.toast.fire({
+                icon: 'error',
+                title: 'Нет соединения с камерой'
             })
             return
         }
@@ -79,11 +90,11 @@ class RecordItem extends Component {
     }
 
     render() {
-        let active = 'vs-bar-item ' + this.state.active
+        let active = 'vb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
         return (
             <div onClick={this.toggleRecord} className={active}>
-                <img draggable="false" className="icon-record" src={record_ico} alt=""/>
+                <img draggable="false" className="vb-item-icon-record" src={record_ico} alt=""/>
                 <div className={indicator}/>
             </div>
         );

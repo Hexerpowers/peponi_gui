@@ -42,7 +42,7 @@ class TakeoffItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'fb-icon-active'
+            active = 'fb-item-active'
             if ((nextProps.power_good || localStorage.getItem('power_onboard') === 'true') && (nextProps.status === 1 || nextProps.status === 8)) {
                 indicator = 'active'
             } else {
@@ -72,13 +72,13 @@ class TakeoffItem extends Component {
     showPreTakeoffMessage(timeout) {
         let msg = document.querySelector('#takeoff-message')
         msg.innerHTML = "Нажмите ещё раз в течение (" + timeout + ") секунд для ВЗЛЁТА"
-        msg.className = 'flybar-takeoff-message'
+        msg.className = 'fb-alert-message'
     }
 
     hidePreTakeoffMessage() {
         let msg = document.querySelector('#takeoff-message')
         msg.innerHTML = ""
-        msg.className = 'flybar-takeoff-message hidden'
+        msg.className = 'fb-alert-message hidden'
     }
 
     toggleTakeoff() {
@@ -149,21 +149,21 @@ class TakeoffItem extends Component {
     }
 
     render() {
-        let active = 'fb-icon-item ' + this.state.active
+        let active = 'fb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
         return (
             <div>
                 <div onClick={this.toggleTakeoff} className={active}>
-                    <img draggable="false" className="flybar-img-icon" src={takeoff_ico} alt=""/>
+                    <img draggable="false" className="fb-item-icon" src={takeoff_ico} alt=""/>
                     <div className={indicator}/>
-                    <div className="img-toast-lower">
+                    <div className="item-toast">
                         [В]
                     </div>
-                    <div className="img-toast-lower hidden">
+                    <div className="item-toast hidden">
                         [Взлёт]
                     </div>
                 </div>
-                <div id="takeoff-message" className="flybar-takeoff-message hidden">
+                <div id="takeoff-message" className="fb-alert-message hidden">
                 </div>
             </div>
         );

@@ -37,8 +37,6 @@ class SettingsItem extends Component {
 
     syncSettings(showMessage = false) {
         this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
-        let post_endpoint = false
-        let post_core = false
 
         if (this.props.link) {
             try {
@@ -57,7 +55,12 @@ class SettingsItem extends Component {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        post_endpoint = true
+                        if (showMessage) {
+                            this.toast.fire({
+                                icon: 'success',
+                                title: 'Настройки синхронизированы'
+                            })
+                        }
                     });
             } catch {
                 console.log('Error while posting to [endpoint]')
@@ -76,37 +79,6 @@ class SettingsItem extends Component {
                     camera_path: localStorage.getItem('camera_path'),
                 })
             })
-                .then(response => response.json())
-                .then(data => {
-                    post_core = true
-                });
-        }
-        if (showMessage) {
-            if (post_core && post_endpoint) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы'
-                })
-                return
-            }
-            if (post_core) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки синхронизированы (локально)'
-                })
-                return;
-            }
-            if (post_endpoint) {
-                this.toast.fire({
-                    icon: 'success',
-                    title: 'Настройки коптера синхронизированы (коптер)'
-                })
-                return
-            }
-            this.toast.fire({
-                icon: 'success',
-                title: 'Настройки сохранены'
-            })
         }
     }
 
@@ -123,7 +95,7 @@ class SettingsItem extends Component {
                 self.openSettings()
             }
         });
-        setInterval(() => this.syncSettings(), 2000)
+        setInterval(() => this.syncSettings(), 3000)
     }
 
     validate_ip(ipaddress) {
@@ -147,34 +119,34 @@ class SettingsItem extends Component {
 
 
     openSettings() {
-        let power_onboard = ''
-        if (localStorage.getItem('power_onboard') === 'true') {
-            power_onboard = 'checked'
-        }
+        // let power_onboard = ''
+        // if (localStorage.getItem('power_onboard') === 'true') {
+        //     power_onboard = 'checked'
+        // }
         Swal.fire({
             title: '<strong>Настройки</strong>',
             width: '700px',
             html:
-                '<div class="abi-set-holder">' +
-                '<h2 class="abi-set-h2">Настройки приложения:</h2>' +
+                '<div class="ab-popup-settings-holder">' +
+                '<h2 class="ab-popup-settings-h2">Настройки приложения:</h2>' +
                 '<div class="table-holder">' +
-                '<div class="table-row">' +
-                '<div class="table-row-name">Взлёт с использованием батареи: </div>' +
-                '<label class="switch">' +
-                '<input id="power_onboard" onchange="localStorage.setItem(\'power_onboard\', this.checked)" ' + power_onboard + ' type="checkbox">' +
-                '<span class="slider round"></span>' +
-                '</label>' +
-                '</div>' +
+                // '<div class="table-row">' +
+                // '<div class="table-row-name">Взлёт с ненормативным питанием: </div>' +
+                // '<label class="switch">' +
+                // '<input id="power_onboard" onchange="localStorage.setItem(\'power_onboard\', this.checked)" ' + power_onboard + ' type="checkbox">' +
+                // '<span class="slider round"></span>' +
+                // '</label>' +
+                // '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">IP адрес коптера в сети: </div>' +
                 '<input id="endpoint_address" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
                 '</div>' +
                 '<div class="table-row last">' +
-                '<div class="table-row-name">Путь для сохранения фото и видео: </div>' +
+                '<div class="table-row-name">Путь для сохранения видео: </div>' +
                 '<input id="camera_path" class="table-row-val" value="' + localStorage.getItem('camera_path') + '" />' +
                 '</div>' +
                 '</div>' +
-                '<h2 class="abi-set-h2">Настройки коптера:</h2>' +
+                '<h2 class="ab-popup-settings-h2">Настройки коптера:</h2>' +
                 '<div class="table-holder">' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">Высота взлёта <i>[2 — 110]</i>, м: </div>' +
@@ -247,12 +219,12 @@ class SettingsItem extends Component {
 
     render() {
         return (
-            <div onClick={this.openSettings} className="appbar-icon-item">
-                <img draggable="false" className="appbar-img-icon" src={settings_ico} alt=""/>
-                <div className="img-toast-lower">
+            <div onClick={this.openSettings} className="ab-item">
+                <img draggable="false" className="ab-item-icon" src={settings_ico} alt=""/>
+                <div className="item-toast">
                     [Н]
                 </div>
-                <div className="appbar-description">Настр.</div>
+                <div className="ab-item-description">Настр.</div>
             </div>
         );
     }
