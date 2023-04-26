@@ -59,7 +59,7 @@ class RecordItem extends Component {
             })
             return
         }
-        if (!this.props.link_cam) {
+        if (!this.props.cam_link) {
             this.toast.fire({
                 icon: 'error',
                 title: 'Нет соединения с камерой'

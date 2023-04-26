@@ -60,13 +60,13 @@ class VideoBar extends Component {
     }
 
     toggleCamera() {
-        if (!this.props.link) {
-            this.toast.fire({
-                icon: 'error',
-                title: 'Нет соединения с коптером'
-            })
-            return
-        }
+        // if (!this.props.link) {
+        //     this.toast.fire({
+        //         icon: 'error',
+        //         title: 'Нет соединения с коптером'
+        //     })
+        //     return
+        // }
         if (!this.state.cam_link) {
             this.toast.fire({
                 icon: 'error',
