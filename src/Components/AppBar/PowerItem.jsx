@@ -9,6 +9,7 @@ class PowerItem extends Component {
         super(props);
         this.openPower = this.openPower.bind(this)
         this.base_url = "http://127.0.0.1:5053/api/v1/get/power"
+        this.opened = false
         this.state = {
             gen_status: "не запущен",
             out_status: "не выдано",
@@ -75,12 +76,12 @@ class PowerItem extends Component {
                         this.setState({voltage: data['voltage']})
                         this.setState({current_0: data['current_0']})
                         this.setState({current_1: data['current_1']})
-                        if (Number(data['current_0']) < Number(data['current_1'])) {
-                            this.toast.fire({
-                                icon: 'error',
-                                title: 'Неполадки в НБП, осуществите посадку!'
-                            })
-                        }
+                        // if (Number(data['current_0']) < Number(data['current_1'])) {
+                        //     this.toast.fire({
+                        //         icon: 'error',
+                        //         title: 'Неполадки в НБП, осуществите посадку!'
+                        //     })
+                        // }
                     });
             } else {
                 this.setState({gen_status: "не запущен"})
@@ -91,11 +92,19 @@ class PowerItem extends Component {
                 this.setState({current_1: 0})
                 this.props.elevate(false)
             }
-        }, 1000)
+            if (localStorage.getItem('triggered_power') === '1'){
+                document.getElementById('ab-popup-power-status').innerText = this.state.gen_status
+                document.getElementById('ab-popup-power-ok').innerText = this.state.out_status
+                document.getElementById('ab-popup-power-voltage').innerText = this.state.voltage+ ' В'
+                document.getElementById('ab-popup-power-current_0').innerText = this.state.current_0+ ' А'
+                document.getElementById('ab-popup-power-current_1').innerText = this.state.current_1+ ' А'
+            }
+        }, 700)
     }
 
 
     openPower() {
+        localStorage.setItem('triggered_power', "1")
         Swal.fire({
             title: '<strong>Генератор</strong>',
             width: '500px',
@@ -104,14 +113,16 @@ class PowerItem extends Component {
             hideClass: {popup: ''},
             html:
                 '<div class="ab-popup-link-holder">' +
-                '<div class="ab-popup-link-line">Состояние: <i>' + this.state.gen_status + '</i></div>' +
-                '<div class="ab-popup-link-line">Питание на коптер: <i>' + this.state.out_status + '</i></div>' +
-                '<div class="ab-popup-link-line">Напряжение питания: <i>' + this.state.voltage + ' В</i></div>' +
-                '<div class="ab-popup-link-line">Ток (через НБП): <i>' + this.state.current_0 + ' А</i></div>' +
-                '<div class="ab-popup-link-line">Ток (через АКБ): <i>' + this.state.current_1 + ' А</i></div>' +
+                '<div class="ab-popup-link-line">Состояние: <i id="ab-popup-power-status">' + this.state.gen_status + '</i></div>' +
+                '<div class="ab-popup-link-line">Питание на коптер: <i id="ab-popup-power-ok">' + this.state.out_status + '</i></div>' +
+                '<div class="ab-popup-link-line">Напряжение питания: <i id="ab-popup-power-voltage">' + this.state.voltage + ' В</i></div>' +
+                '<div class="ab-popup-link-line">Ток (через НБП): <i id="ab-popup-power-current_0">' + this.state.current_0 + ' А</i></div>' +
+                '<div class="ab-popup-link-line">Ток (через АБ): <i id="ab-popup-power-current_1">' + this.state.current_1 + ' А</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('triggered_power', "0")
         })
     }
 

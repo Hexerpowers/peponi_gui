@@ -73,6 +73,9 @@ class BatteryItem extends Component {
                 this.setState({charge: "---"})
                 this.setState({condition: "не известно"})
             }
+            if (localStorage.getItem('triggered_battery') === '1'){
+                document.getElementById('ab-popup-battery-charge').innerText = this.state.charge + ' %'
+            }
         }, 2000)
         setInterval(() => {
             localStorage.setItem('battery_op_time', String(Number(localStorage.getItem('battery_op_time')) + 1))
@@ -80,6 +83,7 @@ class BatteryItem extends Component {
     }
 
     openBattery() {
+        localStorage.setItem('triggered_battery', "1")
         Swal.fire({
             title: '<strong>Батарея</strong>',
             width: '500px',
@@ -91,11 +95,13 @@ class BatteryItem extends Component {
                 '<div class="ab-popup-link-line">Тип резервной батареи: <i>Литий-ионная</i></div>' +
                 // '<div class="ab-popup-link-line">Наработка: <i>' + Math.round(Number(localStorage.getItem('battery_op_time'))/60) + ' ч.</i></div>' +
                 '<div class="ab-popup-link-line">Состояние: <i>' + this.state.condition + '</i></div>' +
-                '<div class="ab-popup-link-line">Уровень заряда: <i>' + this.state.charge + ' %</i></div>' +
+                '<div class="ab-popup-link-line">Уровень заряда: <i id="ab-popup-battery-charge">' + this.state.charge + ' %</i></div>' +
                 '<div class="ab-popup-link-line">Время полёта на полном заряде: <i>12 мин</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('triggered_battery', "0")
         })
     }
 

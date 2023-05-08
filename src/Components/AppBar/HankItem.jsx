@@ -130,10 +130,16 @@ class HankItem extends Component {
                 this.setState({op_time: '-'})
                 this.setState({icon: hank_no_link});
             }
+            if (localStorage.getItem('triggered_hank') === '1'){
+                document.getElementById('ab-popup-hank-length').innerText = this.state.length + ' м'
+                document.getElementById('ab-popup-hank-load').innerText = this.state.load + ' кг'
+                document.getElementById('ab-popup-hank-op_time').innerText = this.state.op_time + ' ч'
+            }
         }, 1000)
     }
 
     openHank() {
+        localStorage.setItem('triggered_hank', "1")
         Swal.fire({
             title: '<strong>Катушка</strong>',
             width: '500px',
@@ -143,12 +149,14 @@ class HankItem extends Component {
             html:
                 '<div class="ab-popup-link-holder">' +
                 '<div class="ab-popup-link-line">Режим работы: <i>Поддержание натяжения</i></div>' +
-                '<div class="ab-popup-link-line">Выдано кабеля: <i>' + this.state.length + ' м</i></div>' +
-                '<div class="ab-popup-link-line">Натяжение кабеля: <i>' + this.state.load + ' кг</i></div>' +
-                '<div class="ab-popup-link-line">Наработка кабеля: <i>' + this.state.op_time + ' ч</i></div>' +
+                '<div class="ab-popup-link-line">Выдано кабеля: <i id="ab-popup-hank-length">' + this.state.length + ' м</i></div>' +
+                '<div class="ab-popup-link-line">Натяжение кабеля: <i id="ab-popup-hank-load">' + this.state.load + ' кг</i></div>' +
+                '<div class="ab-popup-link-line">Наработка кабеля: <i id="ab-popup-hank-op_time">' + this.state.op_time + ' ч</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('triggered_hank', "0")
         })
     }
 

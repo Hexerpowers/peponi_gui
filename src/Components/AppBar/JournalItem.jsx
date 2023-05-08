@@ -40,23 +40,29 @@ class JournalItem extends Component {
                         this.setState({logs: data['log_list']})
                     });
             }
+            if (localStorage.getItem('triggered_journal') === '1'){
+                document.getElementById('ab-popup-journal-holder').innerText = this.state.logs
+            }
         }, 1000)
     }
 
 
     openJournal() {
+        localStorage.setItem('triggered_journal', "1")
         Swal.fire({
             title: '<strong>Журнал событий (коптер)</strong>',
             width: '700px',
             position: 'top-right',
             html:
-                '<div class="ab-popup-journal-holder">' +
+                '<div id="ab-popup-journal-holder" class="ab-popup-journal-holder">' +
                 this.state.logs +
                 '</div>',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('triggered_journal', "0")
         })
     }
 

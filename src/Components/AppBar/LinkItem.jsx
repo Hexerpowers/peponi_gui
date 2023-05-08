@@ -73,10 +73,14 @@ class LinkItem extends Component {
                 this.vals['level'] = signal_ico_0
                 this.setState({ping: '-'})
             }
+            if (localStorage.getItem('triggered_link') === '1'){
+                document.getElementById('ab-popup-link-ping').innerText = this.state.ping + ' мс'
+            }
         }, 2000)
     }
 
     openLink() {
+        localStorage.setItem('triggered_link', "1")
         Swal.fire({
             title: '<strong>Связь</strong>',
             width: '500px',
@@ -86,11 +90,13 @@ class LinkItem extends Component {
             html:
                 '<div class="ab-popup-link-holder">' +
                 '<div class="ab-popup-link-line">Подключение: <i>' + this.vals.link + '</i></div>' +
-                '<div class="ab-popup-link-line">Задержка передачи: <i>' + this.state.ping + ' мс</i></div>' +
+                '<div class="ab-popup-link-line">Задержка передачи: <i id="ab-popup-link-ping">' + this.state.ping + ' мс</i></div>' +
                 '<div class="ab-popup-link-line">Параметры: <i>880 Мбит, полный дуплекс</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('triggered_link', "0")
         })
     }
 
