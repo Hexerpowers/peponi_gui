@@ -76,12 +76,14 @@ class PowerItem extends Component {
                         this.setState({voltage: data['voltage']})
                         this.setState({current_0: data['current_0']})
                         this.setState({current_1: data['current_1']})
-                        // if (Number(data['current_0']) < Number(data['current_1'])) {
-                        //     this.toast.fire({
-                        //         icon: 'error',
-                        //         title: 'Неполадки в НБП, осуществите посадку!'
-                        //     })
-                        // }
+                        if (this.props.status !== 0) {
+                            if (Number(data['current_0']) < Number(data['current_1'])) {
+                                this.toast.fire({
+                                    icon: 'error',
+                                    title: 'Неполадки в НБП, осуществите посадку!'
+                                })
+                            }
+                        }
                     });
             } else {
                 this.setState({gen_status: "не запущен"})
@@ -117,7 +119,7 @@ class PowerItem extends Component {
                 '<div class="ab-popup-link-line">Питание на коптер: <i id="ab-popup-power-ok">' + this.state.out_status + '</i></div>' +
                 '<div class="ab-popup-link-line">Напряжение питания: <i id="ab-popup-power-voltage">' + this.state.voltage + ' В</i></div>' +
                 '<div class="ab-popup-link-line">Ток (через НБП): <i id="ab-popup-power-current_0">' + this.state.current_0 + ' А</i></div>' +
-                '<div class="ab-popup-link-line">Ток (через АБ): <i id="ab-popup-power-current_1">' + this.state.current_1 + ' А</i></div>' +
+                '<div class="ab-popup-link-line">Ток (через АкБ): <i id="ab-popup-power-current_1">' + this.state.current_1 + ' А</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

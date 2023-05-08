@@ -136,6 +136,10 @@ input:checked + .slider:before {
     font-size: 1.05rem;
 }
 
+.table-row-high{
+    height: 45px;
+}
+
 .last {
     border-bottom: none;
 }

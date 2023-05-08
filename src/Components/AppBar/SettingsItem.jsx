@@ -21,6 +21,7 @@ class SettingsItem extends Component {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
+
         this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
         this.core_url = "http://127.0.0.1:5053/api/v1/post/settings"
     }
@@ -77,6 +78,8 @@ class SettingsItem extends Component {
                 body: JSON.stringify({
                     endpoint_address: localStorage.getItem('endpoint_address'),
                     camera_path: localStorage.getItem('camera_path'),
+                    pull_force: localStorage.getItem('pull_force'),
+                    free_length: localStorage.getItem('free_length')
                 })
             })
         }
@@ -165,6 +168,17 @@ class SettingsItem extends Component {
                 '<input id="ground_speed" class="table-row-val" value="' + localStorage.getItem('ground_speed') + '" />' +
                 '</div>' +
                 '</div>' +
+                '<h2 class="ab-popup-settings-h2">Настройки катушки:</h2>' +
+                '<div class="table-holder">' +
+                '<div class="table-row table-row-high">' +
+                '<div class="table-row-name">Регулировка натяжения:</div>' +
+                '<div class="range"> <input id="pull_force" class="table-row-val" type="range" min="-10" max="10" step="2" value="' + localStorage.getItem('pull_force') + '"></div>'+
+                '</div>' +
+                '<div class="table-row last">' +
+                '<div class="table-row-name">Несматываемый остаток: <i>[2 — 10]</i>, м: </div>' +
+                '<input id="free_length" class="table-row-val" value="' + localStorage.getItem('free_length') + '" />' +
+                '</div>' +
+                '</div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: true,
@@ -178,6 +192,8 @@ class SettingsItem extends Component {
                 const return_alt = Swal.getContainer().querySelector('#return_alt').value;
                 const takeoff_speed = Swal.getContainer().querySelector('#takeoff_speed').value;
                 const ground_speed = Swal.getContainer().querySelector('#ground_speed').value;
+                const pull_force = Swal.getContainer().querySelector('#pull_force').value
+                const free_length = Swal.getContainer().querySelector('#free_length').value
                 if (!this.validate_ip(endpoint_address)) {
                     Swal.showValidationMessage('Указан неверный IP адрес')
                 } else {
@@ -208,6 +224,12 @@ class SettingsItem extends Component {
                 } else {
                     localStorage.setItem('ground_speed', ground_speed)
                 }
+                if (!this.validate_float(free_length, 2, 10)) {
+                    Swal.showValidationMessage('Неверное значение несматываемого остатка')
+                } else {
+                    localStorage.setItem('free_length', free_length)
+                }
+                localStorage.setItem('pull_force', pull_force)
                 return true
             },
         }).then((result) => {
