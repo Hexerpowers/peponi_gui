@@ -76,8 +76,8 @@ class PowerItem extends Component {
                         this.setState({voltage: data['voltage']})
                         this.setState({current_0: data['current_0']})
                         this.setState({current_1: data['current_1']})
-                        if (this.props.status !== 0) {
-                            if (Number(data['current_0']) < Number(data['current_1'])) {
+                        if (this.props.status !== 0 && this.props.status !== 1) {
+                            if ((Number(data['current_0']) < Number(data['current_1']) && Number(data['current_1'])>1) && localStorage.getItem('power_onboard') !== 'true') {
                                 this.toast.fire({
                                     icon: 'error',
                                     title: 'Неполадки в НБП, осуществите посадку!'

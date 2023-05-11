@@ -26,13 +26,6 @@ body {
     font-family: 'FiraCode', serif;
 }
 
-.text-italic {
-    font-style: italic;
-}
-
-.text-bold {
-    font-weight: bold;
-}
 
 .app-container {
     display: flex;
@@ -162,12 +155,6 @@ input:checked + .slider:before {
     border: 1px solid #bdbdbd;
     border-radius: 5px;
     width: 300px;
-    font-size: 1rem;
-    color: rgb(186, 180, 194);
-}
-
-.table-row-text {
-    padding: 5px;
     font-size: 1rem;
     color: rgb(186, 180, 194);
 }

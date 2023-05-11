@@ -89,11 +89,7 @@
 .ab-popup-settings-h2 {
     align-self: baseline;
     font-size: 20px;
-    margin: 10px 10px;
-}
-
-.ab-popup-journal-line {
-    font-size: 14px;
+    margin: 20px 10px 5px 10px;
 }
 
 .ab-popup-link-holder {
@@ -162,4 +158,8 @@
     width: 262px;
     margin: 0 -6px;
     padding: 5px 0;
+}
+
+.ab-popup-settings-select{
+    width: 313px;
 }

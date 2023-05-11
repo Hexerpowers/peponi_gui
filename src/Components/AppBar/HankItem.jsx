@@ -50,92 +50,96 @@ class HankItem extends Component {
                 self.openHank()
             }
         });
-        setInterval(() => {
-            if (this.state.direction === 1) {
-                switch (this.counter) {
-                    case 0:
-                        this.setState({icon: hank_extend_0});
-                        break;
-                    case 1:
-                        this.setState({icon: hank_extend_1});
-                        break;
-                    case 2:
-                        this.setState({icon: hank_extend_2});
-                        break;
-                    case 3:
-                        this.setState({icon: hank_extend_3});
-                        break;
-                }
-                if (this.counter === 3) {
-                    this.counter = 0
-                } else {
-                    this.counter++
-                }
-            }
 
-        }, 200)
-
-        setInterval(() => {
-            if (this.state.direction === -1) {
-                switch (this.counter) {
-                    case 0:
-                        this.setState({icon: hank_retract_0});
-                        break;
-                    case 1:
-                        this.setState({icon: hank_retract_1});
-                        break;
-                    case 2:
-                        this.setState({icon: hank_retract_2});
-                        break;
-                    case 3:
-                        this.setState({icon: hank_retract_3});
-                        break;
+        if (localStorage.getItem('hank_mode') !== '0'){
+            setInterval(() => {
+                if (this.state.direction === 1) {
+                    switch (this.counter) {
+                        case 0:
+                            this.setState({icon: hank_extend_0});
+                            break;
+                        case 1:
+                            this.setState({icon: hank_extend_1});
+                            break;
+                        case 2:
+                            this.setState({icon: hank_extend_2});
+                            break;
+                        case 3:
+                            this.setState({icon: hank_extend_3});
+                            break;
+                    }
+                    if (this.counter === 3) {
+                        this.counter = 0
+                    } else {
+                        this.counter++
+                    }
                 }
-                if (this.counter === 3) {
-                    this.counter = 0
-                } else {
-                    this.counter++
+
+            }, 200)
+
+            setInterval(() => {
+                if (this.state.direction === -1) {
+                    switch (this.counter) {
+                        case 0:
+                            this.setState({icon: hank_retract_0});
+                            break;
+                        case 1:
+                            this.setState({icon: hank_retract_1});
+                            break;
+                        case 2:
+                            this.setState({icon: hank_retract_2});
+                            break;
+                        case 3:
+                            this.setState({icon: hank_retract_3});
+                            break;
+                    }
+                    if (this.counter === 3) {
+                        this.counter = 0
+                    } else {
+                        this.counter++
+                    }
                 }
-            }
 
-        }, 200)
+            }, 200)
 
-        setInterval(() => {
-            if (this.props.link) {
-                fetch(this.base_url)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (Number(data['state']) === 0){
-                            this.setState({direction: 0})
-                            this.setState({load: '-'})
-                            this.setState({length: '-'})
-                            this.setState({op_time: '-'})
-                            this.setState({icon: hank_no_link});
-                        }else {
-                            if (Math.abs(Number(data['length']) - this.state.length) < 1) {
+            setInterval(() => {
+                if (this.props.link) {
+                    fetch(this.base_url)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (Number(data['state']) === 0){
                                 this.setState({direction: 0})
-                                this.setState({icon: hank_still});
-                            } else {
-                                this.setState({direction: Number(data['direction'])})
+                                this.setState({load: '-'})
+                                this.setState({length: '-'})
+                                this.setState({op_time: '-'})
+                                this.setState({icon: hank_no_link});
+                            }else {
+                                if (Math.abs(Number(data['length']) - this.state.length) < 1) {
+                                    this.setState({direction: 0})
+                                    this.setState({icon: hank_still});
+                                } else {
+                                    this.setState({direction: Number(data['direction'])})
+                                }
+                                this.setState({load: Number(data['load'])})
+                                this.setState({length: Number(data['length'])})
+                                this.setState({op_time: Number(data['op_time'])})
                             }
-                            this.setState({load: Number(data['load'])})
-                            this.setState({length: Number(data['length'])})
-                            this.setState({op_time: Number(data['op_time'])})
-                        }
-                    });
-            } else {
-                this.setState({direction: 0})
-                this.setState({load: '-'})
-                this.setState({length: '-'})
-                this.setState({op_time: '-'})
-                this.setState({icon: hank_no_link});
-            }
-            if (localStorage.getItem('triggered_hank') === '1'){
-                document.getElementById('ab-popup-hank-length').innerText = this.state.length + ' м'
-                document.getElementById('ab-popup-hank-load').innerText = this.state.load + ' кг'
-                document.getElementById('ab-popup-hank-op_time').innerText = this.state.op_time + ' ч'
-            }
-        }, 1000)
+                        });
+                } else {
+                    this.setState({direction: 0})
+                    this.setState({load: '-'})
+                    this.setState({length: '-'})
+                    this.setState({op_time: '-'})
+                    this.setState({icon: hank_no_link});
+                }
+                if (localStorage.getItem('triggered_hank') === '1'){
+                    document.getElementById('ab-popup-hank-length').innerText = this.state.length + ' м'
+                    document.getElementById('ab-popup-hank-load').innerText = this.state.load + ' кг'
+                    document.getElementById('ab-popup-hank-op_time').innerText = this.state.op_time + ' ч'
+                }
+            }, 1000)
+        }
+
     }
 
     openHank() {

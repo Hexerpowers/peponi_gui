@@ -18,6 +18,7 @@ class TelemetryBar extends Component {
         }
         this.update = this.update.bind(this);
         this.base_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/telemetry"
+        this.aux_url = "http://127.0.0.1:5053/api/v1/post/hank_target_length"
     }
 
     componentDidMount() {
@@ -42,6 +43,18 @@ class TelemetryBar extends Component {
                             t_yaw: Number(data['t_yaw'])
                         }
                     })
+                    if (localStorage.getItem('hank_mode') === '2') {
+                        fetch(this.aux_url, {
+                            method: 'POST',
+                            mode: 'cors',
+                            headers: {
+                                'Content-Type': 'application/json;charset=utf-8'
+                            },
+                            body: JSON.stringify({
+                                target_length: Number(data['alt'])
+                            })
+                        })
+                    }
                 });
         } else {
             this.setState({
@@ -54,6 +67,18 @@ class TelemetryBar extends Component {
                     t_yaw: 0
                 }
             })
+            if (localStorage.getItem('hank_mode') === '2') {
+                fetch(this.aux_url, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        target_length: 0
+                    })
+                })
+            }
         }
     }
 

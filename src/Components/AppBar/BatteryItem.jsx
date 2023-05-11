@@ -49,7 +49,7 @@ class BatteryItem extends Component {
                     .then(data => {
                         this.setState({charge: data['charge']})
                         if (this.props.status !== 0) {
-                            if (Number(data['charge'])<=40){
+                            if (Number(data['charge'])<=40 && localStorage.getItem('power_onboard') !== 'true'){
                                 this.toast.fire({
                                     icon: 'error',
                                     title: 'Низкий уровень напряжения, осуществите посадку!'
