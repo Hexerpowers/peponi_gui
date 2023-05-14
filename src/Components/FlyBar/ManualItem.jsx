@@ -35,7 +35,7 @@ class ManualItem extends Component {
         let indicator = ''
         if (nextProps.link) {
             active = 'fb-item-active'
-            if (nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9) {
+            if ((nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9)||true) {
                 if (prevState.enabled) {
                     indicator = 'enabled'
                 } else {
@@ -101,7 +101,7 @@ class ManualItem extends Component {
             return
         }
 
-        if (this.props.status !== 2 && this.props.status !== 3 && this.props.status !== 4 && this.props.status !== 9) {
+        if ((this.props.status !== 2 && this.props.status !== 3 && this.props.status !== 4 && this.props.status !== 9) && false) {
             this.toast.fire({
                 icon: 'error',
                 title: 'Коптер ещё не в полёте или не готов к полёту'

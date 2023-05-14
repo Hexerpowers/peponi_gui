@@ -12,7 +12,7 @@ class StatusItem extends Component {
         if (props.link) {
             switch (props.status) {
                 case 0:
-                    return {state_text: "Коптер подготавливается"}
+                    return {state_text: "Подготовка аппарата"}
                 case 1:
                     return {state_text: "Ожидание команды на взлёт"}
                 case 2:
@@ -20,7 +20,7 @@ class StatusItem extends Component {
                 case 3:
                     return {state_text: "В полёте"}
                 case 4:
-                    return {state_text: "Посадка на исходную точку"}
+                    return {state_text: "Посадка"}
                 case 7:
                     return {state_text: "Аварийная посадка - ошибка питания"}
                 case 8:

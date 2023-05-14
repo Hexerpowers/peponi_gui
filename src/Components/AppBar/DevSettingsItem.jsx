@@ -38,11 +38,12 @@ class DevSettingsItem extends Component {
                     },
                     body: JSON.stringify({
                         takeoff_speed: localStorage.getItem('takeoff_speed'),
+                        power_onboard: localStorage.getItem('power_onboard')
                     })
                 })
                     .then(response => response.json())
                     .then(data => {
-                            console.log(data)
+                            // console.log(data)
                     });
             } catch {
                 console.log('Error while posting to [endpoint]')
@@ -58,10 +59,11 @@ class DevSettingsItem extends Component {
                 },
                 body: JSON.stringify({
                     endpoint_address: localStorage.getItem('endpoint_address'),
+                    hank_mode: localStorage.getItem('hank_mode'),
                 })
             }).then(response => response.json())
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                 });
         }
     }
