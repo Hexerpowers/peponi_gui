@@ -53,7 +53,7 @@ class HankItem extends Component {
 
         if (localStorage.getItem('hank_mode') !== '0'){
             setInterval(() => {
-                if (this.state.direction === 1) {
+                if (this.state.direction === 2) {
                     switch (this.counter) {
                         case 0:
                             this.setState({icon: hank_extend_0});
@@ -78,7 +78,7 @@ class HankItem extends Component {
             }, 200)
 
             setInterval(() => {
-                if (this.state.direction === -1) {
+                if (this.state.direction === 1) {
                     switch (this.counter) {
                         case 0:
                             this.setState({icon: hank_retract_0});
@@ -114,7 +114,9 @@ class HankItem extends Component {
                                 this.setState({op_time: '-'})
                                 this.setState({icon: hank_no_link});
                             }else {
-                                if (Math.abs(Number(data['length']) - this.state.length) < 1) {
+                                console.log(Math.abs(Number(data['length']) - this.state.length))
+                                console.log(Number(data['direction']))
+                                if (Math.abs(Number(data['length']) - this.state.length) < 0.1) {
                                     this.setState({direction: 0})
                                     this.setState({icon: hank_still});
                                 } else {
@@ -153,7 +155,7 @@ class HankItem extends Component {
             html:
                 '<div class="ab-popup-link-holder">' +
                 '<div class="ab-popup-link-line">Режим работы: <i>Поддержание натяжения</i></div>' +
-                '<div class="ab-popup-link-line">Выдано кабеля: <i id="ab-popup-hank-length">' + this.state.length + ' м</i></div>' +
+                '<div class="ab-popup-link-line">Остаток кабеля: <i id="ab-popup-hank-length">' + this.state.length + ' м</i></div>' +
                 '<div class="ab-popup-link-line">Натяжение кабеля: <i id="ab-popup-hank-load">' + this.state.load + ' кг</i></div>' +
                 '<div class="ab-popup-link-line">Наработка кабеля: <i id="ab-popup-hank-op_time">' + this.state.op_time + ' ч</i></div>' +
                 '</div>',

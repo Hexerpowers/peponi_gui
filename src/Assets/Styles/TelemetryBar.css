@@ -5,7 +5,7 @@
     right: 12px;
     width: 290px;
     height: 150px;
-    background-color: rgb(21, 21, 21);
+    background-color: var(--accent_bg);
     border-radius: 80px;
     display: flex;
     flex-direction: row;
@@ -17,7 +17,7 @@
 .tb-item-holder {
     width: 140px;
     height: 140px;
-    background: #535353;
+    background: var(--bg_color);
     border-radius: 70px;
     position: relative;
     overflow: hidden;

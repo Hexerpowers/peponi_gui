@@ -1,3 +1,57 @@
+:root {
+    --darker_gray: rgb(21, 21, 21);
+    --dark_gray: rgb(46, 43, 49);
+    --light_gray: rgb(110, 104, 118);
+    --mid_gray: rgb(186, 180, 194);
+    --lighter_gray: rgb(221, 221, 221);
+    --blue_gray: rgb(32, 30, 35);
+    --bright_blue: rgb(51, 147, 255);
+    --indicator_gray: rgb(144, 148, 148);
+    --indicator_light_gray: rgb(233, 235, 255);
+    --indicator_blue: rgb(51, 147, 255);
+    --indicator_red: rgb(218, 67, 67);
+    --indicator_green: rgb(39, 211, 92);
+    --lighter_blue: rgb(231, 231, 255);
+    --light_blue: rgb(192, 189, 209);
+    --blue_white: rgb(212, 206, 221);
+}
+
+.theme-light{
+    --bg_color: var(--light_blue);
+    --text_color: var(--light_gray);
+
+    --accent_bg: var(--lighter_blue);
+    --accent_frames: var(--light_gray);
+    --accent_borders: var(--lighter_gray);
+    --accent_main: var(--bright_blue);
+
+    --indicator_active: var(--indicator_blue);
+    --indicator_inactive: var(--indicator_light_gray);
+    --indicator_enabled: var(--indicator_green);
+    --indicator_disabled: var(--indicator_red);
+
+    --table_bg_color: var(--blue_white);
+    --table_text_color: var(--light_gray);
+}
+
+.theme-dark{
+    --bg_color: var(--dark_gray);
+    --text_color: var(--lighter_gray);
+
+    --accent_bg: var(--darker_gray);
+    --accent_frames: var(--light_gray);
+    --accent_borders: var(--lighter_gray);
+    --accent_main: var(--bright_blue);
+
+    --indicator_active: var(--indicator_blue);
+    --indicator_inactive: var(--indicator_gray);
+    --indicator_enabled: var(--indicator_green);
+    --indicator_disabled: var(--indicator_red);
+
+    --table_bg_color: var(--blue_gray);
+    --table_text_color: var(--mid_gray);
+}
+
 @font-face {
     font-family: 'Roboto';
     src: url('../../Fonts/Roboto-Regular.ttf') format('truetype');
@@ -17,8 +71,8 @@ body {
     padding: 0;
     margin: 0;
     overflow: hidden;
-    background: rgb(42, 42, 42);
-    color: rgb(221, 221, 221);
+    background: var(--bg_color);
+    color: var(--text_color);
     user-select: none;
 }
 
@@ -67,7 +121,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #6e6876;
+    background-color: var(--accent_frames);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -79,17 +133,17 @@ body {
     width: 24px;
     left: 4px;
     bottom: 3px;
-    background-color: white;
+    background-color: var(--accent_borders);
     -webkit-transition: .4s;
     transition: .4s;
 }
 
 input:checked + .slider {
-    background-color: rgb(51, 147, 255);
+    background-color: var(--accent_main);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px rgb(51, 147, 255);
+    box-shadow: 0 0 1px var(--accent_main);
 }
 
 input:checked + .slider:before {
@@ -109,15 +163,14 @@ input:checked + .slider:before {
     display: none;
 }
 
-
 .table-holder {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    background: rgb(32, 30, 35);
-    border: 1px solid rgb(46, 43, 49);
+    background: var(--table_bg_color);
+    border: 2px solid var(--bg_color);
     border-radius: 10px;
-    color: rgb(186, 180, 194);
+    color: var(--table_text_color);
 }
 
 .table-row {
@@ -125,7 +178,7 @@ input:checked + .slider:before {
     flex-direction: row;
     align-items: baseline;
     padding: 4px;
-    border-bottom: 1px dotted rgb(126, 120, 133);
+    border-bottom: 2px dotted var(--bg_color);
     font-size: 1.05rem;
 }
 
@@ -139,7 +192,7 @@ input:checked + .slider:before {
 
 .table-row:hover {
     filter: brightness(1.2);
-    background: rgb(46, 43, 49);
+    background: var(--bg_color);
 }
 
 
@@ -151,17 +204,17 @@ input:checked + .slider:before {
 
 .table-row-val {
     padding: 5px;
-    background: rgb(32, 30, 35);
-    border: 1px solid #bdbdbd;
+    background: var(--table_bg_color);
+    border: 2px solid var(--accent_frames);
     border-radius: 5px;
     width: 300px;
     font-size: 1rem;
-    color: rgb(186, 180, 194);
+    color: var(--table_text_color);
 }
 
 .swal2-modal {
-    background: rgb(32, 30, 35) !important;
-    border: 3px solid #bdbdbd !important;
-    color: rgb(221, 221, 221) !important;
+    background: var(--table_bg_color) !important;
+    border: 3px solid var(--accent_frames) !important;
+    color: var(--text_color) !important;
 }
 

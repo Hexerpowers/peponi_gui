@@ -27,7 +27,7 @@
     right: 20px;
     width: 350px;
     height: 100px;
-    background-color: rgb(21, 21, 21);
+    background-color: var(--accent_bg);
     border-radius: 7px;
     display: flex;
     flex-direction: row;
@@ -39,7 +39,6 @@
 .vb-item {
     width: 80px;
     height: 80px;
-    background: rgb(42, 42, 42);
     border-radius: 7px;
     display: flex;
     flex-direction: column;
@@ -54,8 +53,9 @@
 }
 
 .vb-item-icon-record {
-    width: 90px;
-    margin-top: 2px;
+    width: 85px;
+    margin-top: 6px;
+    margin-left: 3px;
 }
 
 .vb-item-icon-photo {
@@ -78,32 +78,32 @@
 }
 
 .vb-indicator-active {
-    border: 5px solid rgb(51, 147, 255);
-    background: rgb(51, 147, 255);
+    border: 5px solid var(--indicator_active);
+    background: var(--indicator_active);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
 .vb-indicator-inactive {
-    border: 5px solid rgb(144, 148, 148);
-    background: rgb(144, 148, 148);
+    border: 5px solid var(--indicator_inactive);
+    background: var(--indicator_inactive);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
 .vb-indicator-disabled {
-    border: 5px solid rgb(218, 67, 67);
-    background: rgb(218, 67, 67);
+    border: 5px solid var(--indicator_disabled);
+    background: var(--indicator_disabled);
     height: 0;
     width: 72px;
     border-radius: 2px
 }
 
 .vb-indicator-enabled {
-    border: 5px solid rgb(39, 211, 92);
-    background: rgb(39, 211, 92);
+    border: 5px solid var(--indicator_enabled);
+    background: var(--indicator_enabled);
     height: 0;
     width: 72px;
     border-radius: 2px

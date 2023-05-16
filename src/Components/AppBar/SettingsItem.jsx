@@ -37,6 +37,12 @@ class SettingsItem extends Component {
     syncSettings(showMessage = false) {
         this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
 
+        if (localStorage.getItem('theme')==='0') {
+            document.body.className = "theme-dark"
+        }else{
+            document.body.className = "theme-light"
+        }
+
         if (this.props.link) {
             try {
                 fetch(this.endpoint_url, {
@@ -119,13 +125,22 @@ class SettingsItem extends Component {
     openSettings() {
         let pir_mode_select = ['','','','']
         pir_mode_select[Number(localStorage.getItem('pir_mode'))] = 'selected'
+        let theme_select = ['','']
+        theme_select[Number(localStorage.getItem('theme'))] = 'selected'
         Swal.fire({
             title: '<strong>Настройки</strong>',
             width: '700px',
             html:
                 '<div class="ab-popup-settings-holder">' +
-                '<h2 class="ab-popup-settings-h2">Настройки камеры:</h2>' +
+                '<h2 class="ab-popup-settings-h2">Настройки камеры и приложения:</h2>' +
                 '<div class="table-holder">' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Цветовая тема: </div>' +
+                '<select id="theme" class="table-row-val ab-popup-settings-select">' +
+                '  <option '+ theme_select[0] +'>Тёмная</option>' +
+                '  <option '+ theme_select[1] +'>Светлая</option>' +
+                '</select>'+
+                '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">Режим тепловизора: </div>' +
                 '<select id="pir_mode" class="table-row-val ab-popup-settings-select">' +
@@ -180,6 +195,7 @@ class SettingsItem extends Component {
                 const pull_force = Swal.getContainer().querySelector('#pull_force').value
                 const free_length = Swal.getContainer().querySelector('#free_length').value
                 const pir_mode = Swal.getContainer().querySelector('#pir_mode').selectedIndex
+                const theme = Swal.getContainer().querySelector('#theme').selectedIndex
 
                 localStorage.setItem('camera_path', camera_path)
 
@@ -201,6 +217,7 @@ class SettingsItem extends Component {
 
                 localStorage.setItem('pull_force', pull_force)
                 localStorage.setItem('pir_mode', pir_mode)
+                localStorage.setItem('theme', theme)
                 return true
             },
         }).then((result) => {

@@ -34,6 +34,11 @@ class App extends Component {
     }
 
     componentDidMount() {
+        if (localStorage.getItem('theme')==='0') {
+            document.body.className = "theme-dark"
+        }else{
+            document.body.className = "theme-light"
+        }
         setInterval(() => {
             this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
             const controller = new AbortController()

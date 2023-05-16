@@ -1,7 +1,7 @@
 .ab-holder {
     height: 52px;
     width: 100vw;
-    background-color: rgb(21, 21, 21);
+    background-color: var(--accent_bg);
     padding: 5px;
     display: flex;
     flex-direction: row;
@@ -17,9 +17,9 @@
     position: absolute;
     top: 35px;
     right: -9px;
-    background: #151515;
+    background: var(--accent_bg);
     border-radius: 6px;
-    color: rgb(51, 147, 255);
+    color: var(--accent_main);
     filter: brightness(1.5);
 }
 
@@ -38,7 +38,7 @@
 }
 
 .ab-separator {
-    border-right: 2px solid white;
+    border-right: 2px solid var(--text_color);
     border-radius: 2px;
     margin-right: 16px;
 }
@@ -55,7 +55,7 @@
 }
 
 .ab-charge-val {
-    color: #151515;
+    color: var(--accent_bg);
     position: absolute;
     top: 16px;
     right: 8px;
@@ -79,9 +79,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border: 1px solid #464646;
+    border: 2px solid var(--bg_color);
     border-radius: 3px;
     font-size: 14px;
+    padding: 2px;
     text-align: left;
     white-space: pre;
 }
@@ -122,10 +123,10 @@
     --max:20;
     --ticksThickness: 2px;
     --ticksHeight: 30%;
-    --ticksColor: silver;
+    --ticksColor: var(--text_color);
 
     display: inline-block;
-    background: silver;
+    background: var(--text_color);
     background: linear-gradient(to right, var(--ticksColor) var(--ticksThickness), transparent 1px) repeat-x;
     background-size: calc(100%/((var(--max) - var(--min)) / var(--step)) - .1%) var(--ticksHeight);
     background-position: 0 bottom;
@@ -133,8 +134,6 @@
     margin-right: 10px;
 }
 
-
-/* min / max labels at the edges */
 .range::before, .range::after {
     font: 12px monospace;
     content: counter(x);
@@ -152,7 +151,6 @@
     right: 0;
     transform: translateX(3px);
 }
-
 
 .range > input {
     width: 262px;
