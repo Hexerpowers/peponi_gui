@@ -14,7 +14,7 @@ class App extends Component {
             localStorage.setItem('ground_speed', "0.5")
             localStorage.setItem('target_alt', "3")
             localStorage.setItem('return_alt', "3")
-            localStorage.setItem('endpoint_address', "192.168.88.167")
+            localStorage.setItem('endpoint_address', "192.168.88.252")
         }
         this.elevatePowerGood = this.elevatePowerGood.bind(this);
 
@@ -100,7 +100,7 @@ class App extends Component {
                 <FlyBar power_good={this.state.power_good} copter_status={this.state.copter_state}
                         link={this.state.link}/>
                 <VideoBar status={this.state.copter_state} link={this.state.link}/>
-                <TelemetryBar link={this.state.link} status={this.state.copter_state}/>
+                <TelemetryBar link={this.state.link} link_local={this.state.link_local} status={this.state.copter_state}/>
             </AppContainer>
         );
     }

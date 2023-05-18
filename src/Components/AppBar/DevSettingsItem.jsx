@@ -122,7 +122,7 @@ class DevSettingsItem extends Component {
                 '<h2 class="ab-popup-settings-h2">Настройки коптера:</h2>' +
                 '<div class="table-holder">' +
                 '<div class="table-row last">' +
-                '<div class="table-row-name">Скорость взлёта <i>[0.1 — 0.7]</i>, м/c: </div>' +
+                '<div class="table-row-name">Скорость взлёта <i>[0.1 — 1.5]</i>, м/c: </div>' +
                 '<input id="takeoff_speed" class="table-row-val" value="' + localStorage.getItem('takeoff_speed') + '" />' +
                 '</div>' +
                 '</div>' +
@@ -152,7 +152,7 @@ class DevSettingsItem extends Component {
                     Swal.showValidationMessage('Указан неверный IP адрес')
                 } else { localStorage.setItem('endpoint_address', endpoint_address) }
 
-                if (!this.validate_float(takeoff_speed, 0.1, 0.7)) {
+                if (!this.validate_float(takeoff_speed, 0.1, 1.5)) {
                     Swal.showValidationMessage('Неверное значение скорости взлёта')
                 } else { localStorage.setItem('takeoff_speed', takeoff_speed) }
 

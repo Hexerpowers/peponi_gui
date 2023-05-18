@@ -38,9 +38,15 @@ class SettingsItem extends Component {
         this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/post/settings"
 
         if (localStorage.getItem('theme')==='0') {
-            document.body.className = "theme-dark"
+            if (document.body.classList.contains('theme-light')){
+                document.body.classList.toggle("theme-light")
+                document.body.classList.toggle("theme-dark")
+            }
         }else{
-            document.body.className = "theme-light"
+            if (document.body.classList.contains('theme-dark')){
+                document.body.classList.toggle("theme-dark")
+                document.body.classList.toggle("theme-light")
+            }
         }
 
         if (this.props.link) {
