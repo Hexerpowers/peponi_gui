@@ -53,7 +53,8 @@ class TelemetryBar extends Component {
                                 },
                                 body: JSON.stringify({
                                     target_length: Number(data['alt']),
-                                    target_mode: this.props.status
+                                    target_mode: this.props.status,
+                                    target_alt: localStorage.getItem('target_alt')
                                 })
                             })
                         }
