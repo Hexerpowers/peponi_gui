@@ -111,7 +111,7 @@ class SettingsItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if (e.code === 'KeyY') {
+            if (e.code === 'KeyY' && !(localStorage.getItem("dev_press_br")==="1" && localStorage.getItem("dev_press_bl")==="1")) {
                 self.openSettings()
             }
         });
@@ -144,7 +144,7 @@ class SettingsItem extends Component {
                 '<div class="table-row-name">Цветовая тема: </div>' +
                 '<select id="theme" class="table-row-val ab-popup-settings-select">' +
                 '  <option '+ theme_select[0] +'>Тёмная</option>' +
-                '  <option '+ theme_select[1] +'>Светлая</option>' +
+                '  <option '+ theme_select[1] +'>Яркая</option>' +
                 '</select>'+
                 '</div>' +
                 '<div class="table-row">' +

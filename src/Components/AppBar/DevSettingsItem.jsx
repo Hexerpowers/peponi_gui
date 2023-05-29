@@ -74,7 +74,39 @@ class DevSettingsItem extends Component {
         }
     }
 
+    addEvent(element, eventName, callback) {
+        if (element.addEventListener) {
+            element.addEventListener(eventName, callback, false);
+        } else if (element.attachEvent) {
+            element.attachEvent("on" + eventName, callback);
+        } else {
+            element["on" + eventName] = callback;
+        }
+    }
+
     componentDidMount() {
+        let self = this
+        this.addEvent(document, "keydown", function (e) {
+            if (e.code === 'BracketRight'){
+                localStorage.setItem("dev_press_br", "1")
+            }
+            if (e.code === 'BracketLeft'){
+                localStorage.setItem("dev_press_bl", "1")
+            }
+        });
+        this.addEvent(document, "keyup", function (e) {
+            if (e.code === 'BracketRight'){
+                localStorage.setItem("dev_press_br", "0")
+            }
+            if (e.code === 'BracketLeft'){
+                localStorage.setItem("dev_press_bl", "0")
+            }
+        });
+        this.addEvent(document, "keypress", function (e) {
+            if (e.code === 'KeyY' && (localStorage.getItem("dev_press_br")==="1" && localStorage.getItem("dev_press_bl")==="1")) {
+                self.openDevSettings()
+            }
+        });
         setInterval(() => this.syncDevSettings(), 3000)
     }
 
@@ -114,9 +146,27 @@ class DevSettingsItem extends Component {
                 '<span class="slider round"></span>' +
                 '</label>' +
                 '</div>' +
-                '<div class="table-row last">' +
+                '<div class="table-row">' +
                 '<div class="table-row-name">IP адрес коптера в сети: </div>' +
                 '<input id="endpoint_address" placeholder="192.168.88.252" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
+                '</div>' +
+                '<div class="table-row last">' +
+                '<div class="table-row-name">Сбросить настройки приложения: </div>' +
+                '<input onclick="' +
+                '   localStorage.setItem(\'camera_path\', \'C:/Watchman/Camera\');\n' +
+                '   localStorage.setItem(\'pir_mode\', \'0\');\n' +
+                '   localStorage.setItem(\'theme\', \'0\');\n' +
+                '   localStorage.setItem(\'takeoff_speed\', \'0.5\');\n' +
+                '   localStorage.setItem(\'ground_speed\', \'0.5\');\n' +
+                '   localStorage.setItem(\'target_alt\', \'3\');\n' +
+                '   localStorage.setItem(\'return_alt\', \'3\');\n' +
+                '   localStorage.setItem(\'pull_force\', \'0\');\n' +
+                '   localStorage.setItem(\'free_length\', \'2\');\n' +
+                '   localStorage.setItem(\'power_onboard\', \'0\');\n' +
+                '   localStorage.setItem(\'endpoint_address\', \'192.168.88.254\');\n' +
+                '   localStorage.setItem(\'hank_mode\', \'1\');\n' +
+                '   location.reload();\n' +
+                '" style="width: 314px;" type="button" class="table-row-val" value="СБРОСИТЬ"/>' +
                 '</div>' +
                 '</div>' +
                 '<h2 class="ab-popup-settings-h2">Настройки коптера:</h2>' +
@@ -168,11 +218,11 @@ class DevSettingsItem extends Component {
     }
 
     render() {
-        return (
-            <div onClick={this.openDevSettings} className="ab-item">
-                <img draggable="false" className="ab-item-icon" src={settings_ico} alt=""/>
-                <div className="ab-item-description">DEV</div>
-            </div>
+        return (<div/>
+            // <div onClick={this.openDevSettings} className="ab-item">
+            //     <img draggable="false" className="ab-item-icon" src={settings_ico} alt=""/>
+            //     <div className="ab-item-description">DEV</div>
+            // </div>
         );
     }
 }

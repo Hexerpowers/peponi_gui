@@ -81,7 +81,8 @@ class TelemetryBar extends Component {
                         },
                         body: JSON.stringify({
                             target_length: 0,
-                            target_mode: 0
+                            target_mode: 0,
+                            target_alt: 0
                         })
                     })
                 }

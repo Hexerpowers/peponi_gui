@@ -31,11 +31,11 @@ class VideoBar extends Component {
 
     componentDidMount() {
         // this.setState({camera: localStorage.getItem('cam_enabled') === 'true'})
-        if (this.state.camera) {
-            document.querySelector('#toggle_camera').className = "vb-item vb-item-active"
-        } else {
-            document.querySelector('#toggle_camera').className = "vb-item"
-        }
+        // if (this.state.camera) {
+        //     document.querySelector('#toggle_camera').className = "vb-item vb-item-active"
+        // } else {
+        //     document.querySelector('#toggle_camera').className = "vb-item"
+        // }
 
         setInterval(() => {
             const controller = new AbortController()

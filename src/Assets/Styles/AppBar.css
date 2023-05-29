@@ -23,6 +23,10 @@
     filter: brightness(1.5);
 }
 
+.theme-light .item-toast{
+    filter: invert(0);
+}
+
 .ab-item {
     margin-right: 16px;
     cursor: pointer;
@@ -35,6 +39,10 @@
 
 .ab-item-icon {
     height: 54px;
+}
+
+.theme-light .ab-item-icon{
+    filter: invert(1);
 }
 
 .ab-separator {

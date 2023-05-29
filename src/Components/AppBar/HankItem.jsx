@@ -51,7 +51,7 @@ class HankItem extends Component {
             }
         });
 
-        if (localStorage.getItem('hank_mode') !== '0'){
+        if (localStorage.getItem('hank_mode') !== '0') {
             setInterval(() => {
                 if (this.state.direction === 2) {
                     switch (this.counter) {
@@ -107,15 +107,13 @@ class HankItem extends Component {
                     fetch(this.base_url)
                         .then(response => response.json())
                         .then(data => {
-                            if (Number(data['state']) === 0){
+                            if (Number(data['state']) === 0) {
                                 this.setState({direction: 0})
                                 this.setState({load: '-'})
                                 this.setState({length: '-'})
                                 this.setState({op_time: '-'})
                                 this.setState({icon: hank_no_link});
-                            }else {
-                                console.log(Math.abs(Number(data['length']) - this.state.length))
-                                console.log(Number(data['direction']))
+                            } else {
                                 if (Math.abs(Number(data['length']) - this.state.length) < 0.1) {
                                     this.setState({direction: 0})
                                     this.setState({icon: hank_still});
@@ -124,7 +122,8 @@ class HankItem extends Component {
                                 }
                                 this.setState({load: Number(data['load'])})
                                 this.setState({length: Number(data['length'])})
-                                this.setState({op_time: Number(data['op_time'])})
+                                this.setState({op_time: Math.round(Number(localStorage.getItem('op_time')) + Number(data['op_time']) / 3600000)})
+                                localStorage.setItem('op_time', String(Math.round(Number(localStorage.getItem('op_time')) + Number(data['op_time']) / 3600000)))
                             }
                         });
                 } else {
@@ -134,7 +133,7 @@ class HankItem extends Component {
                     this.setState({op_time: '-'})
                     this.setState({icon: hank_no_link});
                 }
-                if (localStorage.getItem('triggered_hank') === '1'){
+                if (localStorage.getItem('triggered_hank') === '1') {
                     document.getElementById('ab-popup-hank-length').innerText = this.state.length + ' м'
                     document.getElementById('ab-popup-hank-load').innerText = this.state.load + ' кг'
                     document.getElementById('ab-popup-hank-op_time').innerText = this.state.op_time + ' ч'

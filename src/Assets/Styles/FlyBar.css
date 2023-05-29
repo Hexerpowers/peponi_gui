@@ -36,6 +36,10 @@
     height: 62px;
 }
 
+.theme-light .fb-item-icon{
+    filter: invert(1);
+}
+
 .fb-separator {
     border-bottom: 2px solid var(--text_color);
     border-radius: 2px;
@@ -83,8 +87,8 @@
     text-align: center;
     background: var(--accent_bg);
     opacity: 0.7;
-    left: 20px;
-    right: 420px;
+    right: 20px;
+    left: 420px;
     z-index: 5;
 }
 

@@ -91,7 +91,7 @@ class LinkItem extends Component {
                 '<div class="ab-popup-link-holder">' +
                 '<div class="ab-popup-link-line">Подключение: <i>' + this.vals.link + '</i></div>' +
                 '<div class="ab-popup-link-line">Задержка передачи: <i id="ab-popup-link-ping">' + this.state.ping + ' мс</i></div>' +
-                '<div class="ab-popup-link-line">Параметры: <i>880 Мбит, полный дуплекс</i></div>' +
+                '<div class="ab-popup-link-line">Параметры: <i>88 Мбит, полный дуплекс</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

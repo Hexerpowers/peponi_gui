@@ -30,7 +30,7 @@ class RecordItem extends Component {
         let active = ''
         let indicator = ''
         if (nextProps.link) {
-            active = 'fb-item-active'
+            active = 'vb-item-active'
             if (nextProps.cam_link) {
                 if (prevState.enabled) {
                     indicator = 'enabled'

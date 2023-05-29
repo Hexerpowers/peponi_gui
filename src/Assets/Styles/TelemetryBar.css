@@ -59,6 +59,10 @@
     text-align: center;
 }
 
+.theme-light .tb-vi-alt{
+    color: black;
+}
+
 .tb-hi-back {
     width: 140px;
 }
