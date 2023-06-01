@@ -94,14 +94,15 @@
 
 .fb-manual-help{
     position: fixed;
-    bottom: 20px;
+    bottom: 12px;
     font-size: 40px;
     width: 800px;
     height: 230px;
-    background-color: var(--accent_bg);
+    background-color: var(--accent_dark);
     padding: 8px;
     border-radius: 7px;
     opacity: 0.1;
+    right: 12px;
 }
 
 .fb-manual-help:hover{

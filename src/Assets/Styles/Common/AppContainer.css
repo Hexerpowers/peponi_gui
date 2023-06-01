@@ -24,6 +24,7 @@
     --accent_frames: var(--light_gray);
     --accent_borders: var(--lighter_gray);
     --accent_main: var(--bright_blue);
+    --accent_dark: var(--darker_gray);
 
     --indicator_active: var(--indicator_blue);
     --indicator_inactive: var(--indicator_light_gray);
@@ -42,6 +43,7 @@
     --accent_frames: var(--light_gray);
     --accent_borders: var(--lighter_gray);
     --accent_main: var(--bright_blue);
+    --accent_dark: var(--darker_gray);
 
     --indicator_active: var(--indicator_blue);
     --indicator_inactive: var(--indicator_gray);
