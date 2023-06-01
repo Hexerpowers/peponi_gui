@@ -157,7 +157,7 @@ class ManualItem extends Component {
     render() {
         let active = 'fb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
-        let help = 'fb-manual-help'
+        let help = 'fb-manual-help hidden'
         if (this.state.indicator === 'enabled'){
             help = 'fb-manual-help'
         }

@@ -18,7 +18,7 @@ class VerticalItem extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         return {
-            alt: Number(nextProps.data.alt)+1,
+            alt: nextProps.data.alt,
             roll: nextProps.data.roll,
             pitch_back: nextProps.data.pitch_back,
             pitch_mark: nextProps.data.pitch_mark
