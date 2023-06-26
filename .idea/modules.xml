@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/watchman.iml" filepath="$PROJECT_DIR$/.idea/watchman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/watchman_gui.iml" filepath="$PROJECT_DIR$/.idea/watchman_gui.iml" />
     </modules>
   </component>
 </project>
