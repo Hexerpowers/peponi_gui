@@ -147,7 +147,7 @@ class SettingsItem extends Component {
                 '  <option '+ theme_select[1] +'>Яркая</option>' +
                 '</select>'+
                 '</div>' +
-                '<div class="table-row">' +
+                '<div class="table-row last">' +
                 '<div class="table-row-name">Режим тепловизора: </div>' +
                 '<select id="pir_mode" class="table-row-val ab-popup-settings-select">' +
                 '  <option '+ pir_mode_select[0] +'>Белый - тёплый</option>' +
@@ -156,10 +156,10 @@ class SettingsItem extends Component {
                 '  <option '+ pir_mode_select[3] +'>Лавовый</option>' +
                 '</select>'+
                 '</div>' +
-                '<div class="table-row last">' +
-                '<div class="table-row-name">Путь для сохранения видео: </div>' +
-                '<input id="camera_path" class="table-row-val" value="' + localStorage.getItem('camera_path') + '" />' +
-                '</div>' +
+                // '<div class="table-row last">' +
+                // '<div class="table-row-name">Путь для сохранения видео: </div>' +
+                // '<input id="camera_path" class="table-row-val" value="' + localStorage.getItem('camera_path') + '" />' +
+                // '</div>' +
                 '</div>' +
                 '<h2 class="ab-popup-settings-h2">Настройки коптера:</h2>' +
                 '<div class="table-holder">' +
@@ -167,10 +167,10 @@ class SettingsItem extends Component {
                 '<div class="table-row-name">Высота взлёта <i>[2 — 100]</i>, м: </div>' +
                 '<input id="target_alt" class="table-row-val" value="' + localStorage.getItem('target_alt') + '" />' +
                 '</div>' +
-                '<div class="table-row">' +
-                '<div class="table-row-name">Высота аварийного возврата <i>[2 — 100]</i>, м: </div>' +
-                '<input id="return_alt" class="table-row-val" value="' + localStorage.getItem('return_alt') + '" />' +
-                '</div>' +
+                // '<div class="table-row">' +
+                // '<div class="table-row-name">Высота аварийного возврата <i>[2 — 100]</i>, м: </div>' +
+                // '<input id="return_alt" class="table-row-val" value="' + localStorage.getItem('return_alt') + '" />' +
+                // '</div>' +
                 '<div class="table-row last">' +
                 '<div class="table-row-name">Горизонтальная скорость <i>[0.1 — 2]</i>, м/c: </div>' +
                 '<input id="ground_speed" class="table-row-val" value="' + localStorage.getItem('ground_speed') + '" />' +
@@ -179,7 +179,7 @@ class SettingsItem extends Component {
                 '<h2 class="ab-popup-settings-h2">Настройки катушки:</h2>' +
                 '<div class="table-holder">' +
                 '<div class="table-row table-row-high">' +
-                '<div class="table-row-name">Регулировка натяжения кабеля:</div>' +
+                '<div class="table-row-name">Скорость смотки кабеля:</div>' +
                 '<div class="range"> <input id="pull_force" class="table-row-val" type="range" min="-10" max="10" step="2" value="' + localStorage.getItem('pull_force') + '"></div>'+
                 '</div>' +
                 '<div class="table-row last">' +
@@ -194,24 +194,24 @@ class SettingsItem extends Component {
             showClass: {popup: ''},
             hideClass: {popup: ''},
             preConfirm: () => {
-                const camera_path = Swal.getContainer().querySelector('#camera_path').value;
+                // const camera_path = Swal.getContainer().querySelector('#camera_path').value;
                 const target_alt = Swal.getContainer().querySelector('#target_alt').value;
-                const return_alt = Swal.getContainer().querySelector('#return_alt').value;
+                // const return_alt = Swal.getContainer().querySelector('#return_alt').value;
                 const ground_speed = Swal.getContainer().querySelector('#ground_speed').value;
                 const pull_force = Swal.getContainer().querySelector('#pull_force').value
                 const free_length = Swal.getContainer().querySelector('#free_length').value
                 const pir_mode = Swal.getContainer().querySelector('#pir_mode').selectedIndex
                 const theme = Swal.getContainer().querySelector('#theme').selectedIndex
 
-                localStorage.setItem('camera_path', camera_path)
+                // localStorage.setItem('camera_path', camera_path)
 
                 if (!this.validate_float(target_alt, 2, 100)) {
                     Swal.showValidationMessage('Неверное значение высоты взлёта')
                 } else { localStorage.setItem('target_alt', target_alt) }
 
-                if (!this.validate_float(return_alt, 2, 100)) {
-                    Swal.showValidationMessage('Неверное значение высоты возврата')
-                } else { localStorage.setItem('return_alt', return_alt) }
+                // if (!this.validate_float(return_alt, 2, 100)) {
+                //     Swal.showValidationMessage('Неверное значение высоты возврата')
+                // } else { localStorage.setItem('return_alt', return_alt) }
 
                 if (!this.validate_float(ground_speed, 0.1, 2)) {
                     Swal.showValidationMessage('Неверное значение горизонтальной скорости')

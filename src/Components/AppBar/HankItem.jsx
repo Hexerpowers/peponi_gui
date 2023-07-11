@@ -145,6 +145,22 @@ class HankItem extends Component {
 
     openHank() {
         localStorage.setItem('triggered_hank', "1")
+        let hank_mode = ''
+        let hank_tension = ''
+        switch (localStorage.getItem('hank_mode')){
+            default:
+                hank_mode = 'Автономный (не используется)'
+                hank_tension = ''
+                break
+            case '1':
+                hank_mode = 'Автоматический'
+                hank_tension = '<div class="ab-popup-link-line">Натяжение кабеля: <i id="ab-popup-hank-load">' + this.state.load + ' кг</i></div>'
+                break
+            case '2':
+                hank_mode = 'Управляемый'
+                hank_tension = ''
+                break
+        }
         Swal.fire({
             title: '<strong>Катушка</strong>',
             width: '500px',
@@ -153,9 +169,9 @@ class HankItem extends Component {
             hideClass: {popup: ''},
             html:
                 '<div class="ab-popup-link-holder">' +
-                '<div class="ab-popup-link-line">Режим работы: <i>Поддержание натяжения</i></div>' +
+                '<div class="ab-popup-link-line">Режим работы: <i>'+hank_mode+'</i></div>' +
                 '<div class="ab-popup-link-line">Остаток кабеля: <i id="ab-popup-hank-length">' + this.state.length + ' м</i></div>' +
-                '<div class="ab-popup-link-line">Натяжение кабеля: <i id="ab-popup-hank-load">' + this.state.load + ' кг</i></div>' +
+                    hank_tension +
                 '<div class="ab-popup-link-line">Наработка кабеля: <i id="ab-popup-hank-op_time">' + this.state.op_time + ' ч</i></div>' +
                 '</div>',
             showCloseButton: true,

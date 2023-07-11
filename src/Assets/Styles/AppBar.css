@@ -76,6 +76,7 @@
 
 .ab-status {
     font-size: 40px;
+    width: 100vw;
 }
 
 .ab-popup-settings-holder {
@@ -168,4 +169,76 @@
 
 .ab-popup-settings-select{
     width: 313px;
+}
+
+.ab-item-debugger{
+    position: fixed;
+    width: 25vw;
+    height: 49vh;
+    right: 0;
+    bottom: 0;
+    background: var(--accent_bg);
+    display: flex;
+    flex-direction: row;
+    z-index: 3;
+    border-radius: 5px;
+}
+
+.ab-item-debugger.hidden{
+    display: none;
+}
+
+.display_block{
+    width: 12vw;
+    margin: 5px;
+}
+
+.display_table{
+    display: flex;
+    flex-direction: column;
+    background: var(--table_bg_color);
+    border: 2px solid var(--bg_color);
+    border-radius: 5px;
+    color: var(--table_text_color);
+    font-size: 0.7rem;
+}
+
+.dt-heading{
+    margin: 5px 2px 2px;
+}
+
+.dt-row{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    padding: 1px;
+    border-bottom: 2px dotted var(--bg_color);
+}
+
+.dt-label{
+    margin: 1px;
+    padding-right: 5px;
+    text-align: left;
+    width: 60%;
+}
+
+.dt-value{
+    margin: -1px;
+    border: 2px solid var(--accent_frames);
+    border-radius: 5px;
+}
+
+.dt-select{
+    background: var(--table_bg_color);
+    color: var(--table_text_color);
+    width: 100%;
+}
+
+.dt-button{
+    background: var(--accent_main);
+    width: 40%;
+    margin: 8px 0;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
 }
