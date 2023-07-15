@@ -7,6 +7,7 @@ class DevSettingsItem extends Component {
         this.openDevSettings = this.openDevSettings.bind(this);
         this.syncDevSettings = this.syncDevSettings.bind(this);
         this.sendMode = this.sendMode.bind(this);
+        this.sendReboot = this.sendReboot.bind(this);
         this.validate_float = this.validate_float.bind(this);
         this.validate_ip = this.validate_ip.bind(this);
         this.toast = Swal.mixin({
@@ -43,6 +44,7 @@ class DevSettingsItem extends Component {
             pitch: 0,
             tel_yaw: 0,
             t_yaw: 0,
+            gps_sat: 0,
             state: 0,
             voltage: 0,
             current_0: 0,
@@ -69,7 +71,8 @@ class DevSettingsItem extends Component {
                     },
                     body: JSON.stringify({
                         takeoff_speed: localStorage.getItem('takeoff_speed'),
-                        power_onboard: localStorage.getItem('power_onboard')
+                        power_onboard: localStorage.getItem('power_onboard'),
+                        mode: localStorage.getItem('gps_mode')
                     })
                 })
                     .then(response => response.json())
@@ -177,6 +180,7 @@ class DevSettingsItem extends Component {
                             pitch: data['pitch'],
                             tel_yaw: data['tel_yaw'],
                             t_yaw: data['t_yaw'],
+                            gps_sat: data['gps_sat'],
                             state: data['state'],
                             voltage: data['voltage'],
                             current_0: data['current_0'],
@@ -211,6 +215,7 @@ class DevSettingsItem extends Component {
                             pitch: 0,
                             tel_yaw: 0,
                             t_yaw: 0,
+                            gps_sat: 0,
 
                             state: 0,
                             voltage: 0,
@@ -246,6 +251,10 @@ class DevSettingsItem extends Component {
         if (localStorage.getItem('debug_enable') === 'true') {
             debug_enable = 'checked'
         }
+        let gps_enable = ''
+        if (localStorage.getItem('gps_enable') === 'true') {
+            gps_enable = 'checked'
+        }
         let hank_mode_select = ['', '', '']
         hank_mode_select[Number(localStorage.getItem('hank_mode'))] = 'selected'
 
@@ -271,8 +280,21 @@ class DevSettingsItem extends Component {
                 '</label>' +
                 '</div>' +
                 '<div class="table-row">' +
+                '<div class="table-row-name">Использование GPS: </div>' +
+                '<label class="switch">' +
+                '<input id="gps_enable" onchange="localStorage.setItem(\'gps_enable\', this.checked)" ' + gps_enable + ' type="checkbox">' +
+                '<span class="slider round"></span>' +
+                '</label>' +
+                '</div>' +
+                '<div class="table-row">' +
                 '<div class="table-row-name">IP адрес коптера в сети: </div>' +
                 '<input id="endpoint_address" placeholder="192.168.88.252" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
+                '</div>' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Перезагрузить EDP: </div>' +
+                '<input onclick="' +
+                '   localStorage.setItem(\'remote_reboot\', \'1\');\n' +
+                '" style="width: 314px;" type="button" class="table-row-val table-btn" value="ПЕРЕЗАГРУЗИТЬ"/>' +
                 '</div>' +
                 '<div class="table-row last">' +
                 '<div class="table-row-name">Сбросить настройки приложения: </div>' +
@@ -290,7 +312,7 @@ class DevSettingsItem extends Component {
                 '   localStorage.setItem(\'endpoint_address\', \'192.168.88.254\');\n' +
                 '   localStorage.setItem(\'hank_mode\', \'1\');\n' +
                 '   location.reload();\n' +
-                '" style="width: 314px;" type="button" class="table-row-val" value="СБРОСИТЬ"/>' +
+                '" style="width: 314px;" type="button" class="table-row-val table-btn" value="СБРОСИТЬ"/>' +
                 '</div>' +
                 '</div>' +
                 '<h2 class="ab-popup-settings-h2">Настройки коптера:</h2>' +
@@ -336,6 +358,11 @@ class DevSettingsItem extends Component {
 
                 localStorage.setItem('hank_mode', hank_mode)
 
+                if (localStorage.getItem('remote_reboot') === '1'){
+                    localStorage.setItem('remote_reboot', '0')
+                    this.sendReboot()
+                }
+
                 return true
             },
         }).then((result) => {
@@ -363,6 +390,20 @@ class DevSettingsItem extends Component {
         }).then(response => response.json())
             .then(data => {
                 // console.log(data);
+            });
+    }
+
+    sendReboot() {
+        this.reboot_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/reboot"
+        fetch(this.reboot_url)
+            .then(response => response.json())
+            .then(data => {
+                if (data['status'] === 'OK') {
+                    this.toast.fire({
+                        icon: 'success',
+                        title: 'Команда на перезагрузку отправлена'
+                    })
+                }
             });
     }
 
@@ -474,6 +515,10 @@ class DevSettingsItem extends Component {
                         <div className="dt-row">
                             <div className="dt-label">t_yaw</div>
                             <div className="dt-value">{this.state.t_yaw}</div>
+                        </div>
+                        <div className="dt-row">
+                            <div className="dt-label">gps_sat</div>
+                            <div className="dt-value">{this.state.gps_sat}</div>
                         </div>
                     </div>
                     <h4 className="dt-heading">power</h4>

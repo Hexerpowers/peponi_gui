@@ -242,3 +242,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.table-btn{
+    cursor: pointer;
+}
