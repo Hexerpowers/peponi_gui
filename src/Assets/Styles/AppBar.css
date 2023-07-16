@@ -173,8 +173,6 @@
 
 .ab-item-debugger{
     position: fixed;
-    width: 25vw;
-    height: 49vh;
     right: 0;
     bottom: 0;
     background: var(--accent_bg);
