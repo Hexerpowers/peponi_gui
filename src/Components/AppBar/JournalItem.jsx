@@ -48,6 +48,7 @@ class JournalItem extends Component {
 
 
     openJournal() {
+        localStorage.setItem('block_aggressive_popups', '1')
         localStorage.setItem('triggered_journal', "1")
         Swal.fire({
             title: '<strong>Журнал событий (коптер)</strong>',
@@ -63,6 +64,7 @@ class JournalItem extends Component {
             showConfirmButton: false,
         }).then((result) => {
             localStorage.setItem('triggered_journal', "0")
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 

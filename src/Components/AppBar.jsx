@@ -26,8 +26,8 @@ export class AppBar extends Component {
                 <HankItem link={this.props.link_local}/>
                 <div className="ab-separator"/>
                 <StatusItem link={this.props.link} status={this.props.status}/>
-                <div className="ab-separator"/>
-                <HelpItem link={this.props.link} status={this.props.status}/>
+                {/*<div className="ab-separator"/>*/}
+                {/*<HelpItem link={this.props.link} status={this.props.status}/>*/}
             </div>
         );
     };

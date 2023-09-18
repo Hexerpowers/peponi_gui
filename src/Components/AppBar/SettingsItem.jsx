@@ -129,6 +129,7 @@ class SettingsItem extends Component {
     }
 
     openSettings() {
+        localStorage.setItem('block_aggressive_popups', '1')
         let pir_mode_select = ['','','','']
         pir_mode_select[Number(localStorage.getItem('pir_mode'))] = 'selected'
         let theme_select = ['','']
@@ -176,17 +177,17 @@ class SettingsItem extends Component {
                 '<input id="ground_speed" class="table-row-val" value="' + localStorage.getItem('ground_speed') + '" />' +
                 '</div>' +
                 '</div>' +
-                '<h2 class="ab-popup-settings-h2">Настройки катушки:</h2>' +
-                '<div class="table-holder">' +
-                '<div class="table-row table-row-high">' +
-                '<div class="table-row-name">Скорость смотки кабеля:</div>' +
-                '<div class="range"> <input id="pull_force" class="table-row-val" type="range" min="-10" max="10" step="2" value="' + localStorage.getItem('pull_force') + '"></div>'+
-                '</div>' +
-                '<div class="table-row last">' +
-                '<div class="table-row-name">Свободный остаток кабеля: <i>[2 — 10]</i>, м: </div>' +
-                '<input id="free_length" class="table-row-val" value="' + localStorage.getItem('free_length') + '" />' +
-                '</div>' +
-                '</div>' +
+                // '<h2 class="ab-popup-settings-h2">Настройки катушки:</h2>' +
+                // '<div class="table-holder">' +
+                // '<div class="table-row table-row-high">' +
+                // '<div class="table-row-name">Скорость смотки кабеля:</div>' +
+                // '<div class="range"> <input id="pull_force" class="table-row-val" type="range" min="-10" max="10" step="2" value="' + localStorage.getItem('pull_force') + '"></div>'+
+                // '</div>' +
+                // '<div class="table-row last">' +
+                // '<div class="table-row-name">Свободный остаток кабеля: <i>[2 — 10]</i>, м: </div>' +
+                // '<input id="free_length" class="table-row-val" value="' + localStorage.getItem('free_length') + '" />' +
+                // '</div>' +
+                // '</div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: true,
@@ -198,8 +199,8 @@ class SettingsItem extends Component {
                 const target_alt = Swal.getContainer().querySelector('#target_alt').value;
                 // const return_alt = Swal.getContainer().querySelector('#return_alt').value;
                 const ground_speed = Swal.getContainer().querySelector('#ground_speed').value;
-                const pull_force = Swal.getContainer().querySelector('#pull_force').value
-                const free_length = Swal.getContainer().querySelector('#free_length').value
+                // const pull_force = Swal.getContainer().querySelector('#pull_force').value
+                // const free_length = Swal.getContainer().querySelector('#free_length').value
                 const pir_mode = Swal.getContainer().querySelector('#pir_mode').selectedIndex
                 const theme = Swal.getContainer().querySelector('#theme').selectedIndex
 
@@ -217,16 +218,18 @@ class SettingsItem extends Component {
                     Swal.showValidationMessage('Неверное значение горизонтальной скорости')
                 } else { localStorage.setItem('ground_speed', ground_speed) }
 
-                if (!this.validate_float(free_length, 2, 10)) {
-                    Swal.showValidationMessage('Неверное значение свободного остатка')
-                } else { localStorage.setItem('free_length', free_length) }
+                // if (!this.validate_float(free_length, 2, 10)) {
+                //     Swal.showValidationMessage('Неверное значение свободного остатка')
+                // } else { localStorage.setItem('free_length', free_length) }
 
-                localStorage.setItem('pull_force', pull_force)
+                // localStorage.setItem('pull_force', pull_force)
                 localStorage.setItem('pir_mode', pir_mode)
                 localStorage.setItem('theme', theme)
+
                 return true
             },
         }).then((result) => {
+            localStorage.setItem('block_aggressive_popups', '0')
             if (result.isConfirmed) {
                 this.syncSettings(true)
             }

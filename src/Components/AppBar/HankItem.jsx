@@ -144,6 +144,7 @@ class HankItem extends Component {
     }
 
     openHank() {
+        localStorage.setItem('block_aggressive_popups', '1')
         localStorage.setItem('triggered_hank', "1")
         let hank_mode = ''
         let hank_tension = ''
@@ -178,6 +179,7 @@ class HankItem extends Component {
             showConfirmButton: false,
         }).then((result) => {
             localStorage.setItem('triggered_hank', "0")
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 

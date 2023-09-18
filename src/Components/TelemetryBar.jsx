@@ -24,7 +24,7 @@ class TelemetryBar extends Component {
     componentDidMount() {
         setInterval(() => {
             this.update()
-        }, 250)
+        }, 50)
     }
 
     update() {

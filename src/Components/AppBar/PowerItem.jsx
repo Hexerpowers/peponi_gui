@@ -11,7 +11,7 @@ class PowerItem extends Component {
         this.base_url = "http://127.0.0.1:5053/api/v1/get/power"
         this.opened = false
         this.state = {
-            gen_status: "не запущен",
+            gen_status: "не готов",
             out_status: "не выдано",
             icon: power_ico_0,
             voltage: 0,
@@ -55,13 +55,13 @@ class PowerItem extends Component {
                     .then(data => {
                         switch (data['state']) {
                             case 1:
-                                this.setState({gen_status: "запущен"})
+                                this.setState({gen_status: "готов"})
                                 this.setState({out_status: "не выдано"})
                                 this.setState({icon: power_ico_1})
                                 this.props.elevate(false)
                                 break
                             case 2:
-                                this.setState({gen_status: "запущен"})
+                                this.setState({gen_status: "готов"})
                                 this.setState({out_status: "выдано"})
                                 this.setState({icon: power_ico_2})
                                 this.props.elevate(true)
@@ -77,7 +77,7 @@ class PowerItem extends Component {
                         this.setState({current_0: data['current_0']})
                         this.setState({current_1: data['current_1']})
                         if (this.props.status !== 0 && this.props.status !== 1) {
-                            if ((Number(data['current_0']) < Number(data['current_1']) && Number(data['current_1'])>1) && localStorage.getItem('power_onboard') !== 'true') {
+                            if ((Number(data['current_0']) < Number(data['current_1']) && Number(data['current_1'])>1) && localStorage.getItem('power_onboard') !== 'true' && localStorage.getItem('block_aggressive_popups') !== '1') {
                                 this.toast.fire({
                                     icon: 'error',
                                     title: 'Неполадки в НБП, осуществите посадку!'
@@ -106,6 +106,7 @@ class PowerItem extends Component {
 
 
     openPower() {
+        localStorage.setItem('block_aggressive_popups', '1')
         localStorage.setItem('triggered_power', "1")
         Swal.fire({
             title: '<strong>Генератор</strong>',
@@ -125,6 +126,7 @@ class PowerItem extends Component {
             showConfirmButton: false,
         }).then((result) => {
             localStorage.setItem('triggered_power', "0")
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 

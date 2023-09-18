@@ -45,6 +45,7 @@ class DevSettingsItem extends Component {
             tel_yaw: 0,
             t_yaw: 0,
             gps_sat: 0,
+            actual_mode: 'UNDEFINED',
             state: 0,
             voltage: 0,
             current_0: 0,
@@ -72,7 +73,7 @@ class DevSettingsItem extends Component {
                     body: JSON.stringify({
                         takeoff_speed: localStorage.getItem('takeoff_speed'),
                         power_onboard: localStorage.getItem('power_onboard'),
-                        mode: localStorage.getItem('gps_mode')
+                        mode: localStorage.getItem('gps_enable')
                     })
                 })
                     .then(response => response.json())
@@ -181,6 +182,7 @@ class DevSettingsItem extends Component {
                             tel_yaw: data['tel_yaw'],
                             t_yaw: data['t_yaw'],
                             gps_sat: data['gps_sat'],
+                            actual_mode: data['actual_mode'],
                             state: data['state'],
                             voltage: data['voltage'],
                             current_0: data['current_0'],
@@ -216,6 +218,7 @@ class DevSettingsItem extends Component {
                             tel_yaw: 0,
                             t_yaw: 0,
                             gps_sat: 0,
+                            actual_mode: 'UNDEFINED',
 
                             state: 0,
                             voltage: 0,
@@ -225,7 +228,7 @@ class DevSettingsItem extends Component {
                         })
                     });
             }
-        }, 250)
+        }, 200)
     }
 
     validate_float(val, min, max) {
@@ -243,6 +246,7 @@ class DevSettingsItem extends Component {
     }
 
     openDevSettings() {
+        localStorage.setItem('block_aggressive_popups', '1')
         let power_onboard = ''
         if (localStorage.getItem('power_onboard') === 'true') {
             power_onboard = 'checked'
@@ -292,8 +296,9 @@ class DevSettingsItem extends Component {
                 '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">Перезагрузить EDP: </div>' +
-                '<input onclick="' +
+                '<input id="reboot_btn" onclick="' +
                 '   localStorage.setItem(\'remote_reboot\', \'1\');\n' +
+                '   document.querySelector(\'#reboot_btn\').classList.toggle(\'reboot-btn-enabled\');\n' +
                 '" style="width: 314px;" type="button" class="table-row-val table-btn" value="ПЕРЕЗАГРУЗИТЬ"/>' +
                 '</div>' +
                 '<div class="table-row last">' +
@@ -366,6 +371,7 @@ class DevSettingsItem extends Component {
                 return true
             },
         }).then((result) => {
+            localStorage.setItem('block_aggressive_popups', '0')
             if (result.isConfirmed) {
                 this.syncDevSettings(true)
             }
@@ -519,6 +525,10 @@ class DevSettingsItem extends Component {
                         <div className="dt-row">
                             <div className="dt-label">gps_sat</div>
                             <div className="dt-value">{this.state.gps_sat}</div>
+                        </div>
+                        <div className="dt-row">
+                            <div className="dt-label">actual_mode</div>
+                            <div className="dt-value">{this.state.actual_mode}</div>
                         </div>
                     </div>
                     <h4 className="dt-heading">power</h4>

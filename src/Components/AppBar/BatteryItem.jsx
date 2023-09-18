@@ -49,7 +49,7 @@ class BatteryItem extends Component {
                     .then(data => {
                         this.setState({charge: data['charge']})
                         if (this.props.status !== 0) {
-                            if (Number(data['charge'])<=40 && localStorage.getItem('power_onboard') !== 'true'){
+                            if (Number(data['charge'])<=40 && localStorage.getItem('power_onboard') !== 'true' && localStorage.getItem('block_aggressive_popups') !== '1'){
                                 this.toast.fire({
                                     icon: 'error',
                                     title: 'Низкий уровень напряжения, осуществите посадку!'
@@ -83,6 +83,7 @@ class BatteryItem extends Component {
     }
 
     openBattery() {
+        localStorage.setItem('block_aggressive_popups', '1')
         localStorage.setItem('triggered_battery', "1")
         Swal.fire({
             title: '<strong>Батарея</strong>',
@@ -102,6 +103,7 @@ class BatteryItem extends Component {
             showConfirmButton: false,
         }).then((result) => {
             localStorage.setItem('triggered_battery', "0")
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 

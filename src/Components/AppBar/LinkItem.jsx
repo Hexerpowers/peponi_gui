@@ -80,6 +80,7 @@ class LinkItem extends Component {
     }
 
     openLink() {
+        localStorage.setItem('block_aggressive_popups', '1')
         localStorage.setItem('triggered_link', "1")
         Swal.fire({
             title: '<strong>Связь</strong>',
@@ -97,6 +98,7 @@ class LinkItem extends Component {
             showConfirmButton: false,
         }).then((result) => {
             localStorage.setItem('triggered_link', "0")
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 

@@ -244,3 +244,7 @@
 .table-btn{
     cursor: pointer;
 }
+
+.reboot-btn-enabled{
+    background: var(--accent_main);
+}
