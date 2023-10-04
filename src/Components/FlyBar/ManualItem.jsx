@@ -35,7 +35,7 @@ class ManualItem extends Component {
         let indicator = ''
         if (nextProps.link) {
             active = 'fb-item-active'
-            if ((nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9)) {
+            if ((nextProps.status === 2 || nextProps.status === 3 || nextProps.status === 4 || nextProps.status === 9 || true)) {
                 if (prevState.enabled) {
                     indicator = 'enabled'
                 } else {
@@ -96,18 +96,18 @@ class ManualItem extends Component {
         if (!this.props.link) {
             this.toast.fire({
                 icon: 'error',
-                title: 'Нет соединения с коптером'
+                title: 'Нет соединения с сервером'
             })
             return
         }
 
-        if ((this.props.status !== 2 && this.props.status !== 3 && this.props.status !== 4 && this.props.status !== 9)) {
-            this.toast.fire({
-                icon: 'error',
-                title: 'Коптер ещё не в полёте или не готов к полёту'
-            })
-            return
-        }
+        // if ((this.props.status !== 2 && this.props.status !== 3 && this.props.status !== 4 && this.props.status !== 9)) {
+        //     this.toast.fire({
+        //         icon: 'error',
+        //         title: 'Коптер ещё не в полёте или не готов к полёту'
+        //     })
+        //     return
+        // }
 
         if (this.pre_manual) {
             this.hidePreManualMessage()

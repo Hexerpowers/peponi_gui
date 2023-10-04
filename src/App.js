@@ -98,7 +98,7 @@ class App extends Component {
                 <AppBar elevate_power_good={this.elevatePowerGood} status={this.state.copter_state}
                         link={this.state.link} link_local={this.state.link_local}/>
                 <FlyBar power_good={this.state.power_good} copter_status={this.state.copter_state}
-                        link={this.state.link}/>
+                        link={this.state.link} link_local={this.state.link_local}/>
                 <VideoBar status={this.state.copter_state} link={true}/>
                 <TelemetryBar link={this.state.link} link_local={this.state.link_local} status={this.state.copter_state}/>
             </AppContainer>
