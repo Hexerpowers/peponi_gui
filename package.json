@@ -1,6 +1,6 @@
 {
 	"name": "watchman",
-	"version": "1.9.2",
+	"version": "1.10.0",
 	"private": true,
 	"main": "electron/main.js",
 	"productName": "СТРАЖ",
@@ -45,7 +45,7 @@
 		]
 	},
 	"devDependencies": {
-		"electron": "^20.1.4",
+		"electron": "22.3.23",
 		"electron-builder": "^23.3.3"
 	},
 	"build": {

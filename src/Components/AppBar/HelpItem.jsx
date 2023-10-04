@@ -9,7 +9,7 @@ class HelpItem extends Component {
         this.openHelp = this.openHelp.bind(this)
 
         this.state = {
-            state: 0,
+            core_version: '---',
         }
     }
 
@@ -26,23 +26,40 @@ class HelpItem extends Component {
     componentDidMount() {
         let self = this
         this.addEvent(document, "keypress", function (e) {
-            if (e.code === 'KeyDot') {
-                self.openHank()
+            if (e.code === 'Slash') {
+                self.openHelp()
             }
         });
+        setTimeout(()=>{
+            this.base_url = "http://127.0.0.1:5053/api/v1/get/info"
+            if (this.props.link) {
+                fetch(this.base_url)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.setState({core_version: data['core_version']})
+                    });
+            }
+        }, 5000)
     }
 
     openHelp() {
+        localStorage.setItem('block_aggressive_popups', '1')
         Swal.fire({
+            title: '<strong>О приложении</strong>',
             width: '500px',
             position: 'top-right',
             showClass: {popup: ''},
             hideClass: {popup: ''},
             html:
-                '<div>' +
+                '<div class="ab-popup-link-holder">' +
+                '<div class="ab-popup-link-line">Версия приложения: <i>1.10.2 | «w_gui»</i></div>' +
+                '<div class="ab-popup-link-line">Версия ядра: <i>'+this.state.core_version+'</i></div>' +
+                '<div class="ab-popup-link-line">Разработчик: <i>akzha@omegafuture.ru</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,
+        }).then((result) => {
+            localStorage.setItem('block_aggressive_popups', '0')
         })
     }
 
@@ -53,7 +70,7 @@ class HelpItem extends Component {
                 <div className="item-toast">
                     [?]
                 </div>
-                <div className="ab-item-description">Помощь</div>
+                <div className="ab-item-description">Инфо</div>
             </div>
         );
     }
