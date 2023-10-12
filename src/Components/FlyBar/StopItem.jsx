@@ -144,10 +144,14 @@ class StopItem extends Component {
     render() {
         let active = 'fb-item ' + this.state.active
         let indicator = 'fb-indicator-' + this.state.indicator
+        let inverted = 'fb-item-icon fb-item-icon-charge'
+        if (localStorage.getItem('theme')!=='0') {
+            inverted = 'fb-item-icon fb-item-icon-inverted'
+        }
         return (
             <div>
                 <div onClick={this.toggleStop} className={active}>
-                    <img draggable="false" className="fb-item-icon" src={stop_ico} alt=""/>
+                    <img draggable="false" className={inverted} src={stop_ico} alt=""/>
                     <div className={indicator}/>
                     <div className="item-toast">
                         [_]

@@ -52,7 +52,7 @@ class HelpItem extends Component {
             hideClass: {popup: ''},
             html:
                 '<div class="ab-popup-link-holder">' +
-                '<div class="ab-popup-link-line">Версия приложения: <i>1.10.2 | «w_gui»</i></div>' +
+                '<div class="ab-popup-link-line">Версия приложения: <i>1.11.0 | «w_gui»</i></div>' +
                 '<div class="ab-popup-link-line">Версия ядра: <i>'+this.state.core_version+'</i></div>' +
                 '<div class="ab-popup-link-line">Разработчик: <i>akzha@omegafuture.ru</i></div>' +
                 '</div>',
@@ -64,9 +64,13 @@ class HelpItem extends Component {
     }
 
     render() {
+        let inverted = 'ab-item-icon'
+        if (localStorage.getItem('theme')==='0') {
+            inverted = 'ab-item-icon ab-item-icon-inverted'
+        }
         return (
             <div onClick={this.openHelp} className="ab-item">
-                <img draggable="false" className="ab-item-icon" src={help_icon} alt=""/>
+                <img draggable="false" className={inverted} src={help_icon} alt=""/>
                 <div className="item-toast">
                     [?]
                 </div>

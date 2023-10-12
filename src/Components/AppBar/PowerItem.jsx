@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import power_ico_0 from "../../Assets/Img/AppBar/power/power_state_0.png";
 import power_ico_1 from "../../Assets/Img/AppBar/power/power_state_1.png";
+
+import power_ico_0_dark from "../../Assets/Img/AppBar/power/power_state_0_dark.png";
+import power_ico_1_dark from "../../Assets/Img/AppBar/power/power_state_1_dark.png";
+
 import power_ico_2 from "../../Assets/Img/AppBar/power/power_state_2.png";
 import Swal from "sweetalert2";
 
@@ -13,7 +17,7 @@ class PowerItem extends Component {
         this.state = {
             gen_status: "не готов",
             out_status: "не выдано",
-            icon: power_ico_0,
+            icon: localStorage.getItem('theme')==='0' ? power_ico_0 : power_ico_0_dark,
             voltage: 0,
             current_0: 0,
             current_1: 0
@@ -57,7 +61,7 @@ class PowerItem extends Component {
                             case 1:
                                 this.setState({gen_status: "готов"})
                                 this.setState({out_status: "не выдано"})
-                                this.setState({icon: power_ico_1})
+                                this.setState({icon: localStorage.getItem('theme')==='0' ? power_ico_1 : power_ico_1_dark,})
                                 this.props.elevate(false)
                                 break
                             case 2:
@@ -69,7 +73,7 @@ class PowerItem extends Component {
                             default:
                                 this.setState({gen_status: "не запущен"})
                                 this.setState({out_status: "не выдано"})
-                                this.setState({icon: power_ico_0})
+                                this.setState({icon: localStorage.getItem('theme')==='0' ? power_ico_0 : power_ico_0_dark,})
                                 this.props.elevate(false)
                                 break
                         }
@@ -88,7 +92,7 @@ class PowerItem extends Component {
             } else {
                 this.setState({gen_status: "не запущен"})
                 this.setState({out_status: "не выдано"})
-                this.setState({icon: power_ico_0})
+                this.setState({icon: localStorage.getItem('theme')==='0' ? power_ico_0 : power_ico_0_dark,})
                 this.setState({voltage: 0})
                 this.setState({current_0: 0})
                 this.setState({current_1: 0})

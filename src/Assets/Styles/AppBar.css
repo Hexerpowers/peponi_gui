@@ -41,7 +41,7 @@
     height: 54px;
 }
 
-.theme-light .ab-item-icon{
+.ab-item-icon-inverted{
     filter: invert(1);
 }
 

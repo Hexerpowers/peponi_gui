@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import takeoff_ico from "../../Assets/Img/FlyBar/takeoff.png";
+import takeoff_ico_dark from "../../Assets/Img/FlyBar/takeoff_dark.png";
 import Swal from "sweetalert2";
+
 
 class TakeoffItem extends Component {
     constructor(props) {
@@ -154,7 +156,7 @@ class TakeoffItem extends Component {
         return (
             <div>
                 <div onClick={this.toggleTakeoff} className={active}>
-                    <img draggable="false" className="fb-item-icon" src={takeoff_ico} alt=""/>
+                    <img draggable="false" className="fb-item-icon" src={localStorage.getItem('theme')==='0' ? takeoff_ico : takeoff_ico_dark} alt=""/>
                     <div className={indicator}/>
                     <div className="item-toast">
                         [В]

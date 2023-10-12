@@ -329,6 +329,13 @@ class DevSettingsItem extends Component {
                 '</div>' +
                 '<h2 class="ab-popup-settings-h2">Настройки катушки:</h2>' +
                 '<div class="table-holder">' +
+                '<div class="table-row">' +
+                '<div class="table-row-name">Сбросить катушку</div>' +
+                '<input id="drop_btn" onclick="' +
+                '   localStorage.setItem(\'hank_drop\', \'1\');\n' +
+                '   document.querySelector(\'#drop_btn\').classList.toggle(\'reboot-btn-enabled\');\n' +
+                '" style="width: 314px;" type="button" class="table-row-val table-btn" value="СБРОСИТЬ"/>' +
+                '</div>' +
                 '<div class="table-row last">' +
                 '<div class="table-row-name">Режим катушки: </div>' +
                 '<select id="hank_mode" class="table-row-val ab-popup-settings-select">' +
@@ -368,6 +375,11 @@ class DevSettingsItem extends Component {
                     this.sendReboot()
                 }
 
+                if (localStorage.getItem('hank_drop') === '1'){
+                    localStorage.setItem('hank_drop', '0')
+                    this.sendDrop()
+                }
+
                 return true
             },
         }).then((result) => {
@@ -400,7 +412,7 @@ class DevSettingsItem extends Component {
     }
 
     sendReboot() {
-        this.reboot_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/reboot"
+        this.reboot_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/drop"
         fetch(this.reboot_url)
             .then(response => response.json())
             .then(data => {
@@ -408,6 +420,20 @@ class DevSettingsItem extends Component {
                     this.toast.fire({
                         icon: 'success',
                         title: 'Команда на перезагрузку отправлена'
+                    })
+                }
+            });
+    }
+
+    sendDrop() {
+        this.drop_url = "http://127.0.0.1:5053/api/v1/get/hank"
+        fetch(this.drop_url)
+            .then(response => response.json())
+            .then(data => {
+                if (data['status'] === 'OK') {
+                    this.toast.fire({
+                        icon: 'success',
+                        title: 'Команда на сброс отправлена'
                     })
                 }
             });

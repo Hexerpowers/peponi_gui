@@ -108,9 +108,13 @@ class BatteryItem extends Component {
     }
 
     render() {
+        let inverted = 'ab-item-icon ab-item-icon-charge'
+        if (localStorage.getItem('theme')!=='0') {
+            inverted = 'ab-item-icon ab-item-icon-charge ab-item-icon-inverted'
+        }
         return (
             <div onClick={this.openBattery} className="ab-item">
-                <img draggable="false" className="ab-item-icon ab-item-icon-charge" src={charge_ico} alt=""/>
+                <img draggable="false" className={inverted} src={charge_ico} alt=""/>
                 <div className="ab-charge-val">
                     {this.state.charge}%
                 </div>

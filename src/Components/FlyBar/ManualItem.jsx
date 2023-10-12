@@ -161,10 +161,14 @@ class ManualItem extends Component {
         if (this.state.indicator === 'enabled'){
             help = 'fb-manual-help'
         }
+        let inverted = 'fb-item-icon fb-item-icon-charge'
+        if (localStorage.getItem('theme')!=='0') {
+            inverted = 'fb-item-icon fb-item-icon-inverted'
+        }
         return (
             <div>
                 <div onClick={this.toggleManual} className={active}>
-                    <img draggable="false" className="fb-item-icon" src={manual_icon}/>
+                    <img draggable="false" className={inverted} src={manual_icon}/>
                     <div className={indicator}/>
                     <div className="item-toast">
                         [Р]

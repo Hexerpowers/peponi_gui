@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import land_ico from "../../Assets/Img/FlyBar/land.png";
+import land_ico_dark from "../../Assets/Img/FlyBar/land_dark.png";
 import Swal from "sweetalert2";
 
 class LandItem extends Component {
@@ -147,7 +148,7 @@ class LandItem extends Component {
         return (
             <div>
                 <div onClick={this.toggleLand} className={active}>
-                    <img draggable="false" className="fb-item-icon" src={land_ico} alt=""/>
+                    <img draggable="false" className="fb-item-icon" src={localStorage.getItem('theme')==='0' ? land_ico : land_ico_dark} alt=""/>
                     <div className={indicator}/>
                     <div className="item-toast">
                         [П]

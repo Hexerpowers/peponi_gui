@@ -89,10 +89,10 @@ class VideoBar extends Component {
                 </div>
                 <div className="vb-cover"/>
                 <div className="vb-holder">
-                    <CameraItem cam_link={this.state.cam_link} link={this.props.link} status={this.state.camera} elevate={this.toggleCamera}/>
-                    <ModeItem cam_link={this.state.cam_link} link={this.props.link}/>
-                    <RecordItem cam_link={this.state.cam_link} link={this.props.link}/>
-                    <PhotoItem cam_link={this.state.cam_link} link={this.props.link}/>
+                    <CameraItem cam_link={this.state.cam_link} link={this.state.cam_link} status={this.state.camera} elevate={this.toggleCamera}/>
+                    <ModeItem cam_link={this.state.cam_link} link={this.state.cam_link}/>
+                    <RecordItem cam_link={this.state.cam_link} link={this.state.cam_link}/>
+                    <PhotoItem cam_link={this.state.cam_link} link={this.state.cam_link}/>
                 </div>
             </div>
         );

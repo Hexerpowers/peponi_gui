@@ -69,9 +69,13 @@ class JournalItem extends Component {
     }
 
     render() {
+        let inverted = 'ab-item-icon'
+        if (localStorage.getItem('theme')!=='0') {
+            inverted = 'ab-item-icon ab-item-icon-inverted'
+        }
         return (
             <div onClick={this.openJournal} className="ab-item">
-                <img draggable="false" className="ab-item-icon" src={logs_ico} alt=""/>
+                <img draggable="false" className={inverted} src={logs_ico} alt=""/>
                 <div className="item-toast">
                     [Ж]
                 </div>

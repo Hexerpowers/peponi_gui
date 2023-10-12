@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import signal_ico_0 from "../../Assets/Img/AppBar/signal/signal_0.png";
+import signal_ico_0_dark from "../../Assets/Img/AppBar/signal/signal_0_dark.png";
 import signal_ico_1 from "../../Assets/Img/AppBar/signal/signal_1.png";
 import signal_ico_2 from "../../Assets/Img/AppBar/signal/signal_2.png";
 import signal_ico_3 from "../../Assets/Img/AppBar/signal/signal_3.png";
@@ -19,7 +20,7 @@ class LinkItem extends Component {
 
         this.vals = {
             link: 'не установлено',
-            level: signal_ico_0
+            level: localStorage.getItem('theme')==='0' ? signal_ico_0 : signal_ico_0_dark
         }
 
     }
@@ -70,7 +71,7 @@ class LinkItem extends Component {
                     });
             } else {
                 this.vals['link'] = 'не установлено'
-                this.vals['level'] = signal_ico_0
+                this.vals['level'] = localStorage.getItem('theme')==='0' ? signal_ico_0 : signal_ico_0_dark
                 this.setState({ping: '-'})
             }
             if (localStorage.getItem('triggered_link') === '1'){
