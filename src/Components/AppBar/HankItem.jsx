@@ -89,7 +89,7 @@ class HankItem extends Component {
                     }
                 }
 
-            }, 200)
+            }, 150)
 
             setInterval(() => {
                 if (this.state.direction === 1) {
@@ -114,7 +114,7 @@ class HankItem extends Component {
                     }
                 }
 
-            }, 200)
+            }, 150)
 
             setInterval(() => {
                 if (this.props.link) {
@@ -152,7 +152,7 @@ class HankItem extends Component {
                     document.getElementById('ab-popup-hank-load').innerText = this.state.load + ' кг'
                     document.getElementById('ab-popup-hank-op_time').innerText = this.state.op_time + ' ч'
                 }
-            }, 1000)
+            }, 250)
         }
 
     }

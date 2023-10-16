@@ -52,9 +52,8 @@ class HelpItem extends Component {
             hideClass: {popup: ''},
             html:
                 '<div class="ab-popup-link-holder">' +
-                '<div class="ab-popup-link-line">Версия приложения: <i>1.11.0 | «w_gui»</i></div>' +
+                '<div class="ab-popup-link-line">Версия приложения: <i>1.11.3 | «w_gui»</i></div>' +
                 '<div class="ab-popup-link-line">Версия ядра: <i>'+this.state.core_version+'</i></div>' +
-                '<div class="ab-popup-link-line">Разработчик: <i>akzha@omegafuture.ru</i></div>' +
                 '</div>',
             showCloseButton: true,
             showConfirmButton: false,

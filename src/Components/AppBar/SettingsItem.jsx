@@ -87,8 +87,8 @@ class SettingsItem extends Component {
                 },
                 body: JSON.stringify({
                     camera_path: localStorage.getItem('camera_path'),
-                    pull_force: localStorage.getItem('pull_force'),
-                    free_length: localStorage.getItem('free_length')
+                    pull_force: 0,
+                    free_length: 0
                 })
             }).then(response => response.json())
                 .then(data => {

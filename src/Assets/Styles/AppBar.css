@@ -25,6 +25,7 @@
 
 .theme-light .item-toast{
     filter: invert(0);
+    color: #234fc1;
 }
 
 .ab-item {

@@ -142,7 +142,7 @@ class DevSettingsItem extends Component {
                 self.openDevSettings()
             }
         });
-        setInterval(() => this.syncDevSettings(), 3000)
+        setInterval(() => this.syncDevSettings(), 1000)
         setInterval(() => {
             this.debug_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/debug"
             if (this.props.link && localStorage.getItem('debug_enable') === 'true') {
