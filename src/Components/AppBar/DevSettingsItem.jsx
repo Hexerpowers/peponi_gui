@@ -292,7 +292,7 @@ class DevSettingsItem extends Component {
                 '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">IP адрес коптера в сети: </div>' +
-                '<input id="endpoint_address" placeholder="192.168.88.252" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
+                '<input disabled id="endpoint_address" placeholder="192.168.88.252" class="table-row-val" value="' + localStorage.getItem('endpoint_address') + '" />' +
                 '</div>' +
                 '<div class="table-row">' +
                 '<div class="table-row-name">Перезагрузить EDP: </div>' +
@@ -412,7 +412,7 @@ class DevSettingsItem extends Component {
     }
 
     sendReboot() {
-        this.reboot_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/drop"
+        this.reboot_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/trig/reboot"
         fetch(this.reboot_url)
             .then(response => response.json())
             .then(data => {
@@ -426,7 +426,7 @@ class DevSettingsItem extends Component {
     }
 
     sendDrop() {
-        this.drop_url = "http://127.0.0.1:5053/api/v1/get/hank"
+        this.drop_url = "http://127.0.0.1:5053/api/v1/trig/drop"
         fetch(this.drop_url)
             .then(response => response.json())
             .then(data => {

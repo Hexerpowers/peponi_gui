@@ -82,6 +82,7 @@ class App extends Component {
                 .then(response => response.json())
                 .then(data => {
                     if (data['status'] === 'OK') {
+                        localStorage.setItem('endpoint_address', data['address'])
                         this.setState({link_local: true})
                     }
                 })

@@ -30,7 +30,7 @@ class HelpItem extends Component {
                 self.openHelp()
             }
         });
-        setTimeout(()=>{
+        setInterval(()=>{
             this.base_url = "http://127.0.0.1:5053/api/v1/get/info"
             if (this.props.link) {
                 fetch(this.base_url)
