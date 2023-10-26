@@ -199,9 +199,9 @@ class HankItem extends Component {
 
     render() {
         let inverted = 'ab-item-icon'
-        if (localStorage.getItem('theme') !== '0' && this.state.direction !== 0) {
-            inverted = 'ab-item-icon ab-item-icon-inverted'
-        }
+        // if (localStorage.getItem('theme') !== '0' && this.state.direction !== 0) {
+        //     inverted = 'ab-item-icon ab-item-icon-inverted'
+        // }
 
         return (
             <div onClick={this.openHank} className="ab-item" style={{margin: "0 84px 0 0"}}>

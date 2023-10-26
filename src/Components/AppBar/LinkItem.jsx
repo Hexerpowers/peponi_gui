@@ -104,9 +104,13 @@ class LinkItem extends Component {
     }
 
     render() {
+        let inverted = 'ab-item-icon'
+        if (localStorage.getItem('theme')!=='0' && this.props.link) {
+            inverted = 'ab-item-icon ab-item-icon-inverted'
+        }
         return (
             <div onClick={this.openLink} className="ab-item">
-                <img draggable="false" className="ab-item-icon" src={this.vals.level} alt=""/>
+                <img draggable="false" className={inverted} src={this.vals.level} alt=""/>
                 <div className="ab-ping-val">
                     {this.state.ping}ms
                 </div>

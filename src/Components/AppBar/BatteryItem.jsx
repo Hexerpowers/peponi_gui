@@ -47,7 +47,9 @@ class BatteryItem extends Component {
                 fetch(this.base_url)
                     .then(response => response.json())
                     .then(data => {
-                        this.setState({charge: data['charge']})
+                        if (localStorage.getItem('power_onboard') !== 'true') {
+                            this.setState({charge: data['charge']})
+                        }
                         if (this.props.status !== 0) {
                             if (Number(data['charge'])<=40 && localStorage.getItem('power_onboard') !== 'true' && localStorage.getItem('block_aggressive_popups') !== '1'){
                                 this.toast.fire({
@@ -69,6 +71,9 @@ class BatteryItem extends Component {
                         }
 
                     });
+                if (localStorage.getItem('power_onboard') === 'true'){
+                    this.setState({charge: '100'})
+                }
             } else {
                 this.setState({charge: "---"})
                 this.setState({condition: "не известно"})
