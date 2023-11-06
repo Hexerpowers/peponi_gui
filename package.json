@@ -1,9 +1,9 @@
 {
-	"name": "watchman",
-	"version": "1.12.2",
+	"name": "pepogui",
+	"version": "0.0.1",
 	"private": true,
 	"main": "electron/main.js",
-	"productName": "СТРАЖ",
+	"productName": "PEPONI GUI",
 	"author": {
 		"name": "Акжигитов Артём",
 		"email": "info@hxps.ru",
@@ -11,8 +11,10 @@
 	},
 	"homepage": "./",
 	"dependencies": {
+		"leaflet": "^1.9.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-leaflet": "^4.2.1",
 		"react-scripts": "5.0.1",
 		"sweetalert2": "^11.7.3"
 	},
@@ -24,7 +26,8 @@
 		"electron": "electron .",
 		"electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
 		"build-electron": "mkdir build\\electron && robocopy electron build\\electron /S",
-		"package": "electron-builder build --win -c.extraMetadata.main=build\\electron\\main.js --publish never"
+		"package_win": "electron-builder build --win -c.extraMetadata.main=build\\electron\\main.js --publish never",
+		"package_lin": "electron-builder build --linux -c.extraMetadata.main=build\\electron\\main.js --publish never"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -60,6 +63,10 @@
 		},
 		"win": {
 			"target": "msi",
+			"icon": "build/logo472.png"
+		},
+		"linux": {
+			"target": "deb",
 			"icon": "build/logo472.png"
 		}
 	}

@@ -98,9 +98,6 @@ class BatteryItem extends Component {
             hideClass: {popup: ''},
             html:
                 '<div class="ab-popup-link-holder">' +
-                '<div class="ab-popup-link-line">Тип резервной батареи: <i>Литий-ионная</i></div>' +
-                // '<div class="ab-popup-link-line">Наработка: <i>' + Math.round(Number(localStorage.getItem('battery_op_time'))/60) + ' ч.</i></div>' +
-                '<div class="ab-popup-link-line">Состояние: <i>' + this.state.condition + '</i></div>' +
                 '<div class="ab-popup-link-line">Уровень заряда: <i id="ab-popup-battery-charge">' + this.state.charge + ' %</i></div>' +
                 '<div class="ab-popup-link-line">Время полёта на полном заряде: <i>12 мин</i></div>' +
                 '</div>',

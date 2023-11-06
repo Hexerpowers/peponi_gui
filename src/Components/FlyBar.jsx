@@ -5,6 +5,7 @@ import TakeoffItem from "./FlyBar/TakeoffItem";
 import LandItem from "./FlyBar/LandItem";
 import ManualItem from "./FlyBar/ManualItem";
 import StopItem from "./FlyBar/StopItem";
+import MissionItem from "./FlyBar/MissionItem";
 
 export class FlyBar extends Component {
     render() {
@@ -18,6 +19,8 @@ export class FlyBar extends Component {
                 <StopItem status={this.props.copter_status} link={this.props.link}/>
                 <div className="fb-separator"/>
                 <ManualItem status={this.props.copter_status} link={this.props.link}/>
+                <div className="fb-separator"/>
+                <MissionItem status={this.props.copter_status} link={this.props.link}/>
             </div>
         );
     };

@@ -217,3 +217,23 @@ input:checked + .slider:before {
     color: var(--text_color) !important;
 }
 
+.fs_cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg_color);
+    z-index: 100;
+}
+
+.fs_request {
+    position: fixed;
+    top: 50vh;
+    left: 40vw;
+    padding: 5px;
+    border: 2px solid var(--accent_borders);
+    border-radius: 5px;
+    cursor: pointer;
+}
+

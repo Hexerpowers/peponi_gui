@@ -9,14 +9,13 @@ class App extends Component {
     constructor(props) {
         super(props);
         if (localStorage.getItem('endpoint_address') === null) {
-            localStorage.setItem('camera_path', "C:/Watchman/Camera")
             localStorage.setItem('takeoff_speed', "0.5")
             localStorage.setItem('ground_speed', "0.5")
             localStorage.setItem('target_alt', "3")
-            localStorage.setItem('return_alt', "3")
             localStorage.setItem('endpoint_address', "192.168.88.252")
         }
         this.elevatePowerGood = this.elevatePowerGood.bind(this);
+        this.openFullScreen = this.openFullScreen.bind(this);
 
         this.state = {
             link: 0,
@@ -42,7 +41,7 @@ class App extends Component {
         setInterval(() => {
             this.endpoint_url = "http://" + localStorage.getItem('endpoint_address') + ":5052/api/v1/get/status"
             const controller = new AbortController()
-            setTimeout(() => controller.abort(), 900)
+            setTimeout(() => controller.abort(), 2000)
             fetch(this.endpoint_url, {signal: controller.signal})
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
@@ -68,7 +67,7 @@ class App extends Component {
 
         setInterval(() => {
             const controller = new AbortController()
-            setTimeout(() => controller.abort(), 900)
+            setTimeout(() => controller.abort(), 2000)
             fetch(this.core_url, {signal: controller.signal})
                 .then((res) => {
                     if (res.status >= 200 && res.status < 300) {
@@ -92,6 +91,15 @@ class App extends Component {
         }, 1000)
     }
 
+    openFullScreen() {
+        document.documentElement.requestFullscreen().catch((err) => {
+            alert(
+                `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`,
+            );
+        });
+        document.querySelector("#fs_cover").remove()
+    }
+
 
     render() {
         return (
@@ -100,8 +108,11 @@ class App extends Component {
                         link={this.state.link} link_local={this.state.link_local}/>
                 <FlyBar power_good={this.state.power_good} copter_status={this.state.copter_state}
                         link={this.state.link} link_local={this.state.link_local}/>
-                <VideoBar status={this.state.copter_state} link={true}/>
+                <VideoBar status={this.state.copter_state} link={this.state.link}/>
                 <TelemetryBar link={this.state.link} link_local={this.state.link_local} status={this.state.copter_state}/>
+                {/*<div id="fs_cover" className="fs_cover">*/}
+                {/*    <div onClick={this.openFullScreen} className="fs_request">Открыть в полноэкранном режиме</div>*/}
+                {/*</div>*/}
             </AppContainer>
         );
     }

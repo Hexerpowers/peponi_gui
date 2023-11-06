@@ -161,9 +161,9 @@ class ManualItem extends Component {
         if (this.state.indicator === 'enabled'){
             help = 'fb-manual-help'
         }
-        let inverted = 'fb-item-icon fb-item-icon-charge'
+        let inverted = 'fb-item-icon fb-icon-offset'
         if (localStorage.getItem('theme')!=='0') {
-            inverted = 'fb-item-icon fb-item-icon-inverted'
+            inverted = 'fb-item-icon fb-icon-offset fb-item-icon-inverted'
         }
         return (
             <div>
